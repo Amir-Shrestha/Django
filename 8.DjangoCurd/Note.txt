@@ -1,0 +1,91 @@
+create vir_env
+create project
+create app
+create static and template folder inside app
+create css and js folder inside static folder and download and place css,js,jquery,popper.
+create base.html in template folder
+
+install created app in setting.py
+create template (addandshow, update, base)
+extend base from 
+define url => main url include app(enroll) url
+
+create model class CustomUser
+register model_class in admin.py using decorator
+makemigrations and migrate
+
+create superuser : CurdSimba, curdsimba
+
+create form.py module
+Now create ModelForm repective to ModelClass
+create MOdelform object in method of view and pass that object to template(addandshow.html)
+display MOdelform object in template(addandshow.html)
+
+
+Add widgets in ModelForm of forms.py to apply bootstrap
+PasswordInput
+Apply row and col in form
+
+Code views method if submitted.
+save()or clean_data
+
+
+Now show registered students?
+
+
+Extra:
+request.method
+request.POST
+request.FILES
+request.GET
+request.COOKIES
+request.session
+request.META
+(WSGIRequest_object.attributes)
+
+
+print(request.POST.get('name'))
+request.POST.get('email')
+request.POST.get('password')
+
+
+
+print(request.POST.get('create_button') == 'Create')  <===> True/False
+
+
+
+HttpResponseRedirect
+HttpResponse
+render
+ridirect
+
+
+student_form1 = CustomUserStudentForm()             <====> Empty_Form
+student_form = CustomUserStudentForm(instance=std)  <====> Form_with_Values
+
+
+
+
+clean_data ?
+decorator ?
+
+
+
+Extra Form :
+
+std = CustomUser.objects.get(id=id)
+print(std.__dict__.keys())
+#Output : dict_keys(['_state', 'id', 'name', 'email', 'password'])
+
+
+student_form = CustomUserStudentForm(instance=std)
+print(student_form.__dict__.keys())
+#Output : dict_keys(['instance', '_validate_unique', 'is_bound', 'data', 'files', 'auto_id', 'initial', 'error_class', 'label_suffix', 'empty_permitted', '_errors', 'fields', '_bound_fields_cache', 'renderer'])
+
+
+            # return redirect('studentform')
+            return HttpResponseRedirect('/') 
+
+
+render vs redirect
+hide and show password

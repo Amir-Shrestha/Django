@@ -1,0 +1,53 @@
+{% extends 'enroll/base.html' %}
+
+{% block content %}
+    <div class=" row">
+        <div class="col-md-4">
+            <h4 class="text-center alert alert-warning">Add New Student</h4>
+
+            <form action="{% url 'studentform' %}" method="post">
+                {% csrf_token %}
+                {{ student_form.as_p }}
+                <input type="submit" class="btn btn-success" value="Create" name="create_button" />
+            </form>
+        </div>
+        <div class="col-md-7 offset-1" style="background: red;">
+            <h4 class="text-center alert alert-info">Show Registered Students</h4>
+            {% if no_std > 0 %}
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for student in  all_students%}
+                        <tr>
+                            <td scope="row">{{ student.id }}</td>
+                            <td>            {{ student.name }}</td>
+                            <td>            {{ student.email }}</td>
+                            <td>            {{ student.password }}</td>
+                            <td>
+                                <form action=" {% url 'editstudent' id=student.id %} " class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-warning btn-sm" value="Edit">
+                                </form>
+                                <form action=" {% url 'deletestudent' id=student.id %} " method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-center alert alert-danger ">No Record !</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

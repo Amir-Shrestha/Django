@@ -1,0 +1,47 @@
+In browser console :
+# 1 
+
+sessionStorage.setItem('harry', 'good')
+sessionStorage.getItem('harry')
+Output : "good"
+
+
+
+
+Now in console of another page in browser :
+# 2
+sessionStorage.getItem('harry')
+Output : null
+
+
+
+
+So use localStorage.setItem
+# 3
+localStorage.setItem('harry', 'good')
+localStorage.getItem('harry')
+Output : "good"
+
+
+
+
+Also in console of another page in browser :
+# 4
+localStorage.getItem('harry')
+Output : "good"
+
+
+
+So localStorage VS sessionStorage
+
+
+
+
+
+Here
+localStorage store data locally,
+localStorage takes the key-value paired of a string
+
+
+
+

@@ -1,0 +1,105 @@
+#1 In urls.py:
+urlpatterns = [
+    path('', register_user_3, name="register_user_3"),
+]
+
+
+
+#2 In models.py:
+
+from django.db import models
+from django.contrib.auth.models import User
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=200, default="")
+    middle_name = models.CharField(max_length=200, null=True, blank=True)
+    last_name = models.CharField(max_length=200, default="")
+    country = models.CharField(max_length=200, default="")
+    district = models.CharField(max_length=200, default="")
+    city = models.CharField(max_length=200, default="")
+    society = models.CharField(max_length=200, default="")
+    phone = models.CharField(max_length=200, default="")
+    age = models.CharField(max_length=200, default="")
+    gender = models.CharField(max_length=200, default="")
+    joined_on = models.DateTimeField(auto_now_add=True)
+
+
+
+
+#3 In forms.py :
+from django import forms
+from .models import Customer
+class CustomerRegistrationForm(forms.ModelForm):
+    custome_username = forms.CharField(required=True)
+    custome_password = forms.CharField(required=True)
+    custome_email = forms.EmailField(required=True)
+    class Meta:
+        model = Customer
+        fields = ["first_name", "middle_name" , "last_name", "country", "district", "city", "society", "phone", "age", "gender"]
+
+
+
+#4 views.py:
+
+from django.shortcuts import render
+from .forms import CustomerRegistrationForm
+from .models import Customer
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+
+# Create your views here.
+def register_user_3(request):
+    if request.method == "POST":
+        signup_form = CustomerRegistrationForm(request.POST)
+        if signup_form.is_valid():
+            username1 = signup_form.cleaned_data.get("custome_username")
+            password1 =  signup_form.cleaned_data["custome_password"]
+            email1 =  signup_form.cleaned_data.get("custome_email")
+            django_user = User.objects.create_user(username1, email1, password1)
+
+            first_name1 =  signup_form.cleaned_data.get("first_name")
+            middle_name1 =  signup_form.cleaned_data.get("middle_name")
+            last_name1 =  signup_form.cleaned_data.get("last_name")
+            country1 =  signup_form.cleaned_data.get("country")
+            district1 =  signup_form.cleaned_data.get("district")
+            city1 =  signup_form.cleaned_data.get("city")
+            society1 =  signup_form.cleaned_data.get("society")
+            phone1 =  signup_form.cleaned_data.get("phone")
+            age1 =  signup_form.cleaned_data.get("age")
+            gender1 =  signup_form.cleaned_data.get("gender")
+
+            # customer = Customer(user=django_user, first_name=first_name1, middle_name=middle_name1, last_name=last_name1, country=country1, district=district1, city=city1, society=society1, phone=phone1, age=age1, gender=gender1)
+            customer = Customer(first_name=first_name1, middle_name=middle_name1, last_name=last_name1, country=country1, district=district1, city=city1, society=society1, phone=phone1, age=age1, gender=gender1)
+            customer.user = django_user
+            customer.save()
+            return HttpResponse('New User Registered !')
+    signup_form = CustomerRegistrationForm()
+    return render(request, 'register_user_3.html', {'signup_form':signup_form})
+
+
+
+
+
+#5 In template register_user_3.html :
+
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Registration1 </title>
+
+</head>
+<body>
+    <h1>Registration Form !</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ signup_form|crispy }}
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
+
+

@@ -1,0 +1,3 @@
+Model_class_name.objects.create(class_attribute1='value', class_attribute2='value')
+Studet.objects.create(name='Amir', faculty='BIT')
+

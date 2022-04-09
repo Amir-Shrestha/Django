@@ -1,0 +1,57 @@
+{% extends 'events_app/base.html' %}
+{% load static %}
+
+
+
+{% block title %} DashBoard {% endblock title %}
+
+
+
+{% block msg %}
+    {% if messages %}
+        {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show mb-5 mt-5" {% endif %}>
+                <strong> {{message}} </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock msg %}
+
+
+
+{% block profile %}
+    <div class="col-sm-2 my-5 text-center " >
+        <h2 class=" my-3"> DashBoard </h2>
+        <div class="border-right border-warning h-100">
+        <div class="text-center">
+            <img src="{{profile.profile_img.url}}" alt="User Photo" class="image-fulid rounded-circle" height="130px" width="130px"/>
+        </div>
+        <h4>User : {{user}}</h4>
+        <hr class="border-light" />
+        <nav class="nav flex-column text-center">
+            <a href="/profile" class="btn btn-success mt-2">Profile</a>
+            <a href="/dashboard" class="btn btn-success mt-2"> Posts List</a>
+            <a href="/create_event" class="btn btn-success mt-2">Create a Post</a>
+            {% if usertype == "admin" %}
+                <a href="/authorlist" class="btn btn-success mt-2">Authors List</a>
+            {% endif %}
+        </nav>
+        </div>
+    </div>
+{% endblock profile %}
+
+
+{% block content %}
+    <div class="col-sm-10">
+        <h3 class="text-white my-5">Update post !</h3>
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            {{old_events_form.as_p}}
+            <input type="submit" value="Update" class="btn btn-success">
+            <a href="{% url 'dashboard' %}" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,31 @@
+# Using FormApi to sent email to all customer_user
+
+urls.py:
+	path('customer_notice', customer_notice, name='customer_notice'),
+
+
+views.py:
+def customer_notice(request):
+    if request.method == 'POST':
+        customer_notice_form_instance = CustomerNoticeForm(request.POST)
+        subject = customer_notice_form_instance['subject1'].value()
+        message = customer_notice_form_instance['message1'].value()
+
+        customers = Customer.objects.all()
+        recepient = []
+        for customer in customers:
+            recepient.append(str(customer.user.email))
+        print("List of all customer email address", recepient)
+
+        send_mail(subject, message, EMAIL_HOST_USER, recepient, fail_silently=False)
+        return render(request, 'admin/success.html', {'recepient':recepient})
+    else:
+        customer_notice_form_instance = CustomerNoticeForm()
+        return render(request, 'admin/customer_notice.html', {'customer_notice_form_instance':customer_notice_form_instance})
+
+
+forms.py:
+class CustomerNoticeForm(forms.Form): #Form_API
+    subject1 = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter email subject'}))
+    message1 = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter email message'}))
+    # email1 = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Enter email message'}))

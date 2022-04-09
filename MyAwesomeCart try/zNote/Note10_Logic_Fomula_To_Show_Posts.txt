@@ -1,0 +1,37 @@
+No_of_Slides = n//4 + ceil (n/4 - n//4)
+No_of_Slides is the Total carsoul_slides.
+
+For example in our template one Carsousal_slide contains 4_post/object/record.
+So if there are toatal of 47_post/object/record uploaded in our database then it will have total of 47/4=11.75 slides
+As one slide=4_posts, 11*4=44 post and remainning 3 in another slide.
+Therefore 11 slide with 4_posts and last_1_slide with 3 post.
+Total of 12 slides.
+
+Note that is total number of post/object/record is divisible by 4 then No_of_Slides = Total_post/4 or Total_post//4
+But if total number of post/object/record is not divisible by 4 then No_of_Slides = Total_post//4 + 1
+Here plus 1 slide for remaining posts.
+
+So coming to formula/logic.
+# Logic 1
+No_of_Slides = n//4 + ceil (n/4 - n//4)
+Here, n is total_number_of_post/object/record in database
+
+# Extra Logic 2
+if n<4 then, No_of_Slides = 1
+elseif n%4==0 then, No_of_Slides = n/4
+else No_of_Slides = n/4 + 1
+
+
+
+47/4 = 11.75
+47//4 = 11
+11.75 - 11 = 0.75
+ceil(0.75) = 1
+
+No_of_Slides = n//4 + ceil (n/4 - n//4)
+Here, ceil (n/4 - n//4) will give 1/0 only
+
+if total number of post/object/record is divisible by 4, then ceil(n/4-n//4)=0
+if total number of post/object/record is not divisible by 4,  then ceil(n/4-n//4)=1
+
+

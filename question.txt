@@ -1,0 +1,93 @@
+# 1
+direct save() VS cleaned_data  save()
+
+
+
+# 2
+def signup_user(request):
+    if request.method == "POST":
+        signup_form = SignUpForm(request.POST)
+        if signup_form.is_valid():
+            user  = signup_form.save()
+    signup_form = SignUpForm()
+    return render(request, 'events_app/signup.html', {'signup_form':signup_form})
+# This return blank form
+
+VS
+
+
+
+def signup_user(request):
+    if request.method == "POST":
+        signup_form = SignUpForm(request.POST)
+        if signup_form.is_valid():
+            user  = signup_form.save()
+    else:
+        signup_form = SignUpForm()
+    return render(request, 'events_app/signup.html', {'signup_form':signup_form})
+# This return blank form and error if empty field
+
+
+# 3
+class SignUpForm(UserCreationForm):class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+Here SignUpForm has 6 fileds : 'username', 'first_name', 'last_name', 'email', password1, password2
+Here, 'username', password1, password2 thrown required error when submitted empty
+but not 'first_name', 'last_name', 'email',  why?
+
+
+
+#4
+QuerySet vs List
+
+
+
+
+
+# 4
+
+created date vs publish date
+
+
+
+
+#5
+
+def event(request,event_id):
+    event = get_object_or_404(Event, event_id=event_id) #Not_QuerySet , its object of Post model_class
+    if event:
+        print(event)
+        return render(request, 'events_app/event.html', {'event':event})
+    else:
+        messages.warning(request, 'No any post with id = '+str(event_id))
+        return redirect('/')
+
+
+If url : http://127.0.0.1:8000/event/80
+then before getting into else get_object_or_404 errors takes palce !
+
+
+
+def event(request,event_id):
+    # event = get_object_or_404(Event, event_id=event_id) #Not_QuerySet , its object of Post model_class
+
+    if bool(Event.objects.get(event_id=event_id)) == True:
+        event = Event.objects.get(event_id=event_id)
+        print(event)
+        return render(request, 'events_app/event.html', {'event':event})
+    else:
+        messages.warning(request, 'No any post with id = '+str(event_id))
+        return redirect('/')
+
+
+
+# 6
+redirent to dynamic url from views.
+
+
+
+
+# 7
+First media dir was media_route/events_app/images/ but later i cahnaged media_route/events_app/thumbnails/ and migrate changed model ?
+Ho to manage it or it is wrong practise as changing model dir is not recomended once we define it in model.

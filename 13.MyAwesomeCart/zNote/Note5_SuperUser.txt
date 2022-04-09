@@ -1,0 +1,61 @@
+Therefore we have write/created table in our sqlite database. But how can we see it ?
+Answer : We can see it using/creating admin account.
+By default django provide us perfect admin pannel for super_user.
+We just need to write command to use it.
+We can do add, remove etc operation in our tables.
+
+when you go to url : http://127.0.0.1:8000/admin/
+Page appears asking Username and Password.
+So creating super admin account.
+
+In terminal :
+cmd : python manage.py createsuperuser
+give name, email, password.
+Note password doesnt appear in screen when we create it : helloworld
+
+Runserver
+got to admin page
+login
+
+
+Now inside admin page we cannot see the Product table that we created in model.
+We can just see Groups, Users.
+
+So inorder to see our product table in admin pannel we need to register it.
+Therefore, Every table/model_class that we create inside our model.py we need to register our table in admin.py
+ 
+
+
+As we are working in shop app at the moment we need to go inside shop/admin.py of our shop app.
+import the Product class in admin.py from models.py
+from .models import Product
+
+
+
+now register Product table:
+admin.site.register(Product)
+
+also import admin model
+
+
+i.e in shop/admin.py
+
+from django.contrib import admin
+# Register your models here.
+from .models import Product
+admin.site.register(Product)
+
+Now refresh Admin pannel, you can see Products table in Shop app
+Now add product and save it.
+You can see product object getting added.
+
+
+Now design home page : index.py of Shop app
+
+
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Welcome to our Ecommerece Websites !</h1>
+        <hr>
+        {% comment %} {{ page_obj_with_4_products_obj  }} {% endcomment %}
+
+        <!-- Page with 4 product objects -->
+        <div class="row" style="text-align:center;">
+            {% for product in page_obj_with_4_products_obj %}
+                <div class="col-md-3 card">
+                    <div class="m-4">
+                        <h3 class="mt-4">{{ product.title|slice:"0:12" }}</h3>
+                        {% comment %} {{ product.image }}<br>
+                        {{ product.image.url }}<br> {% endcomment %}
+                        {% comment %} <img src="{{ product.image.url }}" alt="" style="height:200px; object-fit:cover;"> {% endcomment %}
+                        <img src="{{ product.image.url }}" alt="" style="height:200px; width:200px;">
+                        <p class="mt-3 mb-4">Price: <strike>Rs. {{product.marked_price}}</strike> Rs. {{product.selling_price}} </strike></p>
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add To Cart</a>
+                        <a href="{% url 'a_product' product.slug %}" class="btn btn-info">View Product</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj_with_4_products_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj_with_4_products_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj_with_4_products_obj.number }} of {{ page_obj_with_4_products_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj_with_4_products_obj.has_next %}
+                    <a href="?page={{ page_obj_with_4_products_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj_with_4_products_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+
+                <!-- Previous -->
+                {% if page_obj_with_4_products_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj_with_4_products_obj.previous_page_number }}">Previous</a></li>
+                {% endif %}
+
+                <!-- Page Number -->
+                {% for page in page_obj_with_4_products_obj.paginator.page_range %}
+                    <!-- Active Page Number -->
+                    {% if page == page_obj_with_4_products_obj.number %}
+                        <li class="page-item active"><a class="page-link" >{{page}}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ page }}">{{page}}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Next -->
+                {% if page_obj_with_4_products_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj_with_4_products_obj.next_page_number }}">Next</a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+
+    </div>
+{% endblock content %}

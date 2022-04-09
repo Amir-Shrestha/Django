@@ -1,0 +1,2 @@
+carousel slides logics in template
+Category Logic in views

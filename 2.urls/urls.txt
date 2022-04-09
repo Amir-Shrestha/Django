@@ -1,0 +1,39 @@
+Project urls.py:
+
+from django.contrib import admin
+from django.urls import path,include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('EcommerceApp.urls')),
+    path('event/', include('EventApp.urls')),
+]
+
+
+
+
+
+ProjectApp urls.py:
+
+from django.urls import path
+from . views import *
+
+urlpatterns = [
+    path('', home_view, name="home"),
+    path('shop/', shop_view, name="shop"),
+    path('event_view/<int:event_id>', event_view, name="event_view"),
+    path('a_product/<slug:url_slug>/', product_view, name="a_product"),
+    path('admin_order-<int:ord_id>-manage/',admin_order_manager, name="admin_order_manage"),
+]
+
+
+
+
+
+action for url:
+		action										urls
+<a href="{% url 'home' %}"> Home </a>						===>	path('', home_view, name="home")							   ===>   def home_view(request): 
+<a href="{% url shop%}"> Shop </a>						===>	path('shop/', shop_view, name="shop")			   				   ===>	  def shop_view(request):
+<a href="{% url "event_view" event.event_id %}">Single Event </a>		===>	path('event_view/<int:event_id>', event_view, name="event_view")			   ===>	  def event_view(request, event_id):
+<a href = "{% url 'a_product' product.slug %}"> Product View </a>		===>	path('a_product/<slug:url_slug>/', product_view, name="a_product")			   ===>   def product_view(request, url_slug):
+<form action="{% url "admin_order_manage" order_obj.id %}" method="POST">	===>	path('admin_order-<int:ord_id>-manage/',admin_order_manager, name="admin_order_manage")    ===>   def admin_order_manager(request, ord_id):

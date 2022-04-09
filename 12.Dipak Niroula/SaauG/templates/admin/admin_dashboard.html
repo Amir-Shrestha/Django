@@ -1,0 +1,41 @@
+{% extends 'admin/admin_base.html' %}
+
+{% block title %}AdminDashBoard{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+            <div class="row">
+                <div class="col-md-12 mx-auto">
+                    <h3>Orders Detials...</h3>
+                    <table class="table">
+                        <tr>
+                            <th>SN</th>
+                            <th>Ordered id</th>
+                            <th>Customer</th>
+                            <th>Ordered on</th>
+                            <th>Amount</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                        </tr>
+                    {% for order in pending_orders %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td><a href="{% url "admin_order_detial" order.id%}" >#{{order.id}}</a></td>
+                            <td>{{order.cart.customer}}</td>
+                            <td>{{order.created_at}}(<i><u>{{order.created_at|timesince}}<u></i>)</td>
+                            <td>{{order.total}}</td>
+                            <td>{{order.shipping_address}}</td>
+                            <td>{{order.order_status}}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                    {% if all_orders == True%}
+                        <a href="{% url "admin_dashboard" %}">View Pending Orders ...</a>
+                    {% else %}
+                        <a href="{% url "admin_all_orders" %}">View all Orders</a>
+                    {% endif %}
+                </div>
+            </div>
+    </div>
+{% endblock content %}

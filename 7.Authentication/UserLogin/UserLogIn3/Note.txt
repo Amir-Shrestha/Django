@@ -1,0 +1,59 @@
+admin
+admin
+
+
+
+test1
+123@test@321
+
+
+****************************************************************************************************************************************************
+
+
+AuthenticationForm with Bootstrap
+
+In views.py:
+
+def user_login(request):
+    if request.method=="POST":
+        login_form = Custome_User_AuthenticationForm(request=request, data=request.POST)
+        if login_form.is_valid():
+            user = login_form.get_user()
+            if user is not None:
+                login(request, user)
+                return HttpResponse("Logged In Successfully !")
+            else:
+                return HttpResponse("No user with provided credentials ! !")
+    login_form = Custome_User_AuthenticationForm(request)
+    return render(request, 'login.html', {'login_form':login_form})
+
+
+
+
+
+
+
+In forms.py :
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
+
+class Custome_User_AuthenticationForm(AuthenticationForm):
+    username = UsernameField(widget=forms.TextInput(attrs={'autofocus':True, 'class':'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
+
+
+
+
+
+
+
+
+In template.html:
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{login_form.as_p}}
+        <button type="submit">Submit</button>
+    </form>
+

@@ -1,0 +1,39 @@
+admin
+admin
+
+
+
+test1
+123@test@321
+
+
+****************************************************************************************************************************************************
+
+Login using django.contrib.auth.urls
+
+
+****************************************************************************************************************************************************
+
+
+app urls.py:
+path('', include('django.contrib.auth.urls')),
+
+in base template dir:
+create new registration folder and inside it create login.
+
+login.html
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+    <h1>LogIn Form !</h1>
+    <form  method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <button type="submit"> LogIn </button>
+    </form>
+</body>
+</html>

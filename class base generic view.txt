@@ -1,0 +1,36 @@
+In urls.py :
+path('', HomeView.as_view(), name="home"),
+
+
+In view.py :
+from django.views.generic import TemplateView
+from . models import *
+
+# Create your views here.
+class HomeView(TemplateView):
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['myname'] = "Dipak Niroula"
+        context['product_list'] = Product.objects.all()
+        return context
+
+
+
+In home.html :
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <h1>Welcome to our Ecommerece Websites !</h1>
+    {{ myname }}<br>
+    {{ product_list  }}
+{% endblock content %}
+
+
+Output :
+Welcome to our Ecommerece Websites !
+Dipak Niroula 
+<QuerySet [<Product: Rolex Watch>, <Product: Dell Led Monitor>, <Product: Iphone X Pro>, <Product: DVD Player>, <Product: Men's Blazers>, <Product: Aelfric Eden Mens Joggers>, <Product: Elendra Solid Denim Shorts>]>

@@ -1,0 +1,113 @@
+
+
+Now go to Admin_page/Product_Table and Edit products and save.
+Now see in Shop app images folder is created automatically when we add image from admin page and image is inside image folder.
+
+But this is not recomended way to upload files in django. 
+So will do it in recomended way.
+So we will learn how to define media_directory and media_url and push all media in that folder.
+
+First Go to Mac/setting.py
+and add some media files :
+
+#managing media files OR  add some media files
+import os
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  #define media_directory 
+MEDIA_URL = '/media/'  # define media_url_route
+
+
+Now go to Mac/urls.py and edit url pattern.
+But at first I edit url pattern of shop.urls but also it was working.Why?
+Inorder to edit import two module_funtion
+
+In shop/urls not needed...........................
+from django.conf import settings
+from django.conf.urls.static import static
+
+And  ==> + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+with our urlpattern
+i.e:
+
+from django.urls import path
+from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('', views.index, name='shopindex'),
+    path('about', views.about_us, name='about_us'),
+    path('contact', views.contact_us, name='contact_us'),
+    path('tracker', views.tracker_status, name='tracker_status'),
+    path('product', views.product_view, name='product_view'),
+    path('checkout', views.check_out, name='check_out'),
+    path('search', views.search, name='search'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #it works but only for shop app. We need media dir for other apps also so below:
+
+In Mac/urls :
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('shop/', include('shop.urls')),
+    path('blog/', include('blog.urls'))
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+
+
+Here till now before this media method our files/image was saved in shop/images
+but after this media setting when we save our image it gets saved in media/shop/images folder as this folder directory gets created automatically by django after media setting.
+as in model.py inside Product class we have :
+image = models.ImageField(upload_to="shop/images", default="")
+upload_to="shop/images"
+
+So,shop/images inside media directory.
+i.e :
+images get saved in media/shop/images folder
+
+So why media directory?
+because in setting.py :
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# BASE_DIR, 'media'
+
+Upload image in media root /shop/images
+
+Now finally go to admin pannel and add images
+
+See media/shop/images directory is created in Mac root project folder.
+
+
+Ok now runserver you can see 4.media url endpoint get added.
+i.e
+
+Using the URLconf defined in Mac.urls, Django tried these URL patterns, in this order:
+
+admin/
+shop/
+blog/
+^media/(?P<path>.*)$
+The empty path didn’t match any of these.
+
+
+
+
+
+Here, place where images are store see the difference :
+shop/images  ==> we save image over here manually
+shop/static/shop ==> static_directory(save/upload image/file from admin pannel )
+media/shop/images  ==> recommended way to save/upload image/file from admin pannel defining media derectory
+
+
+
+
+Now till now we have upgrade url pattern so that file of the each shop_post can be save in remcommended media_directory.
+But still you can see the image from static file in you shop index page/template.
+So how can we display images uploaded for respective shop_post into our shop index page/template from our remcommended media_directory.
+
+
+See in Note11

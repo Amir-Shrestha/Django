@@ -1,0 +1,122 @@
+
+12.
+Inkhalti.html
+
+    <script>
+        var config = {
+            // replace the publicKey with yours
+            "publicKey": "test_public_key_8880ae87109c4555af739ba5b14cc251",
+            "productIdentity": "order_{{order_obj.id}}",
+            "productName": "order_{{order_obj.id}}",
+            "productUrl": "http://localhost:8000",
+		*
+		*
+		*
+		*
+		*
+	    btn.onclick = function () {
+            	// minimum transaction amount must be 10, i.e 1000 in paisa.
+           	 checkout.show({amount: {{order_obj.total}}*100});
+            }
+  
+
+If this information matches with the payment request made earlier then paymeant is verified.
+So if paymeant is successfull after sending post request we get Verification response else if error occurs we get I valid Token.
+
+Since we receive information of post request in console(frontend) but we need it in out backend and process the post request to our url.
+So
+
+
+14. 
+In kahlti.html:
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+onSuccess (payload) {
+                    // hit merchant api for initiating verfication
+                    axios.get("/khalti_verify/", {
+                        params: {
+                            "token": payload.token,
+                            "amount": payload.amount,
+                            "order_id": "{{order_obj.id}}",
+                        }
+                    }).then(function(resp){
+                        console.log(resp)
+                    })
+                    console.log(payload);
+
+                },
+
+
+
+
+
+16.
+Now payement verification process:
+In payement verification process we need to send post request to this url:https://khalti.com/api/v2/payment/verify/
+In doumentation copy and paste python code:
+
+so
+pip install request:
+
+
+then in views.py:
+
+import requests
+url = "https://khalti.com/api/v2/payment/verify/"
+payload = {
+  "token": "QUao9cqFzxPgvWJNi9aKac",
+  "amount": 1000
+}
+headers = {
+  "Authorization": "Key test_secret_key_f59e8b7d18b4499ca40f68195a846e9b"
+}
+
+response = requests.post(url, payload, headers = headers)
+
+
+i.e:
+import requests
+
+class KhaltiVerify(View):  # view that will verify the payment process(avoid illigel activity)
+    def get(self, request, *args, **kwargs):
+        token = request.GET.get("token")
+        amount = request.GET.get("amount")
+        order_id = request.GET.get("order_id")
+        # print(token, amount, order_id)
+
+        url = "https://khalti.com/api/v2/payment/verify/"
+        payload = {
+            "token": token,
+            "amount": amount
+        }
+        headers = {
+            "Authorization": "test_secret_key_cf7256d62bfe461d8fcab8209e020766"
+        }
+
+        order_obj = Order.objects.get(id=order_id)
+
+        response = requests.post(url, payload, headers = headers)
+        print(response)
+
+        data = {
+            "success": True
+        }
+        return JsonResponse(data)
+
+
+17.
+Now success response and failure response.
+
+
+
+
+
+
+
+
+
+
+
+
+

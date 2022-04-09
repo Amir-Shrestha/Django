@@ -1,0 +1,80 @@
+Suppose we have our Model_Class named as Car in our models.py and ModelForm_Class maned as CarForm in our forms.py.
+Then,
+
+In urls.py:
+    path('car_func_view/', views.car_func_view, name="car_func_view"),
+    path('car_class_view', CarClassView.as_view(), name="car_class_view"),
+
+
+
+In views.py :
+
+# Function_Base_View
+def car_func_view(request):
+    if request.method == "POST": # If POST method is requested
+        car = Car.objects.get(pk=2)
+        form = CarForm(request.POST, instance=car)
+
+        if form.is_valid():
+            # print(form.cleaned_data['name'])
+            form.save()
+    else: # If any method than POST is requested
+        form = CarForm()
+    context = {'form':form}
+    return render(request, 'example/car.html', context)
+
+
+# Class_Base_View_1
+from django.views import View
+class CarClassView(View):
+
+    def get(self, request):  # If GET method is requested
+        form = CarForm()
+        context = {'form':form}
+        return render(request, 'example/car.html', context)
+
+    def post(self, request):  # If POST method is requested
+        car = Car.objects.get(pk=2)
+        form = CarForm(request.POST, instance=car)
+        if form.is_valid():
+            # print(form.cleaned_data['name'])
+            form.save()
+        context = {'form':form}
+        return render(request, 'example/car.html', context)
+
+# Both Function_Base_View and Class_Base_View uses same CarForm(form.py) and Car(models.py)
+
+
+# One of the purpose of Class_Base_View is that we can reuse the method code. So lets reduce it.
+#As we are repeating same form_obj:CarForm(), template:return render(request, 'example/car.html', context) inside our method
+# Lets declare then outside the two methods
+
+
+# Class_Base_View_2
+from django.views import View
+class CarClassView(View):
+
+    form_class = CarForm
+    model = Car
+    template_name = 'example/car.html'
+
+    def get(self, request):  # If GET method is requested
+        form = self.form_class() # ********
+        context = {'form':form}
+        return render(request, self.template_name, context) # ********
+
+    def post(self, request):  # If POST method is requested
+        car = self.model.objects.get(pk=2) # ********
+        form = self.form_class(request.POST, instance=car) # ********
+        if form.is_valid():
+            # print(form.cleaned_data['name'])
+            form.save()
+        context = {'form':form}
+        return render(request, self.template_name, context) # ********
+
+# Both Function_Base_View and Class_Base_View uses same CarForm(form.py) and Car(models.py)
+# So using Class_Base_View we can reuse some repetative same code/attributes within different method i.e : form_class, model, template_name.
+# Built-in method for different type of request :  def get(self, request), def post(self, request), also other are avialabel as delete, patch, patch etc
+
+
+Here all of these 3 views does same job.

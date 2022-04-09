@@ -1,0 +1,17 @@
+        <!-- <p>{{ apost.document.url }}</p> -->
+        <!-- <p>{{ apost.document }}</p> -->
+
+        <img src="{{ apost.document.url }}" alt="{{ apost.title }}" width="250 px" height="200 px">
+        <img src="/media1/{{ apost.document }}" alt="{{ apost.title }}" width="250 px" height="200 px">
+        <img src="http://127.0.0.1:8000/media1/blog/images/hero.jpg" alt="{{ apost.title }}" width="250 px" height="200 px">
+        <br>
+
+        <!-- <p>123{{ BASE_DIR }}</p> -->
+        <!-- <p>image_address : {{ apost.document }}</p> -->
+        <!-- <a href="http://127.0.0.1:8000/media1/images/apple.jpg">See Img</a> -->
+        <a href="{{ apost.document.url }}">See Img</a>
+        <a href="/media1/{{ apost.document }}">See Img</a>
+        <a href="http://127.0.0.1:8000/media1/blog/images/hero.jpg">See Img</a>
+        <br>
+        <!-- <a href="C:/Users/SimbA/Python_V_EN/Project_Root/MyBookBase/media1/images/blog/hero.jpg">See Img</a> -->
+        <br>

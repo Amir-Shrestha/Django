@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <article>
+        <h1>{{ apost.title }}</h1>
+        <h4>{{ apost.author }}</h4>
+        <p>{{ apost.text }}</p>
+        <p>{{ apost.created_date }}</p>
+        <p>{{ apost.published_date }}</p>
+        <img src="{{ apost.document.url }}" alt="{{ apost.title }}" width="250 px" height="200 px">
+        <br>
+    </article>
+    <hr>
+
+    <h2>Comments : </h2>
+    {% comment %} if there is new comment the show it {% endcomment %}
+    {% comment %} <h4>New comment: {{ new_comment }} </h4> {% endcomment %}
+    {% for comment in comments %}
+        {{comment.name}}:
+        {{comment.comment_body}}
+        <br>
+    {% endfor%}
+
+    <hr>
+
+    <h2>Add Comment : </h2>
+    <form method='post' action=" {% url 'apost' post_id=apost.id %} ">
+        {% csrf_token %}
+        {{ comment_form.as_p }} <!-- display form in paragraph style  -->
+        <button type="submit">Comment</button>
+    </form>
+
+
+    {% comment %} <div class="fb-comments" data-href="http://127.0.0.1:8000/blog/a_post/{{ apost.title }}" data-width="" data-numposts="5"></div> {% endcomment %}
+    <hr>
+    <a href="{% url 'post_list' %}" >Go To Blog Home</a>
+{% endblock %}

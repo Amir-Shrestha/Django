@@ -1,0 +1,15 @@
+In views.py:
+
+
+	def logout_user(request):
+    		logout(request)
+    		return HttpResponseRedirect("/")
+
+
+Here;
+logout(request) : buitl-in function that log a user out.
+		  It takes an HttpRequest object and no return value.
+		  Delete or clean all session data.
+
+
+

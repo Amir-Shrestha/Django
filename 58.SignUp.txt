@@ -1,0 +1,135 @@
+# 1
+
+In views.py :
+def signup_user(request):
+    if request.method == "POST":
+        signup_form = SignUpForm(request.POST)
+        if signup_form.is_valid():
+            user  = signup_form.save()
+    return render(request, 'events_app/signup.html', {'signup_form':signup_form})
+
+
+In forms.py :
+class SignUpForm(UserCreationForm):class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+
+
+
+
+................................................................................................................................................................................
+
+
+
+
+
+
+# 2 SignUp with success message
+
+In views.py :
+def signup_user(request):
+    if request.method == "POST":
+        signup_form = SignUpForm(request.POST)
+        if signup_form.is_valid():
+            user  = signup_form.save()
+            success_msg = 'Congratulations !!!'+ signup_form.cleaned_data['username'] + ', You are an Author now.'
+            messages.info(request, success_msg)
+    signup_form = SignUpForm()
+    return render(request, 'events_app/signup.html', {'signup_form':signup_form})
+
+
+In forms.py :
+class SignUpForm(UserCreationForm):class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+
+In html_file_template:
+{% for message in messages %}
+     <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %} > {{message}} </p>
+     {% comment %} <p class="alert alert-{{message.tags}} mb-5"> {{message}} </p> {% endcomment %}
+     <p> {{message}} </p>
+     <p> {{message.tag}} </p> 
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+# 3 SignUp with success message and form widgets
+
+
+In views.py :
+def signup_user(request):
+    if request.method == "POST":
+        signup_form = SignUpForm(request.POST)
+        if signup_form.is_valid():
+            user  = signup_form.save()
+            success_msg = 'Congratulations !!!'+ signup_form.cleaned_data['username'] + ', You are an Author now.'
+            messages.info(request, success_msg)
+    signup_form = SignUpForm()
+    return render(request, 'events_app/signup.html', {'signup_form':signup_form})
+
+
+In forms.py :
+class SignUpForm(UserCreationForm):
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    password2 = forms.CharField(label='Confirm Password(again)', widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+        labels = {'first_name':'First Name', 'last_name':'Last Name', 'email':'Email'}
+        widgets = {'username':forms.TextInput(attrs={'class':'form-control'}),
+                   'first_name':forms.TextInput(attrs={'class':'form-control'}),
+                   'last_name':forms.TextInput(attrs={'class':'form-control'}),
+                   'email':forms.EmailInput(attrs={'class':'form-control'}),
+                    }
+
+
+In html_file_template:
+{% for message in messages %}
+     <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %} > {{message}} </p>
+     {% comment %} <p class="alert alert-{{message.tags}} mb-5"> {{message}} </p> {% endcomment %}
+     <p> {{message}} </p>
+     <p> {{message.tag}} </p> 
+{% endfor %}
+
+
+
+................................................................................................................................................................................
+
+
+
+
+When ever a new User is register in Project, Each new User should be assign to some Group.
+And that Group is already available which is created by Admin.
+
+1. Log as admin,
+2. GoTo Groups,
+3. Add Group,
+4. Type Author and Choose permissions,
+5. Save
+
+You can create more than on group:
+Create Author and Admin group
+So, when ever a new user gets register we have to assign them within created Group.
+
+
+
+i.e 
+In view.py
+from django.contrib.auth.models import Group
+In signup method
+role_group = Group.objects.get(name="Author") #instance of group named as Author
+user.groups.add(role_group) # assign new registered user into Author group
+
+
+
+................................................................................................................................................................................

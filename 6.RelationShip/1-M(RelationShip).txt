@@ -1,0 +1,23 @@
+class  Person(models.Model): #ManyToMany_with_Interest
+    name = models.CharField(max_length=200)
+    mobile = models.CharField(max_length=20)
+    interest_obj = models.ManyToManyField(Interest) # *** # a Person can have many Interest and a Interest can be assigned to many Person
+
+    def __str__(self):
+        return self.name
+
+
+class  PersonStreetAddress(models.Model):#OneToOneField_with_Person & #ForeignKey/OneToMany_with_City
+    person_obj = models.OneToOneField(Person, on_delete=models.CASCADE) # *** # all Person has unique PersonStreetAddress and a PersonStreetAddress is associated with unique Person # a PersonStreetAddress is assigned to a unique Person and a Person has a unique PersonStreetAddress
+    city_obj = models.ForeignKey(City, on_delete=models.CASCADE) # *** # a City can have many Street and many Street can be located in one City
+    street = models.CharField(max_length=20)
+
+
+
+
+
+
+        # 1-M
+        print(PersonStreetAddress.objects.filter(city__name = "Kathmandu"))
+        print(PersonStreetAddress.objects.filter(city__name__startswith = "Kat"))
+        print(City.objects.filter(personstreetaddress__name = "Kathmandu"))

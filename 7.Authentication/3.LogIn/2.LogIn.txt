@@ -1,0 +1,45 @@
+In views.py :
+
+	def login_user(request):
+    		if not request.user.is_authenticated:
+        		if request.method == "POST":
+            			login_form = LogInForm(request=request, data=request.POST)
+            			if login_form.is_valid():
+                			uname = login_form.cleaned_data['username']
+			                upass = login_form.cleaned_data['password']
+			                user = authenticate(username=uname, password=upass)
+			                if user is not None:
+			                    login(request, user)
+                			return HttpResponseRedirect('/dashboard/')
+        		else:
+            			login_form = LogInForm()
+        		return render(request, 'events_app/login.html', {'login_form':login_form})
+    		else:
+        		return HttpResponseRedirect('/dashboard/')
+
+
+
+request.user.is_authenticated:  check if any user is logeed in or not?
+
+login_form = LogInForm(request=request, data=request.POST): #6 get/fetech instance/object of FormClass(SignUpForm) with fields filled with data
+
+user = authenticate(username=uname, password=upass)
+
+login(request, user)
+
+
+*********************************************************************************************
+
+Here;
+
+Form :
+get/fetech instance/object of FormClass(LogInForm) with fields filled with data
+	login_form = LogInForm(request=request, data=request.POST)
+
+ModelForm :
+get/fetech instance/object of ModelFormClass(SignUpForm) with fields filled with data
+	signup_form = SignUpForm(request.POST)
+
+*********************************************************************************************
+
+

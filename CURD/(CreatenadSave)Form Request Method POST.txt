@@ -1,0 +1,329 @@
+In models.py:
+class Post(models.Model):
+    title = models.CharField(max_length=50)
+    description = models.TextField()
+
+
+
+In forms.py:
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = {'title', 'description'}
+
+
+
+In views.py:
+if request.method=='POST': 
+new_post = PostForm(request.POST)
+
+	#1
+	new_post.save() # save and return object of respective model class
+
+	
+	#2
+	title1 = new_post.cleaned_data['title']
+        description1 = new_post.cleaned_data['description']
+        new_post = Post(title=title1, description=description1)
+	new_post.save() # save and return object of respective model class by taking clean data of forms input fields
+
+
+
+	#3
+	title1 = request.POST.get('title', '')
+        description1 = request.POST.get('description', '')
+	new_post = Post(title=title1, description=description1)
+	new_post.save() # save and return object of respective model class by taking values of forms input fields
+
+
+
+
+	#4
+	title1 = request.POST['title']
+        description1 = request.POST['description']
+	new_post = Post(title=title1, description=description1)
+	new_post.save() # save and return object of respective model class by taking values of forms input fields
+
+
+
+
+		
+	#5
+	title1 = new_post.cleaned_data['title']
+        description1 = new_post.cleaned_data['description']
+        new_post.title=title1
+	new_post.description=description1
+	new_post.save() # save and return object of respective model class by taking clean data of forms input fields
+
+
+
+
+	#6 attribute value not passed by form
+	post = new_post.save(commit=False)
+	post.author = request.user
+	post.published_date = timezone.now()
+	post.save() # save and return object of respective model class by taking clean data of forms input fields
+
+
+
+	
+	#7 Error
+	new_post.author = request.user
+	new_post.published_date = timezone.now()
+	new_post.save() # save and return object of respective model class by taking clean data of forms input fields
+
+
+
+
+
+Here,
+new_post = PostForm(request.POST)
+
+print(new_post)
+Output : 
+<tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" value="Laptop Sale" class="form-control" maxlength="50" required id="id_title"></td></tr>
+<tr><th><label for="id_description">Description:</label></th><td><textarea name="description" cols="40" rows="10" class="form-control" required id="id_description">
+Tech NEpal in Newroad is saling laptops.</textarea></td></tr>
+
+print(new_post['title'])
+Output : 
+<input type="text" name="title" value="Laptop Sale" class="form-control" maxlength="50" required id="id_title">
+
+print(new_post.cleaned_data['title'])
+Output : Laptop Sale
+
+print(type(new_post))
+Output : <class 'Custome_Blog_App.forms.PostForm'>
+
+print(type(new_post['title']))
+Output : <class 'django.forms.boundfield.BoundField'>
+
+print(type(new_post.cleaned_data['title']))
+Output : <class 'str'>
+
+
+
+
+
+
+
+Here,
+title = new_post.cleaned_data['title']
+description = new_post.cleaned_data['description']
+new_post = Post(title=title, description=description)print(new_post.id)
+print(type(new_post))
+new_post.save()
+print(new_post.id)
+print(type(new_post))
+
+Output:
+None
+<class 'Custome_Blog_App.models.Post'>
+29
+<class 'Custome_Blog_App.models.Post'>
+
+
+
+
+
+
+Here,
+new_post = Post(title=title, description=description)
+z=new_post.save()
+print(z)
+print(type(z))
+
+Output:
+None
+<class 'NoneType'>
+
+
+
+
+
+
+
+
+
+
+
+
+Finally,
+
+def create_apost(request):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            post_form = PostForm(request.POST)
+            if post_form .is_valid():
+                title = post_form.cleaned_data['title']
+                description = post_form.cleaned_data['description']
+                new_post = Post(title=title, description=description)
+                new_post.save()
+        post_form  = PostForm()
+        return render(request, 'custome_blog_app/create_post.html', {'post_form':post_form})
+    else:
+        messages.warning(request, warning_msg)
+        return HttpResponseRedirect('/login/')
+
+
+
+
+
+
+
+
+
+
+####### request:
+print(request)
+<WSGIRequest: GET '/create_apost/'>  or  <WSGIRequest: POST '/home/'>
+
+
+print(request.GET)
+<QueryDict: {}>
+
+
+print(request.method)
+POST or GET
+
+#if post request with some datas(if request.method == POST)
+print(request.POST) 
+<QueryDict: {'csrfmiddlewaretoken': ['SghTduGUyEuMgN5Camuwfmd248j4To2YKhWbflnbBEcykqs0q74EYnmvLrLlJ7Xs'], 'title': ['Ipsam quidem ut ut aut autem voluptate rerum dolor'], 'description': ['Dolore iure fugiat c']}>
+
+print(request.POST['title'])
+Ipsam quidem ut ut aut autem voluptate rerum dolor
+
+print(request.POST.get('title', ''))
+Ipsam quidem ut ut aut autem voluptate rerum dolor
+
+#
+print(request.POST) 
+print(PostForm(request.POST))
+
+
+
+
+
+
+
+
+
+Here,
+events_form = EventForm(request.POST)
+events_form = EventForm(request.POST, request.FILES)
+
+
+events_form = EventForm(request.POST, request.FILES)
+            if events_form .is_valid():
+                event_title = events_form.cleaned_data['title']
+                event_description = events_form.cleaned_data['description']
+                event_date = events_form.cleaned_data['event_date']
+                event_thumbnail = events_form.cleaned_data['thumbnail']
+                event_category = events_form.cleaned_data['category']
+                new_event = Event(title=event_title, description=event_description, event_date=event_date, thumbnail=event_thumbnail, category=event_category)
+                new_event.author = request.user
+                new_event.published_date = timezone.now()
+                new_event.save()
+
+
+Here,
+if request.method=='POST':
+            post_form = PostForm(request.POST)
+            if post_form .is_valid():
+                title = post_form.cleaned_data['title']
+                description = post_form.cleaned_data['description']
+                post_form.title=title
+                post_form.description=description
+                post_form.save()
+        post_form  = PostForm()
+
+
+
+
+
+
+
+
+Here,
+Saving model_object returns the object of Model_Class:
+
+post_form = PostForm(request.POST)
+if request.method=='POST':
+	title1 = post_form.cleaned_data['title']
+        description1 = post_form.cleaned_data['description']
+        new_post = Post(title=title1, description=description1)
+	new_post.save()
+
+print(new_post) ==> Post object (33)
+
+
+
+Also,
+Saving form_object returns the form_html_elements:
+
+post_form = PostForm(request.POST)
+if request.method=='POST': 
+	post_form.save() # save and return the form_html_elements:
+
+
+
+
+Therefore,
+Saving model_object returns the object of Model_Class
+Also,
+Saving form_object returns the form_html_elements
+
+
+
+
+
+
+
+
+
+#Create/register new Customer associated with built-in User model with OneToOne Relationship
+
+#1
+def customer_register(request):
+    if request.method == "POST":
+        signup_form = CustomerRegistrationForm(request.POST)
+        if signup_form.is_valid():
+            username1 = signup_form.cleaned_data.get("custome_username")
+            password1 =  signup_form.cleaned_data["custome_password"]
+            email1 =  signup_form.cleaned_data.get("custome_email")
+            django_user = User.objects.create_user(username1, email1, password1)
+
+            customer = signup_form.save(commit=False)
+            customer.user = django_user
+            customer.save()
+
+Or
+
+#2
+def customer_register(request):
+    if request.method == "POST":
+        signup_form = CustomerRegistrationForm(request.POST)
+        if signup_form.is_valid():
+            username1 = signup_form.cleaned_data.get("custome_username")
+            password1 =  signup_form.cleaned_data["custome_password"]
+            email1 =  signup_form.cleaned_data.get("custome_email")
+            django_user = User.objects.create_user(username1, email1, password1)
+
+            full_name1 =  signup_form.cleaned_data.get("full_name")
+            address1 =  signup_form.cleaned_data.get("address")
+            customer = Customer(full_name=full_name1, address=address1)
+            customer.user = django_user
+            customer.save()
+
+
+
+
+
+Here, 
+login_form = UserLogInForm(request.POST)
+
+login_form = UserLogInForm(request=request.POST, data=request.POST)
+
+
+
+

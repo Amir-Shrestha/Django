@@ -1,0 +1,39 @@
+#1.
+Python Package:
+__init__py : any folder that has __init__.py inside it it is considered as python package.
+
+#2.
+Python Module:
+Each python files can be considered as a module in python.
+And a module can contain numbers of function,proverty,class and other python/django objects.
+
+#3
+urls.py : which apllication will have what url pattern is defined here.
+
+#4
+manage.py : It is the command line utility of Django.(another command line utility of Djangois : django-admin)
+
+#5
+setting.py : manage setting of our app.
+
+#6
+As soon as you run server. 
+cmd : python manage.py runserver
+
+a)
+New file named as (db.sqlite3) is created.
+	==> Django gives us a default database.(sqlite3)
+	==> This (db.sqlite3) file is the file of default created database.(sqlite3)
+
+b)
+New folder (__pycache__) is created inside Inner_Project_Folder.
+	==> This is cache directory which create cache of all other files inside Inner_Project_Folder/ Default apllication created by django. So that our project gets reload faster.
+	==> Even if you delete this (__pycache__) folder, when you runserver django will again create this (__pycache__) folder.
+	==> Its extension is .pyc
+	==> we cannot read thid code inside .cpython-38.pyc files as the code inside it is encrypte.
+
+
+#7
+asgi.py and wsgi.py : server gateway interface
+
+

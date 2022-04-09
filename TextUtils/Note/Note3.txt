@@ -1,0 +1,77 @@
+urls.py --> path('', views.index, name='index'), #home page or index page  -->  
+views.py   -->   
+
+def index(request):
+    params = {'name':'Amir', 'age':'22'}
+    return render(request,'index.html',params)
+
+index.py  -->
+form button
+<form action="remove_punc" method="get">
+
+urls.py --> 
+    path('remove_punc', views.remove_punc, name='remove_punc'), #remove puntuation method
+
+views.py   -->   
+def remove_punc(request):
+    return HttpResponse("Punchuation Returned !")
+
+
+
+Note :
+1.
+<textarea name="textarea"> #name is definded for textarea
+enter abcd
+url ==> http://127.0.0.1:8000/remove_punc?textarea=abcd
+
+
+2.
+<textarea> #name is not definded for textarea
+enter abcd
+url ==> http://127.0.0.1:8000/remove_punc?
+
+
+
+
+
+here,
+1. urls.py
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.index, name='index'), #home page or index page
+    path('analyzed', views.analyzed, name='analyzed'), #remove puntuation method
+]
+
+2. views.py
+def index(request):
+    return render(request,'index.html')
+
+def analyzed(request):
+    # Get form value
+    textarea2 = request.GET.get('textarea1', 'default')
+    remove_punc2 = request.GET.get('remove_punc1', 'off')
+    print(textarea2)
+    print(remove_punc2)
+    # Analyze Form Text
+    return HttpResponse("Punchuation Returned !")
+
+
+3. index.py
+<form action="analyzed" method="get">
+    <textarea name="textarea1" id="" cols="30" rows="10" style="margin: 0px; width: 367px; height: 212px;"></textarea>
+    <br>
+    <input type="checkbox" name="remove_punc1">Remove Puncuation</input>
+    <br>
+    <button type="submit">Analyze Text</button>
+</form>
+
+
+when enter textarea and check checkbutton:
+In browser:
+url: http://127.0.0.1:8000/analyzed?textarea1=amir&remove_punc1=on
+Punchuation Returned !
+
+In terminal:
+[02/May/2021 14:06:30] "GET /analyzed?textarea1=zvdsdv&remove_punc1=on HTTP/1.1" 200 22
+amir
+on

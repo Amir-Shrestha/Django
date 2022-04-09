@@ -1,0 +1,28 @@
+When ever a new User is register in Project, Each new User should be assign to some Group.
+And that Group is already available which is created by Admin.
+
+1. Log as admin,
+2. GoTo Groups,
+3. Add Group,
+4. Type Author and Choose permissions,
+5. Save
+
+You can create more than on group:
+Create Author and Admin group
+So, when ever a new user gets register we have to assign them within created Group.
+
+
+
+i.e 
+In view.py
+from django.contrib.auth.models import Group
+In signup method
+role_group = Group.objects.get(name="Author") #instance of group named as Author
+user.groups.add(role_group) # assign new registered user into Author group
+
+
+
+
+
+
+Note only staff can log in into admin pannel

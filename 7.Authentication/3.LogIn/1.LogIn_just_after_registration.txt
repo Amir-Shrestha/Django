@@ -1,0 +1,40 @@
+
+In views.py
+	
+	from .forms import SignUpForm
+
+	def signup_user(request):
+	    if request.method == "POST":
+
+		#registration
+        	signup_form = SignUpForm(request.POST)
+	        if signup_form.is_valid():
+            	#create_account
+            	user  = signup_form.save()
+
+		#login
+            	uname = signup_form.cleaned_data['username']
+            	upass = signup_form.cleaned_data['password1']
+        	    user = authenticate(username=uname, password=upass)
+	            if user is not None:
+                	login(request, user)
+        	    	return HttpResponseRedirect('/dashboard/')
+
+	    signup_form = SignUpForm()
+	    return render(request, 'events_app/signup.html', {'signup_form':signup_form})
+
+
+#Here:
+authenticate() : buitl-in function that returns object of User class if the credentials are valid for a backend, if not then return None.
+
+authenticate(username=uname, password=upass) 
+# here, username and password are the attribute/fields of User_ModelClass that store data/value i database table
+# and uname and upass are the variables that hold the value of form_fields named as 'username' and 'password1' respectively.
+
+login(request, user, backend): : buitl-in function that log a user in and saves the user_id in session as session_variable for future use.
+
+
+
+Therefore;
+user = authenticate(username=uname, password=upass) : verify a set of credentials and return weather User_object or None base on condition
+login(request, user) : log a user in and saves the user_id in session

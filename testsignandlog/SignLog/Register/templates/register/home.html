@@ -1,0 +1,18 @@
+{% extends "register/base.html" %}
+
+{% block title %} Home {% endblock %}
+{% load crispy_forms_tags %}
+
+<h1>Welcome !</h1>
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <h3> You are loged in as {{ user }} ! </h3>
+        <a href="log/logout/">LogOut</a>
+
+    {% else %}
+        <a href="log/login/"> Already have one? LogIn </a><br><br>
+        <a href="register/"> Dont have an account? Create one </a>
+    {% endif %}
+
+{% endblock %}

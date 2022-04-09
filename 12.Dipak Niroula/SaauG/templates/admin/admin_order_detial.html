@@ -1,0 +1,61 @@
+{% extends 'admin/admin_base.html' %}
+{% load humanize %}
+
+{% block title %}OrderDetials{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h3>Order Detials</h3><hr>
+                <p><b>Order Id: </b>{{order_obj.id}}</p>
+                <p><b>Order Status: </b>{{order_obj.order_status}}</p>
+                <p><b>Order on : </b>{{order_obj.created_at|timesince}} ago</p>
+                <p><b>Total Amount: </b>{{order_obj.total}}</p>
+                <p><b>Customer Info: </b>{{order_obj.cart.customer}}, {{order_obj.mobile}}</p>
+                <p><b>Shipping Address : </b>{{order_obj.shipping_address}} ({{order_obj.email}})</p>
+                <p><b>Payment Information : </b>Using {{order_obj.payment_method}} ({% if order_obj.payment_done %}Payment Completed !{% else %}Not paid yet !{% endif %} )</p>
+                <hr>
+
+                <form action="{% url "admin_order_manage" order_obj.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-info">Change Status</button>
+                    <select name="status">
+                    {% for status,value in allstatus %}
+                        <option value="{{value}}" {% if value == order_obj.order_status %}selected{% endif %} >{{status}}</option>
+                    {% endfor %}
+                    </select>
+                </form>
+                <hr>
+
+                <h3>Order Items</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Product</th>
+                            <th>Rate</th>
+                            <th>Quantity</th>
+                            <th>SubTotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for cartproduct in order_obj.cart.cartproduct_set.all %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td> <a href="{% url "a_product" cartproduct.product.slug %}" target="_blank">{{cartproduct.product.title}}</a></td>
+                            <td>{{cartproduct.rate}}</td>
+                            <td>{{cartproduct.quantity}}</td>
+                            <td>{{cartproduct.sub_total}}</td>
+                        </tr>
+                    {% endfor %}
+                        <tr>
+                            <td colspan=4 style="text-align:center;"><b>Total Amount</b></td>
+                            <td><b>Rs. {{order_obj.total|intcomma}}/-</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

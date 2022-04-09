@@ -1,0 +1,15 @@
+{% extends 'events_app/base.html' %}
+
+{% block title %} Event View {% endblock title %}
+
+{% block content %}
+    <article class="mt-5">
+        <h1>{{ event.title }}</h1>
+        <h4><i>&emsp; Host : <a href="{% url 'profile' event.author.id %}">{{ event.author }}</i></a> </h4>
+        <p>&emsp;&emsp; {{ event.description }}</p>
+        <p>{{ event.published_date }}</p>
+        <img src="{{ event.thumbnail.url }}" alt="{{ published_date.title }}" width="250 px" height="200 px">
+        <br>
+        <a href="/" >Go To Home</a>
+    </article>
+{% endblock content %}

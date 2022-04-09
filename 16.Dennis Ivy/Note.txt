@@ -1,0 +1,1 @@
+1. RegisterUser/Login/AddToCart/CheckOut/Payment && GuestUser/Shop

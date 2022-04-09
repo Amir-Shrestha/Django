@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %} Create {% endblock %}
+{% block body %}
+    <h1>Fill Form</h1>
+    <form method='post' action=" {% url 'create_post' %} " enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_obj.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <hr>
+    <br>
+    <a href="{% url 'post_list' %}" >Go To Blog Home</a>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+    <div class="container">
+                <h3>Searched result for <span class="text-info">"{{request.GET.keyword}}"</span></h3>
+                <hr>
+                <div class="row mx-4">  <!-- category div -->
+                    {% for result in results %}
+                                <div class="col-md-3 bg-warning" style="text-align:center;"> <!-- category product div -->
+                                        <h3 class="mt-4">{{ result.title|slice:"0:12" }}</h3>
+                                        <img src="{{ result.image.url }}" alt="" style="height:200px; width:200px;">
+                                        <p class="mt-3 mb-4">Price: <strike>Rs. {{result.marked_price}}</strike> Rs. {{result.selling_price}} </strike></p>
+                                        <a href="{% url 'add_to_cart' result.id %}" class="btn btn-primary">Add To Cart</a>
+                                        <a href="{% url 'a_product' result.slug %}" class="btn btn-info">View Product</a>
+                                    {% comment %} </div> {% endcomment %}
+                                </div>
+                    {% endfor %}
+                </div>
+    </div>
+{% endblock content %}

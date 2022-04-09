@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}CheckOut{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+                <h3>CheckOut Your Cart Items !</h3>
+                <hr>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">S.N</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Product_Id</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">SubTotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cartproduct in cart_obj.cartproduct_set.all %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td> 
+                                <td style="text-align:left;">  <a href="{% url 'a_product' cartproduct.product.slug %}" style="text-decoration: none;" >{{ cartproduct.product.title }}</td></a>
+                                <td>{{ cartproduct.product.id }}</td>
+                                <td>{{ cartproduct.product.selling_price }}</td> <!--Or <td>{{ cartproduct.rate }}</td> Or you can remove rate attribute from CartProduct class-->
+                                <td>{{ cartproduct.quantity }}</td>
+                                {% comment %} <td><span class="badge badge-primary badge-pill">{{ cartproduct.quantity }}</span></td> {% endcomment %}
+                                <td>Rs.{{ cartproduct.sub_total }}</td>
+                            </tr>
+                        {% endfor %}
+                            <tr>
+                                <th colspan="5"  style="text-align:center;">Total</th>
+                                <th>Rs.{{cart_obj.total_amount}}/- </th>
+                            </tr>
+                            <tr>
+                                <th  colspan="3" style="text-align:left;">
+                                    <a href="{% url 'my_cart' %}" style="text-decoration: none;">Update Cart</a>
+                                </th>
+                                <th colspan="3" style="text-align:right;">
+                                    <a href="{% url 'make_order'%}" style="text-decoration: none;">Make Order</a>
+                                </th>
+                            </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+{% endblock content %}

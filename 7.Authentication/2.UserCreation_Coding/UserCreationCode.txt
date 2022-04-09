@@ -1,0 +1,117 @@
+def sign_up(request): 
+	#1 check if request is post or get # Post if form with data is passed && GET in case we request the empty form to fill
+	#2 get the form to be fill 
+		#3 render to the html_template_page having signup_form code on it
+		#4 or else fetch the form_object and pass it to html_template_page along with render.
+		#5 fill form and submit and return to view_func again
+	#6 check if request is post or get: post the form_with_data into database
+	#7 fetech instance/object of FormClass(SignUpForm) with fields filled with data
+	#8 check validation of the fetech form_object.
+	#9 save the form.
+	Note: When you save the form_object(ModelForm), it returns the object of Model that you have configured as (class Meta: models = ModelName) in Form defination
+
+
+
+
+
+
+
+def signup_user(request):
+    if request.method == "POST": #1 check if request is post or get
+	#5 if request_method is post
+        signup_form = SignUpForm(request.POST) #6 get/fetech instance/object of ModelFormClass(SignUpForm) with fields filled with data
+        if signup_form.is_valid(): #7 check validation of the fetech form_object.
+            #create_account
+            user  = signup_form.save() #save the filled_form_object as object of model class and return model_object # Here user is object of User ModelClass(class Meta:model=User in SignUpForm)
+    #2 if request_method is get(by default request.method is get)
+    signup_form = SignUpForm() #3 Get form object #instance/object of FormClass(SignUpForm) with empty fields
+    return render(request, 'events_app/signup.html', {'signup_form':signup_form}) #4 pass form_object to html_template_page
+
+
+
+
+
+
+
+
+
+
+Therefore:
+
+In views.py
+	
+	from .forms import SignUpForm
+
+	def signup_user(request):
+	    if request.method == "POST":
+        	signup_form = SignUpForm(request.POST)
+	        if signup_form.is_valid():
+            	#create_account
+            	user  = signup_form.save()
+	    signup_form = SignUpForm()
+	    return render(request, 'events_app/signup.html', {'signup_form':signup_form})
+
+
+
+	#1 check if request is post or get
+    		#2 if request_method is get(by default request.method is get)
+			#3 Get form object #instance/object of FormClass(SignUpForm) with empty fields
+			#4 pass form_object to html_template_page
+		#5 if request_method is post
+			#6 get/fetech instance/object of FormClass(SignUpForm) with fields filled with data
+			#7 check validation of the fetech form_object.
+		        #8 create_account #save the filled_form_object as object of model class and return model_object # Here user is object of User ModelClass(class Meta:model=User in SignUpForm)
+
+
+
+
+
+In forms.py:
+
+	from django.contrib.auth.forms import UserCreationForm
+	from django.contrib.auth.models import User
+
+	class SignUpForm(UserCreationForm):
+    		class Meta:
+        	model = User
+        	fields = ['username', 'first_name', 'last_name', 'email']
+
+#Here SignUpForm form has 6_fields altogether
+4 from a Model that you have configured as (class Meta: model = User), User ==> 'username', 'first_name', 'last_name', 'email'
+&&
+2 from parent form class(UserCreationForm): 'password1','password1'
+
+
+
+
+
+
+
+
+In form_template.html :
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+	    {{ signup_form .as_p }}
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+
+
+
+
+
+
+# Browser_Form
+Username:
+First name:
+Last name:
+Email address:
+Password:
+Password confirmation:
+
+
+
+
+
+
+
+

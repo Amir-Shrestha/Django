@@ -1,0 +1,130 @@
+Django Model :
+from django.db import models
+class Article(models.Model):
+    headline = models.CharField(max_length=30)
+    reporter = models.CharField(max_length=30)
+    content  = models.TextField()
+    pub_date = models.DateField()
+
+
+In setting.py
+INSTALLED_APP that consist of model.py
+INSTALLED_APPS = [
+    #...
+    'myapp',
+    #...
+]
+
+In view.py
+all_students = Student.objects.all()  ==> QuerySet
+student = Student.objects.get(id=id)  ==> Object
+apost = get_object_or_404(Post, id=post_id)  ==> Object
+
+
+
+ModelForm : Creating forms from models
+from django.forms import ModelForm
+from myapp.models import Article
+
+In forms.py
+# Create the form class.
+class ArticleForm(ModelForm):
+     class Meta:
+         model = Article
+         fields = ['pub_date', 'headline', 'content', 'reporter']
+
+In view.py
+# Creating a form to add an article.
+form = ArticleForm()
+
+In view.py
+# Creating a form to change an existing article.
+article = Article.objects.get(pk=1)
+form = ArticleForm(instance=article)
+
+In view.py
+# Changing an existing article.
+student_form = StudentForm(request.POST, instance=std)
+
+#Method on Model object
+form.is_valid(), form.save(), form.save(commit=False), form.delete(), form.clean()
+
+student_form = StudentForm(request.POST, request.FILES, instance=std)
+
+
+Field_types/ Field_reference of models:       		Field_options_aruments
+	CharField()						(max_length=200)	
+	EmailField()
+	TextField()
+	ImageField()						(upload_to='blog/images/', default="")
+	FileField()						(upload_to='images/')	
+	DateTimeField()						(default=timezone.now, auto_now_add=True, blank=True, null=True)
+	ForeignKey()						(settings.AUTH_USER_MODEL, related_name='comments', on_delete=models.CASCADE)
+	BooleanField()						(default=True)
+
+
+
+Some other Field_options_aruments :
+unique=True, blank=True, null=True, required=False
+choices
+class Person(models.Model):
+    SHIRT_SIZES = (
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
+    )
+    name = models.CharField(max_length=60)
+    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZES)
+
+
+Model Fields			Form Fields
+AutoField			Not represented in the form
+BigAutoField			Not represented in the form
+BigIntegerField			IntegerField with min_value set to -9223372036854775808 and max_value set to 9223372036854775807.
+BinaryField			CharField, if editable is set to True on the model field, otherwise not represented in the form.
+BooleanField			BooleanField, or NullBooleanField if null=True.
+CharField			CharField with max_length set to the model field’s max_length and empty_value set to None if null=True.
+DateField			DateField
+DateTimeField			DateTimeField
+DecimalField			DecimalField
+DurationField			DurationField
+EmailField			EmailField
+FileField			FileField
+FilePathField			FilePathField
+FloatField			FloatField
+ForeignKey			ModelChoiceField (see below)
+ImageField			ImageField
+IntegerField			IntegerField
+IPAddressField			IPAddressField
+GenericIPAddressField		GenericIPAddressField
+JSONField			JSONField
+ManyToManyField			ModelMultipleChoiceField (see below)
+NullBooleanField		NullBooleanField
+PositiveBigIntegerField		IntegerField
+PositiveIntegerField		IntegerField
+PositiveSmallIntegerField	IntegerField
+SlugField			SlugField
+SmallAutoField			Not represented in the form
+SmallIntegerField		IntegerField
+TextField			CharField with widget=forms.Textarea
+TimeField			TimeField
+URLField			URLField
+UUIDField			UUIDField
+
+
+
+
+
+
+Model object filter:
+    apost = get_object_or_404(Post, id=post_id) #Not_QuerySet , its object of Post model_class
+    comments = apost.comments.filter(active=True)
+
+
+
+if request.method =='POST':
+   student_form = StudentForm(request.POST)
+   if student_form.is_valid():
+      name1 = student_form.cleaned_data['name']
+      Or
+      name1 = student_form.get('name')

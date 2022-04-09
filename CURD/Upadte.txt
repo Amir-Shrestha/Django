@@ -1,0 +1,94 @@
+all_students = Student.objects.all()
+for student in all_students:
+
+
+
+
+
+
+
+In template.html:
+<form action=" {% url 'editstudent' id=student.id %} " class="d-inline">
+     {% csrf_token %}
+     <input type="submit" class="btn btn-warning btn-sm" value="Edit">
+</form>
+
+
+
+
+
+
+
+In urls.py:
+path('edit/<int:id>/', views.edit_std, name='editstudent'),
+
+
+
+
+
+
+
+In views.py :
+def edit_std(request, id):
+    std = Student.objects.get(id=id)
+
+    if request.method == "POST":
+        student_form = StudentForm(request.POST, instance=std)
+        if student_form.is_valid():
+            student_form.save()
+            return HttpResponseRedirect('/')
+
+    student_detial_form = StudentForm(instance=std) #form with data
+    return render(request, 'enroll/updatestudent.html', {'student_detial_form':student_detial_form})
+
+
+
+
+
+
+In forms.py:
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model  = Student
+        fields = ['name', 'email', 'password']
+
+
+
+
+
+
+In template.html:
+        <form  method="post">
+            {% csrf_token %}
+            {{ student_detial_form.as_p }}
+            <input type="submit" class="btn btn-success" value="Update" />
+            <a href="{% url 'studentform' %}" class="btn btn-primary">Home</a>
+        </form>
+
+
+
+
+
+
+
+#here,
+
+def editstd(request, id):
+    std = Student.objects.get(id=id) #intacne of Student ModelClass
+    if request.method == "POST":
+        # print(std) #Output: Student object (69)
+        # Creating a form to change an existing post.
+        student_form = StudentForm(request.POST, instance=std) #edit row #data submitted by update form takes over data of model row
+        # print(student_form) $Output: Form <tr, th, td> tag with updated value
+        if student_form.is_valid():
+            student_form.save()
+            return HttpResponseRedirect('/')
+
+    # Creating a form to add an post.
+    student_detial_form = StudentForm(instance=std) #form with data
+    return render(request, 'enroll/updatestudent.html', {'student_detial_form':student_detial_form})
+
+
+
+
+

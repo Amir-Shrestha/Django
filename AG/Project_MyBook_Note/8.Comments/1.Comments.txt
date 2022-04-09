@@ -1,0 +1,322 @@
+ One comment is for one particular post but a particular post can have multiple comments.
+
+Therefore,
+Relation between : Post and Comment ==> One to Many
+
+How to show comment owned by particular post in that particular post comment section only?
+We can do that using post id as a basis.
+
+So lets create a model for comment system that has following attrubutes:
+name, email, post, comment_body, created_at, active
+
+
+
+
+
+*******************************************************************************************************************************************
+
+
+# 1
+Create Model :
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    comment_body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['created_at']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.comment_body, self.name)
+
+
+Now Migrate to create comment table in database
+Then register the created model in admin.py so that we can see the created database from admin pannel
+
+
+*******************************************************************************************************************************************
+
+# 2 
+Create Form_Class in form.py :
+
+class CommentForm(forms.ModelForm):
+	class Meta:
+		model = Comment
+		fields = ('name', 'email', 'comment_body')
+
+
+
+
+*******************************************************************************************************************************************
+
+# 3 
+Now, where do we enter comment from?
+means where can we comment on a post?
+answer ==> ofcourse from a post_template.
+So, write all logic for comment in method(a_post) in views.py:
+
+So,
+
+----------------------------------------------------------------------------------------------------------
+def a_post(request,post_id):
+    apost = get_object_or_404(Post, id=post_id) #Not_QuerySet its object,  if apost = models.object.all() ==> it would have gave list of object(i.e : QuerySet) But here we are calling distinct object
+    print(apost)
+    print(type(apost))
+    print(apost.document)
+    print(str(apost.document))
+    print(type(apost.document))
+    return render(request, 'a_post.html', {'apost':apost})
+
+Output:
+
+print(apost):
+Hero
+
+print(type(apost)):
+<class 'Blog.models.Post'>
+
+print(apost.document):
+blog/images/hero.jpg
+
+print(str(apost.document)):
+blog/images/hero.jpg
+
+print(type(apost.document)):
+<class 'django.db.models.fields.files.ImageFieldFile'>
+
+---------------------------------------------------------------------------------------------------
+
+To:
+def a_post(request,post_id):
+    apost = get_object_or_404(Post, id=post_id) #Not_QuerySet its object
+    return render(request, 'a_post.html', {'apost':apost})
+Till now this only shows post but after the code below it will also show comments
+
+
+To :
+def a_post(request,post_id):
+    apost = get_object_or_404(Post, id=post_id) #Not_QuerySet , its object of Post model_class
+    comments = apost.comments.filter(active=True)
+    new_comment = None
+
+    #If add comment, in comment form, posted comment for current post.
+    if request.method=='POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form .is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = apost
+            new_comment.save()
+
+    comment_form = CommentForm()
+    return render(request, 'a_post.html', {'apost':apost, 'comments':comments, 'comment_form':comment_form, 'new_comment':new_comment})
+
+
+*******************************************************************************************************************************************
+Now create/edit a_Post.html template:
+
+{% block body %}
+    <article>
+        <h1>{{ apost.title }}</h1>
+        <h4>{{ apost.author }}</h4>
+        <p>{{ apost.text }}</p>
+        <p>{{ apost.created_date }}</p>
+        <p>{{ apost.published_date }}</p>
+        <img src="{{ apost.document.url }}" alt="{{ apost.title }}" width="250 px" height="200 px">
+        <br>
+    </article>
+
+{% endblock %}
+
+
+To:
+
+{% block body %}
+    <article>
+        <h1>{{ apost.title }}</h1>
+        <h4>{{ apost.author }}</h4>
+        <p>{{ apost.text }}</p>
+        <p>{{ apost.created_date }}</p>
+        <p>{{ apost.published_date }}</p>
+        <img src="{{ apost.document.url }}" alt="{{ apost.title }}" width="250 px" height="200 px">
+        <br>
+    </article>
+    <hr>
+
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        {{comment.name}}
+        {{comment.comment_body}}
+    {% endfor%}
+
+{% endblock %}
+
+
+
+
+To:
+
+{% block body %}
+    <article>
+        <h1>{{ apost.title }}</h1>
+        <h4>{{ apost.author }}</h4>
+        <p>{{ apost.text }}</p>
+        <p>{{ apost.created_date }}</p>
+        <p>{{ apost.published_date }}</p>
+        <img src="{{ apost.document.url }}" alt="{{ apost.title }}" width="250 px" height="200 px">
+        <br>
+    </article>
+    <hr>
+
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        {{comment.name}}
+        {{comment.comment_body}}
+    {% endfor%}
+
+    <form method='post' action=" {% url 'apost' post_id=apost.id %} ">
+        {% csrf_token %}
+        {{ comment_form.as_p }} <!-- display form in paragraph style  -->
+        <button type="submit">Upload</button>
+    </form>
+
+{% endblock %}
+
+
+*******************************************************************************************************************************************
+
+
+
+def a_post(request,post_id):
+    apost = get_object_or_404(Post, id=post_id) #Not_QuerySet , its object of Post model_class
+    comments = apost.comments.filter(active=True)
+    new_comment = None
+
+    #If add comment, in comment form, posted comment for current post.
+    if request.method=='POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form .is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = apost
+            new_comment.save()
+            #render to a_post page with empty comment form
+
+    comment_form = CommentForm() #render to a_post page with empty comment form
+    params = {'apost':apost, 'comments':comments, 'comment_form':comment_form, 'new_comment':new_comment}
+    return render(request, 'a_post.html', params)
+
+
+*******************************************************************************************************************************************
+
+
+
+def a_post(request,post_id):
+    apost = get_object_or_404(Post, id=post_id) #Not_QuerySet , its object of Post model_class
+    comments = apost.comments.filter(active=True)
+    new_comment = None
+
+    #If add comment, in comment form, posted comment for current post.
+    if request.method=='POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form .is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = apost
+            new_comment.save()
+            #render to a_post page with empty comment form
+
+    comment_form = CommentForm() #render to a_post page with empty comment form
+    params = {'apost':apost, 'comments':comments, 'comment_form':comment_form}
+    print(apost)
+    print(type(apost))
+    print(comments)
+    print(type(comments))
+    print(comment_form)
+    print(type(comment_form))
+    return render(request, 'a_post.html', params)
+
+
+
+
+
+print(apost)
+	Kitab
+print(type(apost))
+	<class 'Blog.models.Post'>
+
+print(comments)
+	<QuerySet [<Comment: Comment 'bokk is really nice' by Amir Shrestha>, <Comment: Comment 'bokk is really nice' by Amir Shrestha>, <Comment: Comment 'xfgn' by asf>, <Comment: Comment 'heheheheheh' by John Bahadur Magar>]>
+print(type(comments))
+	<class 'django.db.models.query.QuerySet'>
+
+print(comment_form)
+	<tr><th><label for="id_name">Name:</label></th><td><input type="text" name="name" maxlength="80" required id="id_name"></td></tr>
+	<tr><th><label for="id_email">Email:</label></th><td><input type="email" name="email" maxlength="254" required id="id_email"></td></tr>
+	<tr><th><label for="id_comment_body">Comment body:</label></th><td><textarea name="comment_body" cols="40" rows="10" required id="id_comment_body">
+	</textarea></td></tr>
+print(type(comment_form))
+	<class 'Blog.forms.CommentForm'>
+
+
+
+print(new_comment)
+	Comment 'shfgn' by Amir Shrestha
+
+print(type(new_comment))
+	<class 'Blog.models.Comment'>
+
+
+*******************************************************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+
+
+*******************************************************************************************************************************************
+
+
+
+
+
+
+*******************************************************************************************************************************************
+
+
+# 1
+class Meta:
+    ordering = ['created_on']
+
+
+Error :
+Blog.Comment: (models.E015) 'ordering' refers to the nonexistent field, related field, or lookup 'created_on'.
+
+
+# 2
+class Comment(models.Model):
+    active = models.BooleanFeld(default=True)
+
+Error :
+AttributeError: module 'django.db.models' has no attribute 'BooleanFeld'
+
+
+
+
+*******************************************************************************************************************************************
+
+
+Note :
+when we sumit comment every time we reload page it again enter/submit previous comment.
+after we submit comment form show empty comment form next time.
+if new comment is submited show itb as new comment
+sort comment by time,like

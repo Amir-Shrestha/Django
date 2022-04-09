@@ -1,0 +1,57 @@
+#1 
+def checkout(request):
+    if request.method=="POST":
+        items_json= request.POST.get('itemsJson', '')
+        name=request.POST.get('name', '')
+        email=request.POST.get('email', '')
+        address=request.POST.get('address1', '') + " " + request.POST.get('address2', '')
+        city=request.POST.get('city', '')
+        state=request.POST.get('state', '')
+        zip_code=request.POST.get('zip_code', '')
+        phone=request.POST.get('phone', '')
+
+        order = Orders(items_json= items_json, name=name, email=email, address= address, city=city, state=state, zip_code=zip_code, phone=phone)
+        order.save()
+
+    return render(request, 'shop/check_out.html')
+
+
+
+# 2
+
+ from blog.models import Blog
+>>> b = Blog(name='Beatles Blog', tagline='All the latest Beatles news.')
+>>> b.save()
+
+
+
+Here,
+
+def checkout(request):
+        print(request.method)
+        print(request.POST)
+	print(Orders.objects.all())
+	print(request.POST.get('name'))
+	print(type(request.method))
+        print(type(request.POST))
+        print(type(Orders.objects.all()))
+	print(type(request.POST.get('name')))
+    return render(request, 'shop/check_out.html')
+
+
+Output :
+POST
+<QueryDict: {'csrfmiddlewaretoken': ['u7l30w8niej6gS13Y1HgsjpAhSnArEErVO6mOZeVKAEN4xGB8EBWXdlKnDIVNF8G'], 'itemsJson': [''], 'name': ['Amir Shrestha'], 'email': ['simbaamir55@gmail.com'], 'address1': ['aanigumba'], 'address2': ['kapan'], 'city': ['Kathmandu'], 'state': ['3'], 'zip_code': ['977'], '="phone"': ['9869666056']}>
+<QuerySet [<Orders: Orders object (9)>, <Orders: Orders object (10)>, <Orders: Orders object (11)>, <Orders: Orders object (12)>, <Orders: Orders object (13)>, <Orders: Orders object (14)>, <Orders: Orders object (15)>, <Orders: Orders object (16)>, <Orders: Orders object (17)>, <Orders: Orders object (18)>, <Orders: Orders object (19)>]>
+Amir Shrestha
+<class 'str'>
+<class 'django.http.request.QueryDict'>
+<class 'django.db.models.query.QuerySet'>
+<class 'str'>
+
+
+
+
+
+
+request.POST['name']  vs  request.POST.get('name')

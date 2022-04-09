@@ -1,0 +1,52 @@
+Django projects <==> Default_Django_Project_Application + Other_Costume_Apps
+Till now we have created Django project and its default application.
+
+Builtin Django app : 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles',
+Default_Django_Project_Application
+Other_Costume_Apps
+
+
+
+#1
+Now lets create Other_Costume_Apps :
+cmd inside Project_Root_Directory ==>
+	django-admin startapp app_name or python manage.py startapp app_name
+
+
+Extra :
+Django commandline utility   <==>   (python manage.py & django-admin)
+
+
+#2
+Now once you create an application you also have to install it.
+
+As setting.py file is avialable in at Project_Level/Default_Django_Project_Application, which means we can install all the application of project.
+#####So go to setting.py. and add app in INSTALLED_APPS list :
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+
+
+To
+
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'App1', ************************************
+    'App2', ************************************************
+]
+
+
+Finally Start working on your project apps.
+(greekyshows) C:\Django\Project_Root>

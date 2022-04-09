@@ -1,0 +1,33 @@
+{% extends 'shop/basic.html' %}
+
+{% load static %}
+
+{% block title %} About us {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid my-5">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+            <br><br>
+                <img src="{% static 'shop/SaauG.png'  %}" style="height: 500px; width: 90%;" alt="">
+            </div>
+
+            <div class="form-group col-md-8">
+
+                <h3 class="my-5"> About Page </h3>
+                <p>SaauG.com is a mini e-commerce project with blog system integrated with it for Oline shopping and events feeds. </p>
+                <p>In current market, as e-commerce websites are getting bigger and bigger, they are enhancing their features ass well which therefore makes end-user bit confuse to use it, especially in context of Nepal where most of the people just started using electronic devises. So, I have made this project as simple as i can considering the user of Nepal.</p>
+                <p>As it is said that no business can run for a long run without proper marketing strategy, e-commerce site today just focusses on buying and selling of products. But in my project, I have added a blog system that gives the feeds of especial occasion / events that are going to be held which will automatically promote business.</p>
+
+                <br>
+                <form action="contact">
+                    <button type="submit" class="btn btn-primary" > Send Message </button>
+                    <a href = "mailto: simbaamir55@gmail.com" class="btn btn-success">Send Email</a>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,266 @@
+crsf token ?   
+<form action="/shop/contact/" method="post">{% csrf_token %}
+
+In templates/shop/contact.html :
+
+{% block body %}
+<div class="container my-3">
+    <h3>Contact Us</h3>
+    <form action="/shop/contact/" method="post">{% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name='name' placeholder="Enter Your Name">
+        </div>
+        <div class="form-group">
+            <label for="name">Email</label>
+            <input type="email" class="form-control" id="email" name='email' placeholder="Enter Your Email">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Phone</label>
+            <input type="tel" class="form-control" id="phone" name='phone' placeholder="Enter Your Phone Number">
+        </div>
+
+
+        <div class="form-group">
+            <label for="desc">How May We Help You?</label>
+            <textarea class="form-control" id="desc" name='desc' rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+#
+Note_1 :
+
+Here,Lets see template directory first :
+
+templates 
+	shop
+	     about
+	     basic
+	     check_out
+	     contact
+	     index
+	     product_view
+	     tracker
+
+		
+
+Suppose, We are in basic.html :
+So, when we call to any other template_html_file which is inside same root_directory where basic.html(where we are at right now).
+We can simply call the name of the another template_html_file.
+
+#1
+i.e : href="contact"
+
+     <li class="nav-item">
+         <a class="nav-link" href="contact">Contact</a>
+     </li>
+
+#2
+<form action="contact" method="post">
+
+
+OR
+
+
+
+We can give absolute_path of the template_html_file.
+Here, The root_dir for all template_html_file. is templates.
+
+
+#1
+i.e : href="/shop/contact/"
+
+     <li class="nav-item">
+         <a class="nav-link" href="/shop/contact/">Contact</a>
+     </li>
+
+#2
+<form action="/shop/contact/" method="post">
+
+
+
+Therefore :
+	href="contact"
+	href="/shop/contact/"
+
+	action="contact"
+	action="/shop/contact/"
+
+
+
+
+#
+Note_2 :
+
+Create Form,
+Fill Form,
+Submit Form and redirct to same  Contact form page,
+
+Here From,
+contact.html  ==>  action="contact"
+shop\urls.py ==>  path('contact', views.contact_us, name='contact_us') 
+shop\views.py  ==>  def contact_us(request):  ==>  return render(request, 'shop/contact.html')
+shop\template\shop\contact.html  ==>  
+
+
+Here In shop\views.py :
+
+def contact_us(request):
+    if request.method=="POST":
+        print(request) # output in terminal : <WSGIRequest: POST '/shop/contact'>
+
+
+
+
+#
+Note_3 :
+
+Now bring all data summited to form :
+
+Here In shop\views.py :
+
+def contact_us(request):
+    if request.method=="POST":
+        print(request)
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+        description = request.POST.get('desc', '')
+        print(name, email, phone, description)
+    return render(request, 'shop/contact.html')
+
+
+
+
+
+
+#
+Note_4 :
+
+Create model/class/table for Contact :
+
+Here In shop\models.py :
+
+class Contact(models.Model):
+    contact_id = models.AutoField(primary_key=True)
+    contact_name = models.CharField(max_length=50)
+    contact_email = models.CharField(max_length=50, default="")
+    contact_phone  = models.CharField(max_length=70, default="")
+    contact_desciption = models.CharField(max_length=300, default="")
+
+    def __str__(self):
+        return self.contact_name
+
+
+
+Now, make migration
+Then, migrate.
+
+
+
+i.e :
+C:\Users\SimbA\PycharmProjects\MyAwesomeCart\Mac>python manage.py makemigrations
+See in shop\migrations :
+0003_contact.py
+
+C:\Users\SimbA\PycharmProjects\MyAwesomeCart\Mac>python manage.py migrate
+
+Now, See in admin pannel You cannot see Contact table as we have not register the model.
+So first register the model.
+
+Now register Model : Contact
+In shop\admin.py
+Import Contact model and register it
+
+# Register your models here.
+
+from .models import Product
+admin.site.register(Product)
+
+TO:
+
+from .models import Product, Contact
+admin.site.register(Product)
+admin.site.register(Contact)
+
+See in admin pannel:
+You can see Contacts Table.
+Now you can add contact record/row in Contact table through Admin pannel.
+
+
+
+
+
+#
+Note_5 :
+
+Now you can add contact record/row in Contact table through Admin pannel.
+But we are not here to do that. Our aim is to add contact objects/row/record/ into database_table through contact form in contact.html.
+So in shop/views.py : In contact_us function ==>
+
+
+
+def contact_us(request):
+    if request.method=="POST":
+        print(request)
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+        description = request.POST.get('desc', '')
+        print(name, email, phone, description)
+    return render(request, 'shop/contact.html')
+
+
+
+To:
+
+
+
+def contact_us(request):
+    if request.method=="POST":
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+        description = request.POST.get('desc', '')
+        contact = Contact(contact_name=name, contact_email=email, contact_phone=phone, contact_description=description ) #add contact to database_table
+        contact.save()
+    return render(request, 'shop/contact.html')
+
+
+Here, First import Contact module :
+	from .models import Product, Contact
+
+Then, Map table_column with Form_submited_value :
+        contact = Contact(contact_name=name, contact_email=email, contact_phone=phone, contact_description=description ) #add contact to database_table
+        
+Finally, Save new contact record :
+	contact.save()
+
+
+
+Now, Go to contact page and fill contact form and submit.
+Then go to admin pannel and see in Contact table you can see new record that you recently added.
+
+
+
+
+
+#
+Note_6 :
+
+
+
+
+
+

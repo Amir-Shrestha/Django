@@ -1,0 +1,76 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %} {{ product_item.product_name }} -My Awesome-Cart {% endblock %}
+
+{% block body %}
+
+<div class="container my-4">
+<br>
+    <div class="row mt-5 ">
+        <div class="col-md-4">
+            <div class="row">
+                <img src="/media/{{ product_item.image }}" alt="" height="300px" width="250px">
+            </div>
+            <div class="row my-3">
+                <div class="btn btn-primary mx-3">Buy Now</div>
+                <div class="btn btn-primary">Add To Cart</div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h3> {{ product_item.product_name }} </h3>
+            <p><b> Price : Rs. </b> {{ product_item.price }} </p>
+            <p><b>Description : </b> {{ product_item.desciption }} </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+<!--javascript block-->
+{% block js %}
+
+<script>
+    console.log('Working !')
+    if(localStorage.getItem('cart') == null)     <!-- if cart is empty dont load cart -->
+    {
+        var cart = {};
+    }
+    else
+    {
+        cart = JSON.parse(localStorage.getItem('cart'));    <!-- if cart exist or has item load it  -->
+        document.getElementById('mycart').innerHTML = Object.keys(cart).length;
+    }
+<!--JQuery-->
+    $('.cart').click    <!-- select_cart_class ==> $('.cart') and when click_in_that_class run function -->
+    (
+        function()
+            {
+                console.log('Clicked to Add item to cart');
+                var id1 = this.id.toString();
+                console.log(id1);
+
+                if(cart[id1]!= undefined)
+                {
+                    cart[id1] = cart[id1]+1;
+                }
+                else
+                {
+                    cart[id1] = 1;
+                }
+                console.log(cart);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                document.getElementById('mycart').innerHTML = Object.keys(cart).length;
+            }
+    );
+    $('#popcard1').popover()
+    document.getElementById("popcard1").setAttribute('data-content', '<h5>Cart for your items in my shopping cart</h5>');
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+urls.py:
+path('', views.register_user_1, name="register_user_1"),
+
+
+
+views.py:
+from django.contrib.auth.forms import UserCreationForm
+def register_user_1(request):
+    if request.method == "POST":
+        new_rgister = UserCreationForm(request.POST)
+        if new_rgister.is_valid():
+            new_rgister.save()
+            return HttpResponse('New User Registered !')
+    signup_form = UserCreationForm()
+    return render(request, 'register_user_1.html', {'signup_form':signup_form})
+
+
+template:
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{signup_form.as_p}}
+        <button type="submit">Register</button>
+    </form>

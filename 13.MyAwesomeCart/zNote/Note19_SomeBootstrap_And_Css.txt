@@ -1,0 +1,46 @@
+Row_For_Slides In index.html :
+{% for product, range, No_of_Slides in D_ListOfAllProduct %}
+    <h3 class="my-4"> {{ product.0.category }} </h3>
+    <!-- Carsousel_Start -->
+    <div class="row">
+    </div>
+{% endfor %}
+
+
+And col inside row :
+
+<div class="container">
+    {% for product, range, No_of_Slides in D_ListOfAllProduct %}
+        <div class="row">
+            <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
+    	    </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+Now in basic.html in style tag :
+
+.carousel-control-next,
+.carousel-control-prev 
+	{
+          position: absolute;
+          top: auto;
+          bottom: auto;
+          padding-top : 225px;
+        }
+
+
+
+
+img width fix :
+.col-md-3 img{
+          max-width: 200px;
+          height: 192px;
+          }
+TO :
+.col-md-3 img{
+          width: 170px;
+          height: 200px;
+          }

@@ -1,0 +1,473 @@
+Form to insert data in model/database table insted of using admin pannel
+
+First create a form(forms.py) in Blog app.
+
+In forms.py
+
+from django import forms
+from .models import Post
+
+like :
+class Post(models.Model):
+class PostForm(forms.ModelForm): #forms module , ModelForm class
+
+or
+from django.forms import ModelForm
+class PostForm(ModelForm):
+
+
+Now,
+class PostForm(forms.ModelForm):
+	class Meta: #inner class that specifies the behaviour of form or form_of_class (means what fields will it have and which model_class forms to be created)
+		model = Post #model_class_of_form
+		fields = ('title', 'text') #fields of model
+
+Here : we have following fields in Post model/class :
+author, title, text, created_date, published_date
+But we provide only  title and text.
+Here author is reference to User Model and created_date and published_date is not needed at the moment
+
+
+Therefore : form(form.py)
+
+from django import forms
+from .models import Post
+
+class PostForm(forms.ModelForm):
+	class Meta:
+		model = Post
+		fields = ('title', 'text')
+
+
+When we click to :
+<a href=" {% url 'create_post' %} " >Add Post</a>
+
+It goes to urls.py :
+urlpatterns = [
+    path('new_post', views.create_post, name='create_post'),
+]
+
+
+
+Then it goes to views.py :
+Here we have to use form.
+So, Here we have to import PostForm_class from form.py module that we have created :
+So, from .forms import PostForm
+
+and create create_post method in views.py
+
+def create_post(request):
+Now call post_form inside this method:
+	form_obj  = PostForm()
+	return render(request, 'create_post.html', {'form_obj ':form_obj })
+
+
+
+When you print :
+form_obj = PostForm()
+    print(form_obj )
+    print(type(form_obj ))
+
+
+Output :
+<tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" maxlength="200" required id="id_title"></td></tr>
+<tr><th><label for="id_text">Text:</label></th><td><textarea name="text" cols="40" rows="10" required id="id_text">
+</textarea></td></tr>
+<class 'Blog.forms.PostForm'>
+
+
+Therefore,
+    form_obj = PostForm() # object of PostForm_class of forms.py_module of Blog_app ==> Blog.forms.PostForm
+So,
+form_obj just hold empty form at the moment.
+
+
+
+
+return render(request, 'create_post.html', {'form':form_obj})
+Now this page is render to create_post.html along with PostForm_class_object(form_obj)  which consist of Form to be filled up:
+
+
+
+To :
+{% block body %}
+    <form method='post'>
+	{% crsf_token %} #whenever we submit form_data  using POST_request we need crsf_token for security purpose.
+        {{ form_obj.as_p }}
+{% endblock %}
+
+equvalent to:
+
+{% block body %}
+    <h1>Fill Form</h1>
+    <form method='post'>
+        {{ form_obj.as_p }}
+        {{ form_obj.as_table }}
+        {{ form_obj.as_ul }}
+    </form>
+{% endblock %}
+
+
+||
+
+So, In create_post.html:
+
+||
+
+{% block body %}
+    <h1>Fill Form</h1>
+    <form method='post'>
+        <tr>
+		<th><label for="id_title">Title:</label></th>
+		<td><input type="text" name="title" maxlength="200" required id="id_title"></td>
+	</tr>
+	<tr>
+		<th><label for="id_text">Text:</label></th>
+		<td><textarea name="text" cols="40" rows="10" required id="id_text"></textarea></td>
+	</tr>
+    </form>
+{% endblock %}
+
+
+
+Now form appears in template:
+Note : {'form_obj ':form_obj} worng
+Note : {'form_obj':form_obj} right
+
+
+
+Here :
+        {{ form_obj.as_p }}          =====> display form as paragraph form
+        {{ form_obj.as_table }}          =====> display form as table form
+        {{ form_obj.as_ul }}          =====> display form as unoderlist form
+
+
+
+
+Now add button to save created form and specify the action of form :
+{% block body %}
+    <h1>Fill Form</h1>
+    <form method='post'>
+	{% csrf_token %}
+        {{ form_obj.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
+
+
+Now, and specify the action of form :
+so who is responsible of save post ?
+answer : create_post method of views.py
+
+so again redirect to the views.create_post().
+How do we redirect to views from template?
+answer : through urls
+
+so in action of form :
+action=" {% url 'create_post' %} "
+<form method='post' action=" {% url 'create_post' %} ">
+
+
+
+Now check condition in  create_post method of views.py :
+if redirect to create_post method of views.py from create_post.html template with post_request save post
+elif redirect to create_post method of views.py from post_list.html template then redirent to create_post template.
+
+So,
+if redirect to create_post method of views.py from creat_post template with post_request save post
+def create_post(request):
+    if request.method=='POST':
+
+
+Now to save post :
+def create_post(request):
+    if request.method=='POST':
+	form = PostForm(request.POST)
+        print(form)
+	print(type(form))
+
+Input form :
+Title: Hero
+Text:Bhakiti hi Sakti hey
+
+Output :
+<tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" value="Hero" maxlength="200" required id="id_title"></td></tr>
+<tr><th><label for="id_text">Text:</label></th><td><textarea name="text" cols="40" rows="10" required id="id_text">
+Bhakiti hi Sakti hey</textarea></td></tr>
+<class 'Blog.forms.PostForm'>
+
+Here form = PostForm(request.POST),
+form is object of PostForm class holding filled_form of PostForm class.
+
+So,
+def create_post(request):
+    if request.method=='POST':
+	form_value_obj = PostForm(request.POST)
+
+
+Now cheack validity of input filed of form :
+if form_value_obj .is_valid():
+
+i.e 
+
+def create_post(request):
+    if request.method=='POST':
+        form_value_obj  = PostForm(request.POST)
+        if form_value_obj .is_valid(): # inbulit django function to validate input
+
+
+
+If input is validate create instance of Post_class :
+post = form_value_obj.save(commit=False)
+The time we save() the filled_form, instance of model_class_of_form_class is created.
+here post is instance of model_class(Post)
+In save() : by default commit is True i.e. save(commit=True) but when we do save(commit=False) it just create instance but doent save it in database. It helps in preprocessing form_data.
+
+i.e :
+def create_post(request):
+    if request.method=='POST':
+        form_value_obj  = PostForm(request.POST)
+        if form_value_obj .is_valid():
+		post = form_value_obj.save(commit=False) # commit=False helps to do pre processing in data submited from form
+
+Note :
+if commit=True ,
+Then,
+It save all data to database directly at the time this line post = form.save(commit=True) executed.
+post = form_value_obj.save(commit=True)   ===>   post = form.save()
+
+By default, post = form.save() means commit=True
+
+
+post = form.save(commit=False) # commit=False helps to do pre processing in data submited from form
+Here, Preprocessing means , what if we need ro capitalized all the text submited by user in form before save in data base. and other.....
+
+post = form_value_obj.save(commit=False)
+print(post)
+print(type(post)) ---->so here comes use of commit=False
+
+Output :
+Hero ==> __str__  ==> Title Inputed ==> if no __str__ ==> Post object (None)
+<class 'Blog.models.Post'>
+
+
+
+
+
+
+
+Now we have authername,created and publish date in our post module, so we also need to submit it so there all 3 value are like preprocessing.
+
+
+post.author = request.user  #gives user only if we are logged in!
+post.published_date = timezone.now() #from django.utils import timezone
+
+Here post is object of Post class and Post class has author,published_date property.
+
+print(post.author)
+print(post.published_date)
+
+output :
+SimbA
+2021-05-19 09:38:46.930629+00:00
+
+
+
+
+
+
+
+
+Here, in our Post class we also have created_date but we dont need to define it as it has its default value : default=timezone.now
+created_date = models.DateTimeField(default=timezone.now)
+
+
+And now save to database,
+post.save()
+
+
+
+
+
+Here,
+form_value_obj  = PostForm(request.POST)
+        print(form_value_obj)
+        print(type(form_value_obj))
+        if form_value_obj .is_valid():
+            post = form_value_obj.save(commit=False)
+            print(post)
+            print(type(post))
+
+
+
+
+Output :
+
+print(form_value_obj) ==>
+<tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" value="Hero" maxlength="200" required id="id_title"></td></tr>
+<tr><th><label for="id_text">Text:</label></th><td><textarea name="text" cols="40" rows="10" required id="id_text">
+apple</textarea></td></tr>
+
+print(type(form_value_obj)) ==>
+<class 'Blog.forms.PostForm'>
+
+print(post) ==>
+Hero
+
+print(type(post)) ==>
+<class 'Blog.models.Post'>
+
+
+
+
+
+Now upto here our post is saved:
+
+In views.py :
+def create_post(request):
+    if request.method=='POST':
+        form_value_obj  = PostForm(request.POST)
+        if form_value_obj .is_valid():
+            post = form_value_obj.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+
+print(request.user) ===> SimbA
+print(type(request.user))   ===>   <class 'django.utils.functional.SimpleLazyObject'>
+
+
+Now after our post is saved where to redirect our page ?
+Note not to render to another page like :
+return render(request,'a_post.html')
+
+Instead redirect to method of views.py :
+
+Answer ==> a_post.html page
+
+return render(request,'a_post.html')
+
+So finally,
+In views.py :
+def create_post(request):
+    if request.method=='POST':
+        form_value_obj  = PostForm(request.POST)
+        if form_value_obj .is_valid():
+            post = form_value_obj.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+         return redirect('a_post', post_id=post.id) #post.id is unique primary key of post that is created automatically
+
+
+
+
+
+Finallly :
+
+#1
+In post_list.html:
+<a href=" {% url 'create_post' %} " >Add Post</a>
+
+#2
+In urls.py :
+path('new_post', views.create_post, name='create_post'),
+
+
+
+Now check condition in  create_post method of views.py :
+if redirect to create_post method of views.py from create_post.html template with post_request save post
+elif redirect to create_post method of views.py from post_list.html template then redirent to create_post template.
+
+
+#3
+In views.py :
+def create_post(request):
+    if request.method=='POST':
+        form_value_obj  = PostForm(request.POST)
+        if form_value_obj .is_valid():
+            post = form_value_obj.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('a_post', post_id=post.id)
+    form_obj  = PostForm()
+    return render(request, 'create_post.html', {'form_obj':form_obj})
+
+
+#4
+If redirect to create_post method of views.py from creat_post template with post_request save post
+
+def create_post(request):
+    if request.method=='POST':
+        form_value_obj  = PostForm(request.POST)
+        if form_value_obj .is_valid():
+            post = form_value_obj.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('a_post', post_id=post.id)
+
+
+#5
+In template/a_post.html :
+
+{% extends 'base.html' %}
+{% block body %}
+    <article>
+        <h1>{{ apost.text }}</h1>
+        <h3>{{ apost.author }}</h3>
+        <p>{{ apost.created_date }}</p>
+        <p>{{ apost.published_date }}</p>
+        <br>
+        <hr>
+    </article>
+    <a href="" >Go Back</a>
+{% endblock %}
+
+
+
+
+
+#6
+If redirect to create_post method of views.py from post_list template then redirent to creat_post template.
+def create_post(request):
+    form_obj  = PostForm()
+    return render(request, 'create_post.html', {'form_obj':form_obj})
+
+
+
+
+#7
+In template/create_post.html :
+{% extends 'base.html' %}
+{% block title %} Create {% endblock %}
+{% block body %}
+    <h1>Fill Form</h1>
+    <form method='post' action=" {% url 'create_post' %} ">
+        {% csrf_token %}
+        {{ form_obj.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
+
+
+
+
+
+
+
+Note Here we have two module file :
+models.py and forms.py
+both has its own classes :
+models.py    ===>     Model_class_Post(models.Model):
+forms.py     ===>     From_class_PostForm(forms.ModelForm):
+
+
+
+
+Now in views.py :
+In def create_post(request):
+
+form_value_obj  = PostForm(request.POST) ===> Object of PostForm_class(form class)
+post = form_value_obj.save(commit=False) ===> Object of Post_class(model class)

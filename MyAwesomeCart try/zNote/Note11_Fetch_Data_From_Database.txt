@@ -1,0 +1,102 @@
+Just what we did in shell practise is goona repeat over here.
+
+
+So what we are gonna do is that we will render to template files with template/content data as params_dictionary(params = {}).
+Here, params_dictionary consist of content_data_of_template_files.
+Now we need to pass some parameters in params_dictionary(params = {}) which gets render to template(shop/index.html). i.e return render(request, 'shop/index.html', params)
+So what parameter does params_dictionary contains?
+params = {}
+
+Here, params_dictionary contains QuerySet, No_of_Slides, range_function
+
+1.
+QuerySet :
+QuerySet (object/record of all products) , QuerySet ==> A QuerySet represents a collection/list of objects from your database. 
+#fetch all product object from database and pass them as parameter into templates
+def index(request):
+    all_products= Product.objects.all() #fetch all product object from database #all_products = QuerySet
+    print(all_products) #this gets print/fetch in terminal not in browerser/template
+i.e : 
+    params = {'product':all_products}
+
+#EXtra :
+{
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.
+<QuerySet [<Product: Kulekhani>, <Product: Doko>, <Product: Kucho>, <Product: Mouse>]>
+[05/May/2021 18:16:05] "GET /shop/ HTTP/1.1" 200 12770
+}
+
+Note : You should imort Product class In shop/views.py from shop/models.py before setting QuerySet.
+#import Product class from model.py
+from .models import Product 
+
+
+
+
+
+
+
+2.
+No_of_Slides :
+No_of_Slides = n//4 + ceil (n/4 - n//4) # see in Note10_Logic_Formula_To_Show_Posts
+
+Here, n is total_number_of_post/object/record in database.
+And here all_products is a QuerySet that holds all_post/object/record/table_row.
+Which means,
+total_number_of_post/object/record = n = len(all_products)
+
+
+Note : Inorder to use ceil() function we need to import ceil() function from math module
+i.e :
+#import math
+from math import ceil
+
+So params,
+params = {'product':all_products, 'total_slides':No_of_Slides, }
+
+
+
+
+
+
+
+
+3.
+range_function :
+range(No_of_Slides)
+
+So params,
+params = {'product':all_products, 'total_slides':No_of_Slides, 'range':range(1,No_of_Slides) }
+Here we start range of slide from 1 because our first active slide will be fixed something like that.
+
+Finally,now all these parameters are avialable in template_file(shop/index.html) as passed them through params.
+
+
+
+from django.shortcuts import render
+from .models import Product
+from math import ceil
+
+# Create your views here.
+def index(request):
+    all_products = Product.objects.all()
+    print(all_products)
+    n = len(all_products)
+    No_of_Slides = n // 4 + ceil(n / 4 - n // 4)
+    params = {'product':all_products, 'total_slides':No_of_Slides, 'range':range(1,No_of_Slides) }
+    return render(request, 'shop/index.html',params)
+
+
+
+
+
+
+Now Work for views.py is done now got to index.py.
+
+
+
+
+
+
+

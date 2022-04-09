@@ -1,0 +1,285 @@
+Outline
+Open a terminal
+Setup the pip package manager
+Install the virtualenv package
+Create the virtual environment
+Activate the virtual environment
+Deactivate the virtual environment
+Optional: Make the virtual environment your default Python
+More: Python virtualenv documentation
+
+Requirements
+An installation of Python
+
+
+
+
+
+C:\Users\SimbA>python --version
+Python 3.9.4
+
+C:\Users\SimbA>pip --version
+pip 21.1.1 from c:\python3.9.4\lib\site-packages\pip (python 3.9)
+
+C:\Users\SimbA>django-admin --version
+3.2
+
+C:\Users\SimbA>python -m django --version
+3.2
+
+Install python,pip,django
+
+
+
+
+Now if you install dajngo without virtual environment it will work and be avialable for all over your system.
+But what after python,pip,django any of these has been updated but you were doing your project in previous version?
+Now you amy face difficulties while working in past project with latest python,pip,django.
+And your different projects may have different mython and django configuration like example_1 project may instal example_1 module.
+The that example_1 module is used for only that one example_1 project and not used in other project than that is waste of memory.
+So here come the use of Virtual Environment.
+Which enable us to make different configuration for different project.
+
+
+#1 
+Install and Set Virtual Enviroment/ Virtual Enviroment Wrapper :
+cmd ==> pip install virtualenv
+
+Gets install in ==> C:\Users\SimbA\Django_Virtual_Env\Lib\site-packages\pip\_internal\utils
+
+#2
+Create Virtual Enviroment :
+cmd ==> C:\Users\SimbA> virtualenv Virtual_Environment_1
+
+Now we have created environment and we are inside it.
+(Virtual_Environment_1) C:\Users\SimbA>
+
+#3
+Now install django inside Virtual Environment
+cmd ==> (Virtual_Environment_1) C:\Users\SimbA> pip install django
+
+#4 Check django version :
+cmd ==>django-admin --version
+
+Here this installed django is only for this Virtual Environment not outside it.
+
+#5
+Check main folder for our project:
+cmd ==> (Virtual_Environment_1) C:\Users\SimbA> mkdir Project_Root
+
+#6
+Now move to that main project folder:
+cmd ==> (Virtual_Environment_1) C:\Users\SimbA> cd Project_Root
+# (Virtual_Environment_1) C:\Users\SimbA\Project_Root>
+
+#7
+Now create our django project :
+cmd ==> (Virtual_Environment_1) C:\Users\SimbA\Project_Root> django-admin startproject MyBook
+
+Now inside Project_Root you get another folder MyBook which consist of one_folder(MyBook) and manage.py file.
+
+#8
+Now inorder to perform operation in django project you have to access manage.py.
+So, can accces manage.py only if you are in same directory where manage.py exist.
+As, manage.py is inside Project_Root/MyBook/MyBook.
+So get inside MyBook:
+cmd ==> (Virtual_Environment_1) C:\Users\SimbA\Project_Root>cd MyBook
+
+# (Virtual_Environment_1) C:\Users\SimbA\Project_Root\MyBook>
+
+
+#9 
+Now see the folder/dirs inside your current directory whic is MyBook:
+cmd ==> (Virtual_Environment_1) C:\Users\SimbA\Project_Root\MyBook> dir
+	->MyBook
+	->manage.py
+
+
+#10
+Finally your project is create and run server now:
+cmd ==> (Virtual_Environment_1) C:\Users\SimbA\Project_Root\MyBook> python manage.py runserver
+
+As we in same directory where manage.py so we can access it : python manage.py runserver
+
+
+
+
+
+
+
+
+
+#1
+Install the virtualenv package:
+cmd ==> pip install virtualenv
+
+Extra:
+# python -m venv Virtual_Environment_1  
+#The venv module provides support for creating lightweight “virtual environments” with their own site directories, optionally isolated from system site directories
+
+
+#2
+Create the virtual environment:
+cmd ==> virtualenv Virtual_Environment_1
+
+#3
+Activate the virtual environment:
+
+Mac OS / Linux
+cmd ==> source Virtual_Environment_1/bin/activate
+
+Windows
+cmd ==> Virtual_Environment_1\Scripts\activate
+#Virtual_Environment_1\Scripts\activate.bat
+
+
+Extra:
+#4
+Deactivate the virtual environment:
+cmd ==> deactivate
+
+Extra :
+cmd ==> pip -h
+
+Extra : Upgrade pip
+cmd ==> python -m pip install --upgrade pip
+
+
+Extra : Upgrade virtualenv
+cmd ==> pip install --upgrade virtualenv
+
+
+url for lixus/mac :
+https://realpython.com/lessons/creating-virtual-environment/
+
+
+
+
+
+Done :
+#1
+C:\Users\SimbA\Python>pip install virtualenv
+
+#2
+C:\Users\SimbA\Python>virtualenv Virtual_Environment_1
+Create Virtual_Environment_1 ==> (Lib, Scripts, .gitignore, pyvenc.cfg)
+
+#3
+C:\Users\SimbA\Python>pip install django
+
+#4
+C:\Users\SimbA\Python>mkdir Project_Root
+Create Project_Root inside Python folder :
+Python ==> (Virtual_Environment_1, Project_Root)
+
+#5
+cd Project_Root
+C:\Users\SimbA\Python\Project_Root>
+
+#6
+C:\Users\SimbA\Python\Project_Root>django-admin startproject MyBook
+
+
+#7
+C:\Users\SimbA\Python\Project_Root>cd MyBook
+
+
+#8
+C:\Users\SimbA\Python\Project_Root\MyBook>dir
+
+#9
+C:\Users\SimbA\Python\Project_Root\MyBook>python manage.py runserver
+
+
+
+Note :
+Once you have installed Virtual_Environment with : cmd ==> pip install virtualenv,
+You dont need to install it again afterward.
+
+
+
+
+
+django-admin startproject mysite ==> mysite/mysite
+django-admin startproject mysite. ==> mysite
+
+
+
+
+
+
+
+Finaly summary :
+C:\Users\SimbA\Python1>pip install virtualenv ==> only one tim in computer
+C:\Users\SimbA\Python1>virtualenv Virtual_Environment_1
+C:\Users\SimbA\Python1>Virtual_Environment_1\Scripts\activate
+# (Virtual_Environment_1) C:\Users\SimbA\Python1>
+(Virtual_Environment_1) C:\Users\SimbA\Python1>pip install django
+(Virtual_Environment_1) C:\Users\SimbA\Python1>mkdir Project_Root
+(Virtual_Environment_1) C:\Users\SimbA\Python1>cd Project_Root
+(Virtual_Environment_1) C:\Users\SimbA\Python1\Project_Root>django-admin startproject MyBook
+(Virtual_Environment_1) C:\Users\SimbA\Python1\Project_Root>cd MyBook
+(Virtual_Environment_1) C:\Users\SimbA\Python1\Project_Root\MyBook>dir
+(Virtual_Environment_1) C:\Users\SimbA\Python1\Project_Root\MyBook>python manage.py runserver
+
+
+Once you close terminal and again poen to work on project you have to activate virtual environment again:
+C:\Users\SimbA\Python1>Virtual_Environment_1\Scripts\activate
+
+
+
+
+
+
+
+Problems
+
+
+
+
+#While activating virtual environment from VS_code terminal :
+
+PS C:\Users\SimbA\Python_V_EN> Virtual_Environment_1\Scripts\activate
+Virtual_Environment_1\Scripts\activate : File C:\Users\SimbA\Python_V_EN\Virtual_Environment_1\Scripts\activate.ps1 cannot be loaded because running 
+scripts is disabled on this system. For more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:1 char:1
++ Virtual_Environment_1\Scripts\activate
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+
+
+
+
+Open Powershell as admin and then :
+
+PS C:\Windows\system32> Get-ExecutionPolicy
+Restricted
+PS C:\Windows\system32>
+
+
+Solution,
+In powershell admin :
+
+PS C:\Windows\system32> set-executionpolicy remotesigned
+Then type Y for yes !
+
+Execution Policy Change
+The execution policy helps protect you from scripts that you do not trust. Changing the execution policy might expose
+you to the security risks described in the about_Execution_Policies help topic at
+https:/go.microsoft.com/fwlink/?LinkID=135170. Do you want to change the execution policy?
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"): Y
+
+Now try activating virtual environment from VS_code terminal again.
+
+
+
+Note : Activate Virtual Environment at gthe root directory of Virtual_Environment_1.
+PS C:\Users\SimbA\Python_V_EN> Virtual_Environment_1\Scripts\activate
+
+
+
+
+
+***********************************************************************************************************************************************************************
+

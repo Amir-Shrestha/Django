@@ -1,0 +1,122 @@
+1. #Create_Project_Dir--------------------------------------------------
+
+create new folder for project in pycharm : MyAwesomeCart
+   C:\Users\SimbA\PycharmProjects\MyAwesomeCart
+
+create project_folder : Mac
+Terminal : python manage.py startproject Mac
+
+MyAwesomeCart
+   .idea
+    Mac
+	Mac
+	   init, asgi, setting, urls, wsgi
+	db.sqlite3
+	manage.py
+
+
+create app : blog
+   Terminal : python manage.py startapp blog
+      create views, urls, and link with Mac\urls.py
+      create templates folder inside blog app
+         create blog folder inside templates
+      Dir : MyAwesomeCart/Mac/blog
+
+
+create app : shop
+   Terminal : python manage.py startapp shop
+      create views, urls, and link with Mac\urls.py
+      create templates folder inside shop app
+          create shopfolder inside templates
+      Dir : MyAwesomeCart/Mac/shop
+
+
+
+2. #Keep_our_app_inside-INSTALLED_APPS--------------------------------
+
+Till now we have created two app in our project blog and shop,
+Now we have to keep our app inside INSTALLED_APPS : Mac/setting.py/INSTALLED_APPS
+i.e :
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog',#######
+    'shop' ########
+]
+
+
+
+3. #Create_Template --------------------------------
+
+Now create templates for app : blog
+   Inside Dir : MyAwesomeCart/Mac/blog
+	Create /templates/blog sub folders
+   Create a html template file for blog app inside MyAwesomeCart/Mac/blog/templates/blog:
+   Create index.html and paste bootstrap sample template
+   Here, index.html is template
+   Also render to this template from views
+   return render(request, 'blog\index.html')
+
+Now create templates for app : shop
+   Inside Dir : MyAwesomeCart/Mac/shop
+	Create /templates/shop sub folders
+   Create a html template file for shop app inside MyAwesomeCart/Mac/shop/templates/shop:
+   Create index.html and paste bootstrap sample template
+   Here, index.html is template
+   Also render to this template from views
+   return render(request, 'shop\index.html')
+
+
+4. #Create_Static_Directory --------------------------------
+
+Why do wee need static directory ==> to keep static files like : images,text etc
+Every website needs static directory
+
+Now create static directory for app : blog
+   Inside Dir : MyAwesomeCart/Mac/blog/
+      Create static directory (static/blog) for blog app.
+   Create/Keep all static files inside MyAwesomeCart/Mac/blog/static/blog directory :
+   Here, mystaticfile.txt is static_files
+
+
+
+Now create static directory for app : shop
+   Inside Dir : MyAwesomeCart/Mac/shop/
+      Create static directory (static/shop) for shop app.
+   Create/Keep all static files inside MyAwesomeCart/Mac/shop/static/shop directory :
+   Here, mystaticfile.txt is static_files
+
+
+Ok now till here i have created a Static Directory and Folder :
+Now how to load/access these static files in our template
+solution,
+In order to access static_files in our template we have to load our static_directory in our respective template:
+
+ie:
+In our blog\index.html 
+   {% load static %}      ##### load static directory
+   <a href=" {% static 'blog/mystaticfile.txt %} "> Go to Static Files</a>     ###### access static file
+
+In our shop\index.html 
+   {% load static %}      ##### load static directory
+   <a href=" {% static 'shop/mystaticfile.txt %} "> Go to Static Files</a>     ###### access static file
+
+You will see this in index view template of shop app
+I am Shop Template
+Show Static Files
+Note : Restart your server after you write a code to load static file
+
+
+
+Add image in static file and load it in template:
+
+In MyAwesomeCart/Mac/shop/static
+<img src="  {%static 'shopimage.jpg' %} " alt="Shp Image" width="250" height="200">
+
+In MyAwesomeCart/Mac/blog/static/blog
+<img src=" {%static 'blog/blogimage.png' %} " alt="Blog Image" width="250" height="200">
+

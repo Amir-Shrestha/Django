@@ -1,0 +1,3 @@
+Update pip : python -m pip install --upgrade pip
+Command to install Jupyter : python -m pip install jupyter
+Launching Jupyter : jupyter notebook

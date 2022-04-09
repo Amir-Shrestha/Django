@@ -1,0 +1,113 @@
+
+
+Upload files in recomender way using Media Directory:
+
+
+.....................................................................................................
+
+In setting.py
+
+# Managing media
+import os
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root_dir') #where media files gets stored
+MEDIA_URL = '/media_route/' #url_route that appear in url bar
+
+
+
+Edit urls_pattern in  urls.py of project
+
+from django.conf import setting
+from django.conf.urls.static import static
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('shop.urls')),
+    path('shop/', include('shop.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+.....................................................................................................
+
+
+
+event_thumbnail = models.ImageField(upload_to="events_app/images", default="")
+
+Project
+   media_root_dir
+       events_app
+	   images
+	       test1.jpg
+
+
+when we save image from dashboard that images gest save over here : Project/media_root_dir/events_app/images
+here this media_root_dir gets created by default at the time when we save image
+
+i.e url route
+http://127.0.0.1:8000/media_route/events_app/images/Screenshot_10.png
+
+
+.....................................................................................................
+
+
+
+Extra
+In setting.py :
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR) <==> C:\Django\SpecialOccasionSystem\SOS
+Our Root/Main project location/directory
+
+
+
+
+.....................................................................................................
+
+
+Finally for static files:
+
+In setting.py :
+# managing media directory
+MEDIA_URL = '/media_route/' #url_route that appear in url bar
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root_dir') #where media files gets stored
+
+
+
+
+In urls.py
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+In models class :
+thumbnail = models.ImageField(upload_to="app1_name/app1_feature1", default="")
+thumbnail = models.ImageField(upload_to="app1_name/app1_feature2", default="")
+thumbnail = models.ImageField(upload_to="app2_name/app2_feature1", default="")
+
+
+...........................................................................................................................................................................
+
+
+
+project
+   project_app
+   custome_app
+   media_root_dir
+      app1_name
+	 app1_feature1
+	    img.jpg
+      app1_name
+	 app1_feature2
+	    img.jpg
+      app2_name
+	 app2_feature1
+	    img.jpg
+      
+
+
+...........................................................................................................................................................................
+
+
+
+
+
+

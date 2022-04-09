@@ -1,0 +1,100 @@
+def create_apost(request):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            new_post = PostForm(request.POST)
+            if new_post.is_valid():
+                print(new_post)
+                print(new_post['title'])
+                print(new_post.cleaned_data['title'])
+                print(type(new_post))
+                print(type(new_post['title']))
+                print(type(new_post.cleaned_data['title']))
+            #     title = post_form_value.cleaned_data['title']
+            #     description = post_form_value.cleaned_data['description']
+            #     new_post = Post(title=title, description=description)
+                new_post.save(commit=False)
+                print(new_post)
+                print(type(new_post))
+                post = new_post.save(commit=False)
+                print(post)
+                print(type(post))
+                z=new_post.save()
+                print(z)
+                print(type(z))
+        new_post  = PostForm()
+        return render(request, 'custome_blog_app/create_post.html', {'post_form':new_post})
+
+
+
+
+Output :
+
+<tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" value="Dolore accusamus et quo ut voluptates reprehenderi" class="form-control" maxlength="50" required id="id_title"></td></tr>
+<tr><th><label for="id_description">Description:</label></th><td><textarea name="description" cols="40" rows="10" class="form-control" required id="id_description">
+Nemo similique a con</textarea></td></tr>
+
+<input type="text" name="title" value="Dolore accusamus et quo ut voluptates reprehenderi" class="form-control" maxlength="50" required id="id_title">
+
+Dolore accusamus et quo ut voluptates reprehenderi
+
+<class 'Custome_Blog_App.forms.PostForm'>
+
+<class 'django.forms.boundfield.BoundField'>
+
+<class 'str'>
+
+<tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" value="Dolore accusamus et quo ut voluptates reprehenderi" class="form-control" maxlength="50" required id="id_title"></td></tr>
+<tr><th><label for="id_description">Description:</label></th><td><textarea name="description" cols="40" rows="10" class="form-control" required id="id_description">
+Nemo similique a con</textarea></td></tr>
+
+<class 'Custome_Blog_App.forms.PostForm'>
+
+Post object (None)
+
+<class 'Custome_Blog_App.models.Post'>
+
+Post object (4)
+
+<class 'Custome_Blog_App.models.Post'>
+
+
+
+
+
+
+
+
+
+
+
+
+title = post_form_value.cleaned_data['title']
+description = post_form_value.cleaned_data['description']
+new_post = Post(title=title, description=description)
+print(new_post)
+print(type(new_post))
+
+
+
+Post object (None)
+<class 'Custome_Blog_App.models.Post'>
+
+
+
+
+
+
+
+
+
+
+
+
+if request.method=='POST':
+  post_form = PostForm(request.POST)
+   if post_form .is_valid():
+      print(post_form.cleaned_data)
+
+
+Output:
+{'title': 'Ducimus quis pariatur Non sit quae architecto q', 'description': 'Omnis sequi possimus'}

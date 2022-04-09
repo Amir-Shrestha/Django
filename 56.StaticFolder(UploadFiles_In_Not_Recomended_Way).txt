@@ -1,0 +1,94 @@
+.....................................................................................................
+
+Upload files But not recomender way:
+
+event_thumbnail = models.ImageField(upload_to="App1/images", default="")
+Project:
+  App1 
+     images
+
+event_thumbnail = models.ImageField(upload_to="Static/images", default="")
+Project:
+  App1 
+  Static
+     images
+
+
+event_thumbnail = models.ImageField(upload_to="Events_app/static/events_app/images", default="")
+Project:
+  Events_app
+     static
+        events_app
+	    images
+		test.jpg
+
+.....................................................................................................
+
+
+Extra
+In setting.py :
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR) <==> C:\Django\SpecialOccasionSystem\SOS
+Our Root/Main project location/directory
+
+.....................................................................................................
+
+
+Finally for static files:
+
+In setting.py :
+# static files nedded for our project
+STATIC_URL = '/static_route/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets') #collect static files inside custome app into static_assets folder
+STATICFILES_DIRS = [BASE_DIR / "static"] #collect static files outside custome app but inside project into static_assets folder
+
+
+
+
+if STATICFILES_DIRS = [BASE_DIR / "static"] #collect static files outside custome app but inside project into static_assets folder
+error : django.core.management.base.SystemCheckError: SystemCheckError: System check identified some issues:
+
+ERRORS:
+?: (staticfiles.E002) The STATICFILES_DIRS setting should not contain the STATIC_ROOT setting.
+
+
+
+
+
+
+In urls.py
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
+
+In templates html :
+{%  extends 'accounts/main.html' %}
+{% load static %}
+
+
+...................................................................................................
+
+
+project
+   project_app
+   custome_app
+   media_root_dir
+   static_assets
+
+
+...........................................................................................................................................................................
+
+
+
+
+
+
+
+
+
+
+

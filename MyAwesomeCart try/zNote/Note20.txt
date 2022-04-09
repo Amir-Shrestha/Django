@@ -1,0 +1,106 @@
+1. Manage navbar
+	About, Contact, Tracker
+
+
+2. Align MyCart to right Side :
+	Copy Tooltip Buttom from Bootstrap and paste inside Form in basic.html,
+	<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+  		Tooltip on bottom
+	</button>
+
+To:
+
+        <form class="form-inline my-2 my-lg-0">
+            <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+                Tooltip on bottom
+            </button>
+        </form>
+
+To:
+
+	<form class="form-inline my-2 my-lg-0">
+            <button type="button" class="btn btn-secondary mx-2" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">
+                MyCart[<span id="mycart"></span>]
+            </button>
+        </form>
+
+mx-2
+
+
+
+Now Activate ToolTip :
+Here tooltip is especially for pop up text,
+So Use Popover component of bootstrap:
+
+<button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus.">
+  Popover on bottom
+</button>
+
+Here use Popover instead of Tooltip and active Popover with JQuery.
+Give id==>popcard1 to popover.
+<button id="popcard1" type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus.">
+
+In Js :
+    $('popcard1').popover(options)
+
+It gives Default pop text:
+But we need to bring cart text in out popover:
+So,
+    document.getElementById("popcart1").setAttribute('data-content', '<h5>Cart for your items in my shopping cart</h5>');
+In Js.
+
+and add :
+data-html="true"
+in popover button to make html tag work in js popcart data-content
+
+
+
+
+Now add nabvar href:
+ 	    <li class="nav-item">
+                <a class="nav-link" href="about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="contact">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="tracker">Tracker</a>
+            </li>
+
+
+
+Note :
+In basic.html 
+
+<li class="nav-item">
+    <a class="nav-link" href="about">About</a>
+</li>
+Will give : http://127.0.0.1:8000/shop/about
+
+
+
+<li class="nav-item">
+    <a class="nav-link" href="/about">About</a>
+</li>
+Will give : 127.0.0.1:8000/about  ===> error
+
+<li class="nav-item">
+    <a class="nav-link" href="shop/about">About</a>
+</li>
+Will give : http://127.0.0.1:8000/shop/shop/about  ==> error
+
+
+<li class="nav-item">
+    <a class="nav-link" href="/shop/about">About</a>
+</li>
+Will give : http://127.0.0.1:8000/shop/about  ==> No error
+
+
+
+So,
+<li class="nav-item active">
+    <a class="nav-link" href="/shop">Home <span class="sr-only">(current)</span></a>
+</li>
+

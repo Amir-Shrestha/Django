@@ -1,0 +1,222 @@
+1. Go to khalti.com and create a account then log in.
+2. Go to documentation (https://docs.khalti.com/?csrt=8428875492437473001)
+3. Client Integration / Web SDK
+Since we are making web apllication we have to use Web SDK in client integration.
+4. See two buttons : Pay with Khalti and Pay with Ebanking
+make new template(khalti_request.html) and copy and paste code  : Install Without build tools
+
+
+
+5.  path('khalti_request/', KhaltiRequest.as_view(), name="khalti_request"),
+
+6. 
+class KhaltiRequest(View): # view that will initiate the payment process
+
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, "khaliti_request.html", context)
+
+
+7.
+
+PAYMENT_METHOD = (
+    ("Cash on delivery", "Cash on delivery"),
+    ("Khalti", "Khalti"),
+    ("Esewa", "Esewa"),
+    ("PayPal", "PayPal"),
+)
+
+class Order(models.Model):
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD, default="Cash on delivery")
+    payment_done = models.BooleanField(default=False, null=True, blank=True)
+
+
+8.
+class CheckOutForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ["order_by", "shipping_address", "mobile", "email", "payment_method"]
+
+
+9.
+
+class Checkout(EcomMixin, CreateView):
+    template_name = "checkout.html"
+    form_class = CheckOutForm
+    success_url = reverse_lazy("home")
+
+    def dispatch(self, request, *args, **kwargs):
+
+    def get_context_data(self, **kwargs):
+
+    def form_valid(self, form):
+            del self.request.session['cart_id'] ************************after this line
+            payment_method = form.cleaned_data.get("payment_method")
+            # print(payment_method)
+            order_obj = form.save()
+            if payment_method == "Khalti":
+                return redirect(reverse("khalti_request") + "?order_id=" + str(order_obj.id))
+
+
+10.
+from django.urls import  reverse
+class KhaltiRequest(View): # view that will initiate the payment process 
+    def get(self, request, *args, **kwargs):
+        order_id = request.GET.get("order_id")
+        order_obj = Order.objects.get(id=order_id)
+        context = {"order_obj":order_obj}
+        return render(request, "khalti_request.html", context)
+
+Here, Client side integration is finished.
+Now Server side integration. for verification
+
+
+
+11.
+from django.http import JsonResponse
+class KhaltiVerify(View):  # view that will verify the payment process(avoid illigel activity)
+    def get(self, request, *args, **kwargs):
+        data = {}
+        return JsonResponse(data)
+
+
+12.
+Inkhalti.html
+
+    <script>
+        var config = {
+            // replace the publicKey with yours
+            "publicKey": "test_public_key_8880ae87109c4555af739ba5b14cc251",
+            "productIdentity": "order_{{order_obj.id}}",
+            "productName": "order_{{order_obj.id}}",
+            "productUrl": "http://localhost:8000",
+		*
+		*
+		*
+		*
+		*
+	    btn.onclick = function () {
+            	// minimum transaction amount must be 10, i.e 1000 in paisa.
+           	 checkout.show({amount: {{order_obj.total}}*100});
+            }
+  
+13.
+user account pays to Merchat account
+When user pays you can see Object in console and this information is required to verify your trnasaction.
+
+Verification request:
+So to verify your transaction you need to send post request (method: POST) to our backend
+to this url(url: https://khalti.com/api/v2/payment/verify/)
+with authorization header your secert key Key ...  headers:Authorization:<secret key>
+and payload token amount
+
+If this information matches with the payment request made earlier then paymeant is verified.
+So if paymeant is successfull after sending post request we get Verification response else if error occurs we get I valid Token.
+
+Since we receive information of post request in console(frontend) but we need it in out backend and process the post request to our url.
+So
+
+
+14. 
+In kahlti.html:
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+onSuccess (payload) {
+                    // hit merchant api for initiating verfication
+                    axios.get("/khalti_verify/", {
+                        params: {
+                            "token": payload.token,
+                            "amount": payload.amount,
+                            "order_id": "{{order_obj.id}}",
+                        }
+                    }).then(function(resp){
+                        console.log(resp)
+                    })
+                    console.log(payload);
+
+                },
+
+
+
+15.
+In views.py
+
+
+Now when you pay from kahlti this appears in console :
+{idx: "BpnNfXzKukaFuGq3ZAzF7E", token: "4Y9Tqhy2rJwWjueWhgFJhK", amount: 18000, mobile: "98XXXXX056", product_identity: "order_38", …}
+?order_id=38:34 {success: true}
+because of this:
+then(function(resp){
+                        console.log(resp.data)
+                    })
+
+16.
+Now payement verification process:
+In payement verification process we need to send post request to this url:https://khalti.com/api/v2/payment/verify/
+In doumentation copy and paste python code:
+
+so
+pip install request:
+
+
+then in views.py:
+
+import requests
+url = "https://khalti.com/api/v2/payment/verify/"
+payload = {
+  "token": "QUao9cqFzxPgvWJNi9aKac",
+  "amount": 1000
+}
+headers = {
+  "Authorization": "Key test_secret_key_f59e8b7d18b4499ca40f68195a846e9b"
+}
+
+response = requests.post(url, payload, headers = headers)
+
+
+i.e:
+import requests
+
+class KhaltiVerify(View):  # view that will verify the payment process(avoid illigel activity)
+    def get(self, request, *args, **kwargs):
+        token = request.GET.get("token")
+        amount = request.GET.get("amount")
+        order_id = request.GET.get("order_id")
+        # print(token, amount, order_id)
+
+        url = "https://khalti.com/api/v2/payment/verify/"
+        payload = {
+            "token": token,
+            "amount": amount
+        }
+        headers = {
+            "Authorization": "test_secret_key_cf7256d62bfe461d8fcab8209e020766"
+        }
+
+        order_obj = Order.objects.get(id=order_id)
+
+        response = requests.post(url, payload, headers = headers)
+        print(response)
+
+        data = {
+            "success": True
+        }
+        return JsonResponse(data)
+
+
+17.
+Now success response and failure response.
+
+
+
+
+
+
+
+
+
+
+
+
+

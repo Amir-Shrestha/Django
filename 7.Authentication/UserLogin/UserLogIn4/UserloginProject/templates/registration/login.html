@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+    <h1>LogIn Form !</h1>
+    <form  method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <button type="submit"> LogIn </button>
+    </form>
+</body>
+</html>

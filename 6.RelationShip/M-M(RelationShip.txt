@@ -1,0 +1,50 @@
+
+class  Interest(models.Model):
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.title
+
+
+class  Person(models.Model): #ManyToMany_with_Interest
+    name = models.CharField(max_length=200)
+    mobile = models.CharField(max_length=20)
+    interest_obj = models.ManyToManyField(Interest) # *** # a Person can have many Interest and a Interest can be assigned to many Person
+
+    def __str__(self):
+        return self.name
+
+
+
+# # M-M
+# Create and Save
+# sport = Interest(title="Sports")
+# sport.save()
+# art = Interest(title="Art")
+# art.save()
+# study = Interest(title="Study")
+# study.save()
+
+# person_1 = Person(name="Ram", mobile=123123123)
+# person_1.save()
+# person_2 = Person(name="Hari", mobile=123123123)
+# person_2.save()
+# person_3 = Person(name="John", mobile=123123123)
+# person_3.save()
+# person_4 = Person(name="Sita", mobile=123123123)
+# person_4.save()
+# person_5 = Person(name="Gita", mobile=123123123)
+# person_5.save()
+# person_6 = Person(name="Rita", mobile=123123123)
+# person_6.save()
+
+# person_1.interest_obj.add(sport)
+# person_2.interest_obj.add(art)
+# person_3.interest_obj.add(study)
+# person_4.interest_obj.add(study)
+# person_5.interest_obj.add(art)
+# person_6.interest_obj.add(sport)
+
+# person_6.interest_obj.create(title="Fashion")
+
+#Fetech

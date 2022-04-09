@@ -1,0 +1,97 @@
+{% extends 'events_app/base.html' %}
+{% load static %}
+
+
+
+{% block title %} DashBoard {% endblock title %}
+
+
+
+{% block msg %}
+    {% if messages %}
+        {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show mb-5 mt-5" {% endif %}>
+                <strong> {{message}} </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock msg %}
+
+
+
+{% block profile %}
+    <div class="col-sm-2 my-5 text-center " >
+        <h2 class=" my-3"> DashBoard </h2>
+        <div class="border-right border-warning h-100">
+        <div class="text-center">
+            <img src="{{profile.profile_img.url}}" alt="User Photo" class="image-fulid rounded-circle" height="130px" width="130px"/>
+            {% comment %} {{profile.profile_img.url}} {% endcomment %}
+        </div>
+        <h4>User : {{user}}</h4>
+        <hr class="border-light" />
+        <nav class="nav flex-column text-center">
+            <a href="{% url 'profile' user.id %}" class="btn btn-success mt-2">Profile</a>
+            <a href="/dashboard" class="btn btn-success mt-2"> Posts List</a>
+            <a href="/create_event" class="btn btn-success mt-2">Create a Post</a>
+            {% if usertype == "admin" %}
+                <a href="/authorlist" class="btn btn-success mt-2">Authors List</a>
+            {% endif %}
+        </nav>
+        </div>
+    </div>
+{% endblock profile %}
+
+
+
+{% block content %}
+    <div class="col-sm-10">
+
+        <br>
+        <br>
+        <h4 class="text-center alert alert-info mt-4">Events Detials</h4>
+
+        {% if events %}
+        <div class="container table-responsive" style="height:400px;">
+            <table class="table table-hover bg-white " data-spy="scroll" data-offset="0" >
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col" style="width:2%">ID</th>
+                        <th scope="col" style="width:2%">Author</th>
+                        <th scope="col" style="width:28%">Title</th>
+                        <th scope="col" style="width:55%">Description</th>
+                        <th scope="col" style="width:15%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <th scope+"row">{{event.event_id}}</th>
+                        <td>{{event.author}}</td>
+                        <td>{{event.title}}</td>
+                        <td>{{event.description}}</td>
+                        <td class="text-center">
+
+                            <a href="{% url 'update_event' event.event_id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'event' event.event_id %}" class="btn btn-info btn-sm">View</a>
+                            {% comment %} <a href="{% url 'delete_event' event.event_id %}" class="btn btn-danger btn-sm">Delete</a> {% endcomment %}
+
+                            {% if perms.events_app.delete_post %}
+                                <form action="{% url 'delete_event' event.event_id %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                                </form>
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+    </div>
+{% endblock content %}

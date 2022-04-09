@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" {% static 'events_app/css/bootstrap.css'  %} "> <!-- BootStrap Css -->
+    <link rel="stylesheet" href=" {% static 'events_app/css/style.css'  %} "> <!-- Custome Css -->
+    <title>
+        {% block title %} {% endblock title %}
+    </title>
+</head>
+<body>
+
+    <div class="cointainer-fluid bg-dark">
+        {% include 'events_app/navbar.html' %}
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12">
+                {% block msg %} {% endblock msg %}
+            </div>
+        </div>
+        <div class="row">
+            {% block profile %} {% endblock profile %}
+            {% block content %} {% endblock content %}
+        </div>
+    </div>
+
+    <script src="{% static 'events_app/js/jquery.js' %}"></script>
+    <script src="{% static 'events_app/js/popper.js' %}"></script>
+    <script src="{% static 'events_app/js/bootstrap.js' %}"></script>
+
+</body>
+</html>

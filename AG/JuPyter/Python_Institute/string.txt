@@ -1,0 +1,284 @@
+#String : https://www.programiz.com/python-programming/string
+
+print(end='\n') => print()
+print(end='')
+
+
+In-Built Function for String:
+len()
+enumerate()
+format()
+upper()
+lower()
+split()
+join()
+find()
+replace()
+strip()
+min()
+isalpha()
+index()
+count()
+capitalize()
+str()
+swapcase()
+title()
+:  ====> slice_Operator
+
+
+# using triple quotes
+print('''He said, "What's there?"''')
+Output :
+He said, "What's there?"
+
+# escaping single quotes
+print('He said, "What\'s there?"')
+Output :
+He said, "What's there?"
+
+# escaping double quotes
+print("He said, \"What's there?\"")''He said, "What's there?"''')
+Output :
+He said, "What's there?"
+
+
+
+
+
+
+
+Here is a list of all the escape sequences supported by Python.
+
+Escape Sequence	Description
+\newline	Backslash and newline ignored
+\\		Backslash
+\'		Single quote
+\"		Double quote
+\a		ASCII Bell
+\b		ASCII Backspace
+\f		ASCII Formfeed
+\n		ASCII Linefeed
+\r		ASCII Carriage Return
+\t		ASCII Horizontal Tab
+\v		ASCII Vertical Tab
+\ooo		Character with octal value ooo
+\xHH		Character with hexadecimal value HH
+
+
+
+
+Here are some examples:
+
+>>> print("C:\\Python32\\Lib")
+C:\Python32\Lib
+
+>>> print("This is printed\nin two lines")
+This is printed
+in two lines
+
+>>> print("This is \x48\x45\x58 representation")
+This is HEX representation
+
+
+
+Raw String to ignore escape sequence:
+>>> print("This is \x61 \ngood example")
+This is a
+good example
+>>> print(r"This is \x61 \ngood example")
+This is \x61 \ngood example
+
+
+
+
+
+str = 'JAVATPOINT'  
+print(str[-1])  
+print(str[-3])  
+print(str[-2:])  
+print(str[-4:-1])  
+print(str[-7:-2])  
+# Reversing the given string  
+print(str[::-1])  
+print(str[-12])  
+
+
+Output:
+
+T
+I
+NT
+OIN
+ATPOI
+TNIOPTAVAJ
+IndexError: string index out of range
+
+
+
+
+
+
+
+
+
+
+Example 1 :
+str = "HELLO"    
+str[0] = "h"    
+print(str)  
+  
+Output:
+Traceback (most recent call last):
+  File "12.py", line 2, in <module>
+    str[0] = "h";
+TypeE
+
+
+
+Example 2:
+str = "HELLO"    
+print(str)    
+str = "hello"    
+print(str)    
+
+Output:
+HELLO
+hello  
+
+
+
+Deleting the Stringstr = "JAVATPOINT"  
+del str[1]  
+Output:
+TypeError: 'str' object doesn't support item deletion
+
+
+
+Now we are deleting entire string.
+
+str1 = "JAVATPOINT"  
+del str1  
+print(str1)  
+Output:
+
+NameError: name 'str1' is not defined
+
+
+
+
+
+	
+print("Python1 \
+Python2 \
+Python3")
+Output:
+Python1 Python2 Python3
+
+
+
+#Specifying stride on a string :
+Till now we have used indexing that involves string[start_index : final_index]. We have another variant of string indexing that involves third variable called as step_size or stride. step_size indicates the number of characters to skip before retriving another character
+
+str3 = '0123456789'
+print(str3[0:10])
+print(str3[0:9])
+print(str3[0:-1])
+​
+Output:
+0123456789
+012345678
+012345678
+4
+
+
+
+
+str3 = '0123456789'
+# print(str3[0:10:0])
+print(str3[0:10:1])
+print(str3[0:10:2])
+print(str3[0:10:3])
+print(str3[0:10:4])
+
+Output:
+0123456789
+02468
+0369
+048
+
+
+
+
+Interpolating Variables to a string
+Starting from python 3.6, new string formatting was introduced. One simple feature of this is, you can use variable straight away as variable interpolation. You can specify variable name sirectly in string literal and python will replace with corresponding value.
+
+x = 1
+y = 2
+print('Value of x is:', x, 'value of y is:', y)
+print('Value of x is: {}, {}'.format(x, y))
+print('Value of x is: {x}')
+print(f'Value of x is: {x}')
+
+
+Output :
+Value of x is: 1 value of y is: 2
+Value of x is: 1, 2
+Value of x is: {x}
+Value of x is: 1
+
+
+
+
+
+
+
+
+ +  ====> concatinate
+ ,  ====> Interpolating Variables to a string
+
+
+
+# String Formatting:
+language = 'Python'
+print(f'I am learning {language}')
+print('I am learning', language)
+print('I am learning {}'.format(language))
+print('I am learning', language)
+# Output:
+I am learning Python
+
+
+age = 36
+txt = "My name is John, and I am {}"
+print(txt.format(age))
+
+
+
+
+str2 = '0123456789'
+str2 = str2[3:-3]
+print(str2)
+Output:
+3456
+
+
+str2 = '0123456789'
+str2 = str2[3:9:2]
+print(str2)
+Output:
+357
+
+
+str2 = '0123456789'
+str2 = str2[9:3:-2]
+print(str2)
+Output:
+975
+
+
+str2 = 'Programming'
+str2 = str2[::-1]
+print(str2)
+# str2 = str2[start:end:step]
+
+

@@ -1,0 +1,57 @@
+Form_API               =====>  forms.Form, forms.ModelForm, AuthenticationForm, UserCreationForm, forms.DateInput
+FormClass conatins of ======>  attributes(incase of forms.Form and customizing other forms(modelform, defaultform)), metaclass
+attributes of Meta_class of FormClass =====>  model, fields, labels, widgets
+
+
+ModelForm 	   -> contact_form = ContactForm(request.POST)				 #if request.method == "POST"
+ModelForm 	   -> product_form = ProductForm(request.POST, request.FILES) 		 #if request.method == "POST" and Upload files  ==> <form enctype="multipart/form-data">
+AuthenticationForm -> login_form = UserLogInForm(request=request, data=request.POST)     #if request.method == "POST" and inheritate default django form (AuthenticationForm) ==> if request.method == "GET" :login_form = UserLogInForm(reques)
+
+
+
+Include all fiedls of ModelClass in ModelForm:
+class ModelFormName(forms.ModelForm):
+    class Meta:
+        model = ModelClassName
+	fields = "__all__"
+
+
+Include selective fiedls of ModelClass in ModelForm:
+class ModelFormName(forms.ModelForm):
+    class Meta:
+        model = ModelClassName
+	fields = ["field_name_1", "field_name_2", "field_name_3", "field_name_4", "field_name_5"]   ---> i.e: field_name <=> ModelClass_attributes/property
+
+
+Include all fiedls of ModelClass in ModelForm except mentioned:
+class ModelFormName(forms.ModelForm):
+    class Meta:
+        model = ModelClassName
+	exclude = ["field_name_1", "field_name_2"] 
+
+
+
+
+Here;
+2.1 forms.Form
+3.1. forms.ModelForm with ModelFields
+3.2. forms.ModelForm with Upload_Files and ModelFields
+3.3. forms.ModelForm with ModelFields and CustomeFields and UploadFiles
+4.1. DjangoBuitInForm AuthenticationForm
+4.2. Using CustomizedForm Inheritating DjangoBuitInForm AuthenticationForm
+5.1 DjangoBuitIn UserCreationForm
+5.2 Customized UserCreationForm with crispy form
+
+
+
+
+Form_API               =====>  forms.Form, forms.ModelForm, AuthenticationForm, UserCreationForm, forms.DateInput
+FormClass conatins of ======>  attributes(incase of forms.Form and customizing other forms(modelform, defaultform)), metaclass
+attributes of Meta_class of FormClass =====>  model, fields, labels, widgets
+
+
+
+
+
+Formclass attributesfieldtypes  vs widgetsfieldtypes.
+

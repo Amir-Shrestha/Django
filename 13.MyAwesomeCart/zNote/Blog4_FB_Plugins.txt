@@ -1,0 +1,52 @@
+Now what if we could do some comment using fb account
+So we can do this using FB_Comment_Plugins.
+Fb say's: That we have lots of user. So we will allow you to use our fb_comment_plugins in your websites. Because of this our user(fb_user) can comment in your website.
+
+So
+Got to url : https://developers.facebook.com/docs/plugins/comments/
+Click on Comments Plugin Configurator.
+Add url of your website in : URL to comment on :
+As currently we are working on our web_project so our url is : http://127.0.0.1:8000/blog/blogPost/3 but when we deploy and host our website in server we wil add real url of our website.
+But for now lets put our dummy url.
+And give number of post :
+
+Now click on Get Code : Following will appear,
+Step 1: Include the JavaScript SDK on your page once, ideally right after the opening body tag.
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0" nonce="qh0xQPru"></script>
+Step 2: Place this code wherever you want the plugin to appear on your page.
+<div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogPost/3" data-width="" data-numposts="5"></div>
+
+Here Copy and paste Folowing code in basic.html just before closig head tag </head> :
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0" nonce="qh0xQPru"></script>
+</head> 
+
+
+And Copy and paste foloing code where you want comment section in your website : in post.html
+<div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogPost/3" data-width="" data-numposts="5"></div>
+i.e
+
+<div class="blog-post">
+                <h2 class="blog-post-title"> {{ post.head }} </h2>
+                <img src="/media/{{ post.thumbnail }}" alt="" height="250px" width="300px">
+                <p class="card-text mb-auto"> {{ post.content }} </p>
+                <p class="blog-post-meta"> {{ post.publish_date }}  by <a href="#">CodeWithHarry</a></p>
+                <div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogPost/3" data-width="" data-numposts="5"></div>
+            </div><!-- /.blog-post -->
+
+
+
+Now make each posts comment_has_its_own_unique_session_like.
+
+So,
+<div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogPost/3" data-width="" data-numposts="5"></div>
+
+To,
+<div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogPost/{{ post.post_id }}" data-width="" data-numposts="5"></div>
+
+
+
+Now write comment,delete or see in blog posts.
+
+
+

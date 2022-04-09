@@ -1,0 +1,45 @@
+https://www.youtube.com/watch?v=RhJIMUMJ_Do&ab_channel=TheNetNinja
+
+
+# 1
+folder name should always be static. (predefine)
+
+# 2
+STATIC_URL = '/static_route/' (userdefine)
+http://127.0.0.1:8000/static_route/core/images/amira.jpg
+
+File structure : 2.Resume_Project/core/static/core/images/amira.jpg
+
+# 3
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')   (userdefine)
+static_assets : folder where dajngo will stored all collected static files in root directory for deployment.
+
+# 4
+
+{% load static %}
+    <link rel="stylesheet" href="{% static 'core/css/core.css' %}" /> 
+
+Question : 
+In setting.py STATIC_URL refers to STATIC_ROOT(static folder in root of project) folder.
+But
+How does STATIC_URL refers to the app_static_folder with randome name given to this folder?
+This is because we should always give app static folder name as static. always clear browser history and runserver again when change made in static files.
+
+If you you pust folder name static first and change it later but also it works untill you clear browser history and runserver agaia.
+
+
+
+
+
+# 3
+if delpoy static files in cloud cervices
+STATIC_ROOT = "/var/www/example.com/static" (host)
+
+if delpoy static files in local server
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
+
+
+Note:
+Static files are part of your application code, while media is for generated content by your application or users of your application.
+
+

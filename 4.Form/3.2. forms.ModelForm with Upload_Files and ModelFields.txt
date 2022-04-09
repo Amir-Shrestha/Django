@@ -1,0 +1,60 @@
+urls.py:
+path('admin_add_product/', views.admin_add_product, name="admin_add_product"),
+
+
+views.py:
+def admin_add_product(request):
+    if request.user.is_authenticated and Admin.objects.filter(user=request.user).exists():
+        if request.method=='POST':
+            product_form = ProductForm(request.POST, request.FILES)
+            if product_form.is_valid():
+                product_form.save()
+                return redirect("admin_products_table")
+            else:
+                print("Not Valid!")
+        product_form = ProductForm()
+        params = {"product_form":product_form}
+        return render(request, "admin/admin_add_product.html", params)
+    else:
+        return redirect("/admin_login/")
+
+
+#3.ModelForm Upload_Files(image)*************************************************************************************************************************************
+forms.py:
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ["title", "slug", "marked_price", "selling_price", "desciption", "warranty", "return_policy", "image", "category"]
+        widgets = {'title':forms.TextInput(attrs={'class':'form-control'}),
+                   'slug':forms.TextInput(attrs={'class':'form-control'}),
+                   'marked_price':forms.TextInput(attrs={'class':'form-control'}),
+                   'selling_price':forms.TextInput(attrs={'class':'form-control'}),
+                   'desciption':forms.TextInput(attrs={'class':'form-control'}),
+                   'warranty':forms.TextInput(attrs={'class':'form-control'}),
+                   'return_policy':forms.TextInput(attrs={'class':'form-control'}),
+                    }
+
+
+models.py:
+class Product(models.Model):  # M-N
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,  null=True, blank=True)
+    image = models.ImageField(upload_to="products_folder")
+    marked_price = models.PositiveIntegerField()
+    selling_price = models.PositiveIntegerField()
+    desciption = models.TextField()
+    warranty = models.CharField(max_length=300, null=True, blank=True)
+    return_policy = models.CharField(max_length=300, null=True, blank=True)
+    view_count = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.title
+
+
+template:
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{product_form.as_p}}
+                    <button class="btn btn-info">Add Product</button>
+                </form>

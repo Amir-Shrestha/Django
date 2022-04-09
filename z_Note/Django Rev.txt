@@ -1,0 +1,35 @@
+
+For apps ===> python manage.py makemigrations ==> generate files that holds database realted information
+
+urls->views->(templates/models)
+
+
+In view method :
+return HttpResponse('Hello Wolrd !')
+return render(request, 'blog\index.html', {'params':params_obj})
+return redirect(request, 'url_name')
+
+params={'count':'ok', 'purpose':'bye'}
+return render(request,'index.html',params)
+
+
+
+from django.http import HttpResponse
+from django.shortcuts import render
+
+
+Html file ==> directory ==> /
+python file ==> directory ==> \
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['templates'],
+     }
+	     ]
+
+
+
+{{count}}
+{{purpose}}

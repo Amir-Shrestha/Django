@@ -1,0 +1,191 @@
+Static files : css, javascripts, images, fonts, text_file.txt : files that doesnt chnage very often
+
+By default django provides us staticfiles app to manage and implement static files.
+INSTALLED_APPS = [
+    'django.contrib.staticfiles',
+]
+
+Here we will talk about :
+STATIC_URL, load static, STATICFILES_DIRS, STATIC_ROOT 
+
+
+
+
+
+...........................................................................................................................
+
+
+
+
+
+create static folder inside app
+create css and js folder inside static folder and download and place css,js,jquery,popper.
+
+
+# 1
+Create static folder inside app,
+Create sub folder inside static folder,
+Blog
+   static
+       blog_app
+	  css : bootstrap.css, style.css
+	  js  : bootstrap.js, jquery.js, popper.js
+
+Note : Folder name should always be static. (predefine)
+
+
+
+# 2
+Using static files in templates:
+Load and write urL of static files
+i.e
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+
+
+
+
+
+# 3
+In setting.py
+
+
+
+# 3.1
+STATIC_URL = '/static_route/' (userdefine)
+But by default when we create project,
+STATIC_URL = '/static/' (predefine) 
+
+http://127.0.0.1:8000/static_route/core/images/amira.jpg
+http://127.0.0.1:8000/static/core/images/amira.jpg
+http://127.0.0.1:8000/STATIC_URL /core/images/amira.jpg
+
+File structure : Blog/static/blog/(css, js, images)
+
+
+
+
+# 3.2
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')   (userdefine)
+static_assets : folder where dajngo will stored all collected static files in root_directory(BASE_DIR) for deployment.
+
+cmd : python manage.py collectstatic
+
+
+Question : 
+In setting.py STATIC_URL refers to STATIC_ROOT(static folder in root of project) folder.
+But
+How does STATIC_URL refers to the app_static_folder with randome name given to this folder?
+This is because we should always give app static folder name as static. always clear browser history and runserver again when change made in static files.
+
+If you you pust folder name static first and change it later but also it works untill you clear browser history and runserver agaia.
+
+
+if delpoy static files in cloud cervices
+STATIC_ROOT = "/var/www/example.com/static" (host)
+
+if delpoy static files in local server
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
+
+
+
+........................................................................................................................
+
+Create static folder inside app,
+Create sub folder inside static folder,
+Blog
+   static
+       blog_app
+	  css : bootstrap.css, style.css
+	  js  : bootstrap.js, jquery.js, popper.js
+
+Note : Folder name should always be static. (predefine)
+
+
+
+
+Project
+   App1
+      static_directory
+   App2
+      static_directory
+   App3
+      static_directory
+   App4
+      static_directory
+   static
+
+
+
+cmd : python manage.py collectstatic
+Look inside every apps in Projects and Collect static_directory of each of the app in porject and store them in a single containner(one directory).
+And what is that single containner(one directory)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
+STATIC_ROOT : root that conatians all of the static files
+where all static_directory gets collected <==> STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
+
+
+But are there any other static_directory beside inside apps?
+Here comes the use of STATICFILES_DIRS, which keeps track/list of other static_directory inside our project beside inside apps
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/var/www/static/',
+]
+Finally also collect STATICFILES_DIRS inside STATIC_ROOT with app_namespacing when we run python manage.py collectstatic.
+i.e
+Project
+    static_assets
+	App1 : css, js, images
+	App2 : css, js, images
+	App3 : css, js, images
+	App4 : css, js, images
+	 
+
+STATIC_URL = '/static_route/' (userdefine)
+url_route that appear in url bar
+http://127.0.0.1:8000/static_route/blog_app/css/style.css
+
+
+Using static files in templates:
+Load and write urL of static files
+i.e
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+
+
+........................................................................................................................
+
+
+
+
+
+Note:
+Static files are part of your application code, while media is for generated content by your application or users of your application.
+
+............................................................................
+
+
+
+Extra
+In setting.py :
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR) <==> C:\Django\SpecialOccasionSystem\SOS
+Our Root/Main project location/directory
+
+
+.....................................................................................................
+
+
+
+https://www.youtube.com/watch?v=w9F9k-JHvcQ&ab_channel=JaradPython
+
+

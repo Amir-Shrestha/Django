@@ -1,0 +1,78 @@
+urls.py:
+path('customer_register/', views.customer_register, name="customer_register"),
+
+views.py:
+def customer_register(request):
+    # if login as admin or user not show this
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            signup_form = CustomerRegistrationForm(request.POST, request.FILES)
+            if signup_form.is_valid():
+                username1 = signup_form.cleaned_data.get("custome_username")
+                if User.objects.filter(username=username1).exists():
+                    return HttpResponse("Customer with this username already exists !")
+                password1 =  signup_form.cleaned_data["custome_password"]
+                email1 =  signup_form.cleaned_data.get("custome_email")
+                django_user = User.objects.create_user(username1, email1, password1)
+
+                full_name1 =  signup_form.cleaned_data.get("full_name")
+                address1 =  signup_form.cleaned_data.get("address")
+                country1 =  signup_form.cleaned_data.get("country")
+                citizenship_front1 =  signup_form.cleaned_data.get("citizenship_front")
+                citizenship_back1 =  signup_form.cleaned_data.get("citizenship_back")
+                customer = Customer(full_name=full_name1, address=address1, country=country1, citizenship_front=citizenship_front1, citizenship_back=citizenship_back1)
+                customer.user = django_user
+                customer.save()
+                user = authenticate(username=username1, password=password1)
+                if user is not None:
+                    login(request, user)
+                    return HttpResponseRedirect("/")
+
+        signup_form = CustomerRegistrationForm()
+        return render(request, 'customer_register.html', {'signup_form':signup_form})
+
+    elif  request.user.is_superuser:
+        return HttpResponseRedirect('/admin_all_orders/')
+
+    else:
+        return HttpResponseRedirect('/customer_profile/')
+
+
+#4.ModelForm with CustomeFields(custome_username, custome_password, custome_email) and ModelFields(full_name, address, country, citizenship_front, citizenship_back) *************************************************************************************************************
+forms.py:
+class CustomerRegistrationForm(forms.ModelForm):
+    custome_username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter Your Username'}))
+    custome_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Enter Your Password'}))
+    custome_email = forms.CharField(widget=forms.EmailInput(attrs={'class':'form-control', 'placeholder':'Enter Your Email'}))
+    class Meta:
+        model = Customer
+        fields = ["full_name", "address", "country", "citizenship_front", "citizenship_back"]
+        labels = {'full_name':'Full Name', 'address':'Address', 'country':'Country', 'citizenship_front':'Citizenship Front', 'citizenship_back':'Citizenship Back'}
+        widgets = {'full_name':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter Your Name'}),
+                   'address':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter Your Address'}),
+                   'country':forms.TextInput(attrs={'class':'form-control', 'placeholder':'Enter Country Name'}),
+                    }
+
+
+
+models.py:
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=200)
+    address = models.CharField(max_length=200, null=True, blank=True)
+    country = models.CharField(max_length=200, null=True, blank=True)
+    citizenship_front = models.ImageField(upload_to="customer_citizenship", null=True, blank=True)
+    citizenship_back = models.ImageField(upload_to="customer_citizenship", null=True, blank=True)
+    joined_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name
+
+
+template:
+	<form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{signup_form.as_p}}
+              <button class="btn" style="color:white; background-color:black;">Register</button>
+        </form>
+

@@ -1,0 +1,18 @@
+virtualenv virenv
+virenv/Scripts/activate
+pip install django
+django-admin startproject UserRegister
+django-admin startapp UserRegister1
+
+INSTALLED_APPS = [ 'UserRegister1', ]
+
+TEMPLATES = [ {  'DIRS': [BASE_DIR/"templates"], }, }, ]
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('UserRegister1.urls')),
+]
+
+python manage.py runserver
+python manage.py migrate
+python manage.py createsuperuser

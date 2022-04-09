@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}All Products{% endblock title %}
+
+{% block content %}
+    <div class="container"> <!-- container div -->
+        <h1>Welcome to our Ecommerece Websites All Products Pages !</h1><hr>
+        {% for category in categories %}
+            <div class="row mx-4">  <!-- category div -->
+                <h4>{{category.title}}</h4>   <!-- category title -->
+                {% for product in category.product_set.all %}  <!-- # Fetching data using reverse relationhip -->
+                    <div class="col-md-3 bg-warning cart" style="text-align:center;"> <!-- category product div -->
+                            <h3 class="mt-4">{{ product.title|slice:"0:12" }}</h3>
+                            <img src="{{ product.image.url }}" alt="" style="height:200px; width:200px;">
+                            <p class="mt-3 mb-4">Price: <strike>Rs. {{product.marked_price}}</strike> Rs. {{product.selling_price}} </strike></p>
+                            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add To Cart</a>
+                            <a href="{% url 'a_product' product.slug %}" class="btn btn-info">View Product</a>
+                        {% comment %} </div> {% endcomment %}
+                    </div>
+                {% endfor %}
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+{% endblock content %}
+
+
+

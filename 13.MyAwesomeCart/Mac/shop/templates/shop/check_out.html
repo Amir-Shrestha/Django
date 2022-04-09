@@ -1,0 +1,94 @@
+{% extends 'shop/basic.html' %}
+
+{% block title%} Checkout - My Awesome Cart{% endblock %}
+
+{% block body %}
+
+<div class="container ">
+
+    <div class="col my-4 mt-5 ">
+    <br>
+        <h2>Step 1 - My Awesome Cart Express Checkout - Review Your Cart Items</h2>
+        <div class="my-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">S.N</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Rate</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">SubTotal</th>
+                    </tr>
+                </thead>
+                <tbody id="items">
+                </tbody>
+            </table>
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <i><b><u>Total Price:</u> Rs.<span id="totalPrice1"></span></b></i>
+                    </li>
+                </ol>
+            </nav>
+            <form action="{% url 'make_order' %}" method="GET">
+                {% csrf_token %}
+                <input type="hidden" name="itemsJson" id="itemsJson">
+                <input type="hidden" name="totalPrice2" id="totalPrice2">
+                <button type="submit">Make Order</button></a>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block js %}
+
+<script>
+
+if (localStorage.getItem('cartstorage') == null) {
+    var cartobj = {};
+} else {
+    cartobj = JSON.parse(localStorage.getItem('cartstorage'));
+}
+
+var sum = 0, totalPrice = 0;
+
+if ($.isEmptyObject(cartobj)) {
+    //if object is empty
+    mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+    $('#items').append(mystr);
+} else {
+    let x = 0
+    for(item in cartobj){
+        x+=1;
+        let name = cartobj[item][1];
+        let qty = cartobj[item][0];
+        let itemPrice = cartobj[item][2];
+        sum += qty;
+        totalPrice += qty*itemPrice
+        mystr = `<tr><td>${x}</td><td>${name.slice(0,30)}</td><td>${itemPrice}</td><td><span class="badge badge-primary badge-pill">${qty}</span></td><td>Rs.${itemPrice*qty}</td></tr>`
+        $('#items').append(mystr);
+    }
+}
+document.getElementById('mycart').innerHTML = sum;
+document.getElementById('totalPrice1').innerHTML = totalPrice;
+
+
+$('#itemsJson').val(JSON.stringify(cartobj));
+$('#totalPrice2').val(totalPrice)
+
+
+</script>
+
+{% endblock %}
+

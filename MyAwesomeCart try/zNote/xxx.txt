@@ -1,0 +1,83 @@
+product = Product.objects.get(id=pro_id) //its not iterable
+    print(product)
+    print(type(product))
+    print(product.product_id)
+    print(product.product_name)
+    print(product.category)
+    print(product.sub_category)
+    print(product.price)
+    print(product.desciption)
+    print(product.publish_date)
+
+
+Output :
+Jiban ek katha
+<class 'shop.models.Product'>
+<class 'django.db.models.fields.AutoField'>
+Jiban ek katha
+Book
+Dicta mollit et cillum qui quasi optio Nam labori
+600
+Unde doloremque a sed voluptate
+2021-05-09
+
+
+
+
+
+
+
+
+
+product = Product.objects.filter(id=pro_id) //this is QuerySet
+    print(product)
+    print(type(product))
+
+Output :
+<QuerySet [<Product: Jiban ek katha>]>
+<class 'django.db.models.query.QuerySet'>
+
+
+
+
+
+
+product = Product.objects.get(id=pro_id) //this is not QuerySet
+    print(product)
+    print(type(product))
+
+Output :
+Jiban ek katha
+<class 'shop.models.Product'>
+
+
+
+
+
+
+product = Product.objects.filter(id=pro_id)
+    print(product)
+    print(type(product))
+    print(product[0].product_name)
+
+Output :
+<class 'django.db.models.query.QuerySet'>
+Gate
+9
+
+
+filter gives ==> list_of_Object and list_of_Object doesnt have attributes instead object inside list_of_Object  has attributes so we have to identify the object first using index fromlist_of_Object and call attributes.
+
+
+product = Product.objects.filter(id=pro_id) ==> <class 'django.db.models.query.QuerySet'>
+print(product.product_name) ==> not allow
+print(product[0].product_name) ==> allow
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,195 @@
+In shop/templates/shop/basic.html
+{% block js %} {% endblock %}
+
+In shop/templates/shop/index.html
+
+
+
+
+
+<!--javascript block-->
+{% block js %}
+
+<script>
+    console.log('Working !')
+    if(localStorage.getItem('cart') == null)     <!-- if cart is empty dont load cart -->
+    {
+        var cart = {};
+    }
+    else
+    {
+        cart = JSON.parse(localStorage.getItem('cart'));    <!-- if cart exist or has item load it  -->
+    }
+<!--JQuery-->
+    $('.cart').click    <!-- select_cart_class ==> $('.cart') and when click_in_that_class run function -->
+    (
+        function()
+            {
+                console.log('Clicked to Add item to cart');
+            }
+    );
+</script>
+
+{% endblock %} %}
+
+
+
+
+
+
+
+Now In index.html
+Give class name as "cart" to all the Add to cart button.
+
+<a href="#" class="btn btn-primary "> Add Cart </a>
+
+To
+
+<a class="btn btn-primary cart"> Add Cart </a>
+
+
+Now when ever you click at Add to cart button you see :
+"Clicked to Add item to cart"
+message appear in console !
+And the number of time you click at Add to cart button you see number increasing !
+
+
+
+Now give id to those buttons so that you can define oit uniquely:
+<a class="btn btn-primary cart" id="pr{{product.0.id}}" > Add Cart </a>
+<a class="btn btn-primary cart" id="pr{{i.id}}" > Add Cart </a>
+
+
+Now as soon as clicked at Add to cart button  get id od that button and store it in id1 js_variable and print id1_value in console:
+
+var id1 = this.id.toString();
+console.log(id1);
+
+
+i.e :
+<!--JQuery-->
+    $('.cart').click    <!-- select_cart_class ==> $('.cart') and when click_in_that_class run function -->
+    (
+        function()
+            {
+                console.log('Clicked to Add item to cart');
+                var id1 = this.id.toString();
+                console.log(id1);
+            }
+    );
+
+
+
+
+
+Output :
+Working !
+(index):454 Clicked to Add item to cart
+(index):456 pr9
+(index):454 Clicked to Add item to cart
+(index):456 pr10
+(index):454 Clicked to Add item to cart
+(index):456 pr11
+(index):454 Clicked to Add item to cart
+(index):456 pr12
+(index):454 Clicked to Add item to cart
+(index):456 pr11
+(index):454 Clicked to Add item to cart
+(index):456 pr10
+(index):454 Clicked to Add item to cart
+(index):456 pr9
+
+
+
+Now add it to cart:
+if(cart[idstr]!= undefined) {
+cart[idstr] = cart[idstr]+1;
+}
+else{
+cart[idstr] = 1;
+}
+console.log(cart);
+
+i.e :
+<!--JQuery-->
+    $('.cart').click    <!-- select_cart_class ==> $('.cart') and when click_in_that_class run function -->
+    (
+        function()
+            {
+                console.log('Clicked to Add item to cart');
+                var id1 = this.id.toString();
+                console.log(id1);
+
+		<!-- add to cart -->
+                if(cart[idstr]!= undefined)
+                {
+                    cart[idstr] = cart[idstr]+1;
+                }
+                else
+                {
+                    cart[idstr] = 1;
+                }
+                console.log(cart);
+            }
+    );
+
+
+Output :
+Working !
+(index):454 Clicked to Add item to cart
+(index):456 pr9
+(index):466 {pr9: 1}
+(index):454 Clicked to Add item to cart
+(index):456 pr9
+(index):466 {pr9: 2}
+(index):454 Clicked to Add item to cart
+(index):456 pr10
+(index):466 {pr9: 2, pr10: 1}
+(index):454 Clicked to Add item to cart
+(index):456 pr11
+(index):466 {pr9: 2, pr10: 1, pr11: 1}
+(index):454 Clicked to Add item to cart
+(index):456 pr11
+(index):466 {pr9: 2, pr10: 1, pr11: 2}
+(index):454 Clicked to Add item to cart
+(index):456 pr11
+(index):466 {pr9: 2, pr10: 1, pr11: 3}
+
+
+Now when you reload this page all cart data get clear so update cart to localstorage :
+====> localStorage.setItem('cart', JSON.stringify(cart));
+'cart' ==> JSON.stringify(cart)
+later parse it when to read!
+so we are storaing localStorage as a string.
+
+Now even when you reload this page cart data doesnt get clear.
+
+Note : to print message in cosole using consolelog its for testing purpose only we should remove it before we deploy our project into server.
+
+
+
+
+Summary :
+1. Add basic external JavaScript in basic.html
+2. Fill that external JavaScript in index.html
+3. Check if there is something call cart in localSrorage or not ?
+4. If not then create a empty cart/cart_variable
+5. If yes then load it and parse it using JSON.
+6. If anyone click on our .cart class then,
+      -> First give console.log('Clicked to Add item to cart') message !
+      -> Then create id1 js_variable to store id of respective button !
+      -> Then if item that the user clicked is not in the cart then make/create it 1.
+      -> But if already is in cart then add 1 on cart_item.(increament)
+      -> Then updated localStorage so that we get data even if we redload from another page we get data/localStorage
+
+
+ 
+Now this is the logic for making cart !
+
+
+
+
+
+
+
+

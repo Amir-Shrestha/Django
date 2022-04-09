@@ -1,0 +1,48 @@
+Go to https://fonts.google.com/specimen/Satisfy
+select style
+
+
+
+# 1
+base.html
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+
+
+# 2
+core.css
+   .st-font{
+       font-family: 'Satisfy', cursive;
+   }
+
+
+# 3
+home.html
+  <h1 class="font-weight-bold st-font">Hello,</h1>
+
+
+# 4
+sidebar.html
+   <h3 class="text-white mt-3 st-font">Amir Shrsetha</h3>
+
+
+
+Extra :
+
+
+.st-font{
+    font-family: 'Satisfy', cursive;
+}
+
+html, body{
+    height: 100%;
+}
+
+
+.container-fluid{
+    min-height: 100%
+}
+
+
+
+
+Finally therefore hoe page is done.

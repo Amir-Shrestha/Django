@@ -1,0 +1,93 @@
+Therefore Finally :
+Install Virtual Environment Wrapper : pip install virtualenv
+create virtual environment : virtualenv Virtual_Environment_name
+activate it : Virtual_Environment_name\Scripts\activate
+indtall django : pip install django
+start project work:
+create project work : django-admin startproject project_name
+run server : python manage.py runserver
+
+
+
+exit --> quit virtual environment in python
+
+
+
+python manage.py startproject Mac  or django-admin startproject Mac
+python manage.py startapp Blog
+python manage.py runserver
+python manage.py makemigrations 
+python manage.py migrate
+django python manage.py shell
+
+
+pip freeze
+pip freeze > package.txt
+
+
+
+
+mkdir templates --> make templates folder
+cls --> clear all 
+python index.py --> run python files
+
+
+see all python pacakges in : https://pypi.org/
+
+
+
+python --V
+pip --version
+pip -V
+python -m django --version
+
+py -m pip install --upgrade pip
+python.exe -m pip install --upgrade pip
+pip help
+pip --> install and unistall python packages
+pip install package_name
+import package_name
+pip uninstall package_name
+pip list --> list of packages installed in our system
+
+
+
+pip install django-crispy-forms
+
+pip list
+pip freeze
+pip install pillow
+python -m pip install Pillow
+python -m pip install --upgrade Pillow
+pip uninstall pillow
+
+
+deactivate  ==> deactivate virtual environment
+
+
+python manage.py runserver 127.0.0.1:8001
+
+
+
+
+
+
+
+
+
+vir_env\Scripts\activate : File C:\Users\bipin\Desktop\ClothesDonation\vir_env\Scripts\activate.ps1 cannot be loaded because running scripts is disabled on this system. For
+more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+#cmd : set-executionpolicy remotesigned
+type Y
+
+
+
+
+
+
+
+
+
+
+python manage.py shell
+

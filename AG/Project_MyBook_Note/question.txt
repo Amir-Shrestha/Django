@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <article>
+        <h1>{{ apost.text }}</h1>
+        <h3>{{ apost.author }}</h3>
+        <p>{{ apost.created_date }}</p>
+        <p>{{ apost.published_date }}</p>
+        <br>
+        <hr>
+    </article>
+    <a href="{% url '' %}" >Go Back</a>  #why comment not work on it ?
+solution :
+    <a href="/blog/" >Go Back</a>
+    <a href="/blog" >Go Back</a>
+
+If we want to go to root url use / before url.
+{% endblock %}
+
+............................................................................................................................................................................
+
+<a href=" {% url 'create_post' %} " >Add Post</a>	 ====>     path('new_post', views.create_post, name='create_post'),
+<a href="post/new" >Add Post</a>   			 ====>     path('post/new', views.create_post, name='create_post'),
+<a href="new_post" >Add Post</a>    			 ====>     path('new_post', views.create_post, name='create_post'),
+
+href="" ==> hard_code ==> difficlut at the time when we meed to update
+href="{% url %}" ==> softcode ==> not difficlut at the time when we meed to update
+ 
+............................................................................................................................................................................
+
+
+post.author = request.user
+
+................................................................................................................................................................................
+
+But  Created date ????
+
+created_date = models.DateTimeField(default=timezone.now)
+
+
+................................................................................................................................................................................
+
+post_id=post.id  VS   post_id=post.pk
+
+...............................................................................................................................................................................
+
+get_object_or_404(Post, id=post_id)   VS   apost = Post.objects.get(id=post_id) 
+
+
+...............................................................................................................................................................................
+
+
+form_value_obj  = PostForm(request.POST) ===> <class 'Blog.forms.PostForm'>   ===>    Object of PostForm_class #filled_form_with_data ????  =====>   #filled_form_with_data #object_of_PostForm_class in forms.py module
+post = form_value_obj.save(commit=False) ===> <class 'Blog.models.Post'>      ===>    Object of Post_class #creating instance of post????  =====>   #creating instance of post  #object_of_Post_class in models.py module
+
+
+
+...............................................................................................................................................................................
+
+ post = form_value_obj.save(commit=False) #creating instance of post  #object_of_Post_class in models.py module
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+
+Doesnt it creat migration ?
+
+.................................................................................................................................................................................
+
+
+from django.conf import settings
+VS
+from . import settings
+
+
+.................................................................................................................................................................................
+
+
+http://127.0.0.1:8000/media1/
+http://127.0.0.1:8000/blog/
+http://127.0.0.1:8000/shop/
+
+
+.................................................................................................................................................................................
+
+document = models.FileField(upload_to='images/')
+VS
+document = models.ImageField(upload_to='blog/images/', default="")
+
+
+.................................................................................................................................................................................
+
+Here path vs static.
+
+.................................................................................................................................................................................
+
+
+Question :
+We can create static directory inside all apps in our project.
+So after we create this media dir in our base_dir, do we use app_static directory?
+If yes for what purpose?
+static ==> store files need for website
+media  ==> store the files uploaded by user
+
+
+..........................................................................................................................................................................................
+
+

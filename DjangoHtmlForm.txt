@@ -1,0 +1,289 @@
+Form Template:
+Event Title:Sultan
+Event Description:Movie of SalmanKhan
+Event Date:2021-07-20 05:00:37
+Event Thumbnail: Screenshot (591).png
+Event Category:Entertainment
+
+
+
+
+
+Form.html:
+
+{% block content %}
+    <div class="col-sm-10">
+        <h3 class="text-white my-5">Create new post !</h3>
+        <form action="{% url 'create_event' %}" method="POST" novalidate  enctype="multipart/form-data">
+            {% csrf_token %}
+            {{new_event.as_p}}
+            <input type="submit" value="Create" class="btn btn-success">
+            <a href="{% url 'dashboard' %}" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+Form view.py =>
+
+def create_event(request):
+    # print(request.user.is_authenticated)
+    # print(request.user)
+    if request.user.is_authenticated:
+        # print(request.method=='POST')
+        if request.method=='POST':
+            # print(request.title)
+            # print(request.POST)
+            # print(request.POST.title)
+            # print(request.POST['title'])
+            # print(request.POST.get('title'))
+            events_form = EventForm(request.POST, request.FILES)
+            # print(events_form)
+            # print(events_form .is_valid())
+            # print(events_form.title)
+            # print(events_form['title'])
+            # print(events_form.cleaned_data['title'])
+            if events_form .is_valid():
+                event_title = events_form.cleaned_data['title']
+                event_description = events_form.cleaned_data['description']
+                event_date = events_form.cleaned_data['event_date']
+                event_thumbnail = events_form.cleaned_data['thumbnail']
+                event_category = events_form.cleaned_data['category']
+                new_event = Event(title=event_title, description=event_description, event_date=event_date, thumbnail=event_thumbnail, category=event_category)
+                new_event.author = request.user
+                new_event.published_date = timezone.now()
+                new_event.save()
+            else:
+                print('Not valid')
+        new_eventform  = EventForm()
+        # print(new_eventform)
+        return render(request, 'events_app/create_event.html', {'new_event':new_eventform})
+    else:
+        messages.warning(request, warning_msg)
+        return HttpResponseRedirect('/login/')
+
+
+
+
+
+Output:
+
+print(request.user.is_authenticated) <==> True
+print(request.user) <==> admin
+print(request.method) <==> POST
+print(request.method=='POST') <==> True
+print(request.title) <==> AttributeError: 'WSGIRequest' object has no attribute 'title'
+print(request.POST) <==> <QueryDict: {'csrfmiddlewaretoken': ['6qhdPGgCknnfu33qXdog1QaS9zKNsWZVblKZljK6nuMlc51kmemkTQQzDoRVGz4o'], 'title': ['Sultan'], 'description': ['Movie of SalmanKhan'], 'event_date': ['2021-07-20 05:00:37'], 'initial-event_date': ['2021-07-20 05:15:07'], 'category': ['Entertainment']}>
+print(request.POST.title) <==> AttributeError: 'QueryDict' object has no attribute 'title'
+print(request.POST['title']) <==> Sultan
+print(request.POST.get('title')) <==> Sultan
+print(events_form) <==> 
+<tr><th><label for="id_title">Event Title:</label></th><td><input type="text" name="title" value="Sultan" class="form-control" maxlength="50" required id="id_title"></td></tr>
+<tr><th><label for="id_description">Event Description:</label></th><td><input type="text" name="description" value="Movie of SalmanKhan" class="form-control" maxlength="150" required id="id_description"></td></tr>
+<tr><th><label for="id_event_date">Event Date:</label></th><td><input type="text" name="event_date" value="2021-07-20 05:00:37" class="form-control" required id="id_event_date"><input type="hidden" name="initial-event_date" value="2021-07-20 05:00:37" id="initial-id_event_date"></td></tr>
+<tr><th><label for="id_thumbnail">Event Thumbnail:</label></th><td><input type="file" name="thumbnail" accept="image/*" required id="id_thumbnail"></td></tr>
+<tr><th><label for="id_category">Event Category:</label></th><td><ul class="errorlist"><li>Select a valid choice. Entertainment is not one of the available choices.</li></ul><input type="text" name="category" value="Entertainment" class="form-control" required id="id_category"></td></tr>
+print(events_form .is_valid()) <==> False
+
+print(new_eventform) <==>
+<tr><th><label for="id_title">Event Title:</label></th><td><input type="text" name="title" class="form-control" maxlength="50" required id="id_title"></td></tr>
+<tr><th><label for="id_description">Event Description:</label></th><td><input type="text" name="description" class="form-control" maxlength="150" required id="id_description"></td></tr>      
+<tr><th><label for="id_event_date">Event Date:</label></th><td><input type="text" name="event_date" value="2021-07-20 05:24:09" class="form-control" required id="id_event_date"><input type="hidden" name="initial-event_date" value="2021-07-20 05:24:09" id="initial-id_event_date"></td></tr>
+<tr><th><label for="id_thumbnail">Event Thumbnail:</label></th><td><input type="file" name="thumbnail" accept="image/*" required id="id_thumbnail"></td></tr>
+<tr><th><label for="id_category">Event Category:</label></th><td><input type="text" name="category" class="form-control" required id="id_category"></td></tr>
+
+print(events_form['title']) <==> <input type="text" name="title" value="Sultan" class="form-control" maxlength="50" required id="id_title">
+print(events_form.cleaned_data['title'])
+
+
+
+
+print(events_form.title) <==> AttributeError: 'EventForm' object has no attribute 'title'
+print(events_form.cleaned_data['title']) <==> AttributeError: 'EventForm' object has no attribute 'cleaned_data'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#1
+events_form = EventForm(request.POST, request.FILES)
+if events_form .is_valid():
+   event_title = events_form.cleaned_data['title']
+   event_description = events_form.cleaned_data['description']
+   event_date = events_form.cleaned_data['event_date']
+   event_thumbnail = events_form.cleaned_data['thumbnail']
+   event_category = events_form.cleaned_data['category']
+   new_event = Event(title=event_title, description=event_description, event_date=event_date, thumbnail=event_thumbnail, category=event_category)
+   new_event.author = request.user
+   new_event.published_date = timezone.now()
+   new_event.save()
+
+
+
+
+#2
+events_form = EventForm(request.POST, request.FILES)
+if events_form .is_valid():
+   new_event= events_form.save(commit=False)
+   new_event.author = request.user
+   new_event.published_date = timezone.now()
+   new_event.save()
+
+
+
+
+
+
+
+
+
+
+*************************************************************************************************
+
+
+
+
+def update_event(request, event_id):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            print('*****')
+            print(request)
+            print('*****')
+            print(request.POST)
+            print('*****')
+            old_event = Event.objects.get(pk=event_id)
+            print(old_event)
+            print('*****')
+            updated_events_form = EventForm(request.POST, instance=old_event) #request.Events takes over old_Events
+            if updated_events_form.is_valid():
+                print(updated_events_form)
+                print('*****')
+                x =updated_events_form.save()
+                print(x)
+                print('*****')
+                print(x.created_date)
+                print('*****')
+                print(x.published_date)
+                messages.success(request, "Editted Succefully !!!")
+                return HttpResponseRedirect('/dashboard')
+        old_event = Event.objects.get(pk=event_id) #object of old post
+        print(old_event)
+        old_events_form = EventForm(instance=old_event) #form of object of old post with data  #old_events_form with data
+        print(old_events_form)
+        return render(request, 'events_app/update_event.html', {'old_events_form':old_events_form})
+
+    else:
+        messages.warning(request, 'You have to Login First !!!')
+        return HttpResponseRedirect('/login/')
+
+.......................................................................
+
+print(request) ==>
+<WSGIRequest: POST '/update_event/22'>
+
+print(request.POST) ==>
+<QueryDict: {'csrfmiddlewaretoken': ['cFmUTG87hpI09rDc5CT0461HXPPvxZp5rqcfsa0dwemGamvsagaOQwScknemrTTS'], 'title': ['Laptop Sales !.'], 'description': ["The $800 to $1,000 range is where you'll find the best laptop value. This amount of money can't buy you everything, but it can buy you a laptop that's"], 'event_date': ['2021-07-16 11:41:35'], 'initial-event_date': ['2021-07-16 11:41:35'], 'thumbnail': [''], 'category': ['Gadgets']}>
+
+old_event = Event.objects.get(pk=event_id)
+print(old_event) ==>
+Laptop Sales !
+
+updated_events_form = EventForm(request.POST, instance=old_event)
+print(updated_events_form) ==>
+<tr><th><label for="id_title">Event Title:</label></th><td><input type="text" name="title" value="Laptop Sales !." class="form-control" maxlength="50" required id="id_title"></td></tr>       
+<tr><th><label for="id_description">Event Description:</label></th><td><input type="text" name="description" value="The $800 to $1,000 range is where you&#x27;ll find the best laptop value. This amount of money can&#x27;t buy you everything, but it can buy you a laptop that&#x27;s" class="form-control" maxlength="500" required id="id_description"></td></tr>
+<tr><th><label for="id_event_date">Event Date:</label></th><td><input type="text" name="event_date" value="2021-07-16 11:41:35" class="form-control" required id="id_event_date"><input type="hidden" name="initial-event_date" value="2021-07-16 11:41:35" id="initial-id_event_date"></td></tr>
+<tr><th><label for="id_thumbnail">Event Thumbnail:</label></th><td>Currently: <a href="/media_route/events_app/images/laptop_KD9GSSv.jpg">events_app/images/laptop_KD9GSSv.jpg</a><br>
+Change:
+<input type="file" name="thumbnail" accept="image/*" id="id_thumbnail"></td></tr>
+<tr><th><label for="id_category">Event Category:</label></th><td><input type="text" name="category" value="Gadgets" class="form-control" maxlength="50" required id="id_category"></td></tr>   
+
+x =updated_events_form.save()
+print(x) ==>
+Laptop Sales !.
+
+print(x.created_date) ==>
+2021-07-16 11:42:21.310015+00:00
+
+print(x.published_date) ==>
+2021-07-23 16:07:26.383378+00:00
+
+print(old_event) ==>
+Laptop Sales !.
+
+print(old_events_form) ==>
+<tr><th><label for="id_title">Event Title:</label></th><td><input type="text" name="title" value="Laptop Sales !." class="form-control" maxlength="50" required id="id_title"></td></tr>       
+<tr><th><label for="id_description">Event Description:</label></th><td><input type="text" name="description" value="The $800 to $1,000 range is where you&#x27;ll find the best laptop value. This amount of money can&#x27;t buy you everything, but it can buy you a laptop that&#x27;s" class="form-control" maxlength="500" required id="id_description"></td></tr>
+<tr><th><label for="id_event_date">Event Date:</label></th><td><input type="text" name="event_date" value="2021-07-16 11:41:35" class="form-control" required id="id_event_date"><input type="hidden" name="initial-event_date" value="2021-07-16 11:41:35" id="initial-id_event_date"></td></tr>
+<tr><th><label for="id_thumbnail">Event Thumbnail:</label></th><td>Currently: <a href="/media_route/events_app/images/laptop_KD9GSSv.jpg">events_app/images/laptop_KD9GSSv.jpg</a><br>
+Change:
+<input type="file" name="thumbnail" accept="image/*" id="id_thumbnail"></td></tr>
+<tr><th><label for="id_category">Event Category:</label></th><td><input type="text" name="category" value="Gadgets" class="form-control" maxlength="50" required id="id_category"></td></tr>   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Can we define our own attributes in django usercreation form?
+Means can we create a new attributes, when we create new users?
+like Django builtin UserCreationForm has password1, password2 only and username from meta class user model.
+We can add extra fileds like (username, firstname, lastname, email etc) by using User model in class Meta
+but what if we need another attributes to add profile picture of new register user?
+
+Or is this wrong process as we first create user and then add profile picture?
+Can we just add profile picture at the time when we create user?
+
+
+
+
+How to register new user with Django admin approval?
+
+
+
+The default User model in django doesnt have any attributes/field to add profile picture !
+So we need to create our own user models( with extra fields) that extends/combine with default user model instead of using default django user model only !
+
+

@@ -1,0 +1,84 @@
+"As a programmer you spend less time in coding and more time in debugging"
+
+
+
+
+
+
+
+
+
+pip install djangohttps://www.thecrazyprogrammer.com/2018/11/working-with-virtual-environment-for-django-project.html
+
+https://medium.com/swlh/create-a-calculator-using-django-d2d5573dfe61
+
+
+
+
+
+
+install python
+
+pip install virtualenvwrapper-win  ---> installing virtual enviromental wrapper
+mkvirtualenv test1  ------>  create an environment
+pip install django --> install django only for the created environment not for our system
+
+django-admin --version  or python -m django --version     ---->   check django version
+
+
+mkdir django_projects      -----> create new folder for danjgo projects
+cd django_projects      -----> move to created django folder directory
+
+
+
+C:\Users\User\django_projects ----> location of project folder
+
+
+
+
+django-admin startproject simba    ---->   project created
+C:\Users\User\django_projects\simba  
+
+
+
+now navigate to simba project ---> cd simba
+and now file in simba ---> dir
+
+created project....
+
+
+
+
+
+python manage.py runserver
+
+
+mkvirtualenv -> remove virtualenvironment
+
+
+
+If we want to access the virtual environment from a new command prompt window, then we need to enter the following command -
+C:\users\souvik> workon dev
+
+
+
+
+
+Quit the server with CTRL+C
+
+
+Developing the application
+(dev) C:\users\souvik\django_Projects\FirstProject> python manage.py startapp calculator
+
+
+manage.py is a file
+
+
+
+1. 1_VirtualEnv
+2. Django -> folder for all django project
+3. First_Project -> project no.1
+4. 
+
+pip uninstall Django --> 
+

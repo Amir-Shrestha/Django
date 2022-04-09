@@ -1,0 +1,92 @@
+In css :
+
+          .col-md-3 img{
+          width: 200px;
+          height: 192px;
+          }
+
+to
+
+          .col-md-3 img{
+          max-width: 200px;
+          height: 192px;
+          }
+
+
+
+
+#Add cart in navbar in basic.html:
+<li class="nav-item">
+    <a class="nav-link" href="#">MyCart[1]</a>
+</li>
+
+To :
+<li class="nav-item">
+    <a class="nav-link" href="#">MyCart[<span id="mycart">13</span>]</a>
+</li>
+
+
+
+
+
+
+Now in index.html :
+=====> document.getElementById('mycart').innerHTML = Object.keys(cart).length;
+
+console.log(cart);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                document.getElementById('mycart').innerHTML = Object.keys(cart).length;
+
+gives the total_number of items in our cart
+
+Now as you You click Add to cart button you can see that MyCart in navbar gets updated !
+
+
+
+
+
+
+Also show mycart size when we reload the page.
+So,
+    console.log('Working !')
+    if(localStorage.getItem('cart') == null)     <!-- if cart is empty dont load cart -->
+    {
+        var cart = {};
+    }
+    else
+    {
+        cart = JSON.parse(localStorage.getItem('cart'));    <!-- if cart exist or has item load it  -->
+        document.getElementById('mycart').innerHTML = Object.keys(cart).length;///addeed here
+    }
+
+
+
+
+
+
+
+Note this only display number of distincts_product not total_items.
+
+See in Console :
+Object
+pr9: 3
+pr10: 2
+pr11: 2
+pr13: 1
+pr15: 10
+pr16: 5
+pr18: 1
+pr19: 1
+pr20: 1
+pr21: 1
+pr22: 1
+pr24: 1
+
+So in MyCart :
+MyCart [11]
+
+
+
+
+
+

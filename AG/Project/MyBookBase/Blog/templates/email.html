@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Email</title>
+</head>
+<body>
+    <h1>Subscribe Form</h1>
+    <h3>Achiever's Django Program</h3>
+    <form action=" {% url 'email_subscribe' %} " method="POST">
+        {% csrf_token %}
+        <h3> {{ form.as_p}} </h3>
+        <input type="submit" name="Subscribe">
+    </form>
+    <br>
+    <a href="{% url 'post_list' %}" >Go To Blog Home</a>
+</body>
+</html>

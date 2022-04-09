@@ -1,0 +1,242 @@
+https://jupyter.org/install.html
+
+5
+https://www.geeksforgeeks.org/memory-management-in-python/
+
+
+6
+String manipulation
+Strings are powerful and flexible in Python. Strings can be added, multiplied, and they can expand to multiple lines.
+
+The + operator
+x = "Python"
+y = "Programming"
+x + y # Adding two strings
+As seen above, adding two strings returns string without any whitespaces. Adding two strings is also known as string concatenation. It returns a string consisting of the operands joined together. To separate two strings by a whitespace.
+
+x + ' ' + y
+'Python Programming'
+The * Operator
+If strings are multipled, they are repeated into n number of times, n being the number. Here n can be any integer, positive and negative. If n is the negative number, it creates empty string
+
+str1 = 'morning'
+str1 * 3
+'morningmorningmorning'
+str2 = 'evening'
+str2* -1
+''
+The in operator
+Python provides a membership operator that can be used with strings. The in operator returns True if the first operand is contained within the second, and False otherwise
+
+s = 'python'
+s in "Python is the best programming language"
+False
+s in 'python is the best programming language'
+True
+s = 'py'
+s in 'python is the best programming language'
+True
+There is also a not in operator, which does the opposite
+
+str2 = "demostring"
+str2 not in "It is a string"
+True
+str2 not in "it is a demostring"
+False
+Built in String Functions
+Python provides various built-in functions to deal with strings. Built-in functions are ready to use functions provided by any programming language that are available for common tasks.
+
+Function	Description
+chr()	Converts an integer to a character
+ord()	Converts a character to an integer
+len()	Returns the length of a string
+str()	Returns a string representation of an object
+ord(c) - Returns integer value for a character
+At basic level, computer stores information as numbers. To represent character data, a translation scheme should be used to represent characters in terms of numbers. Most common scheme to achieve this is ASCII (American Standard Code for Information Interchange) - character encoding standard.
+
+ord('a')
+97
+ord('z')
+122
+ord('python') # ord() takes a single character
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-27-4a0f96d390b7> in <module>
+----> 1 ord('python') # ord() takes a single character
+
+TypeError: ord() expected a character, but string of length 6 found
+chr(n) - Returns character value for an interger
+chr() does the reverse of ord(). Given a numeric value n, chr(n) returns a string representing the character that corresponds to n
+
+chr(98)
+'b'
+chr(1000)
+'Ϩ'
+len(str) - Returns the length of the string
+For any given string str len(str) returns the length of the string
+
+len("Python")
+6
+len("Python Programming")
+18
+str(obj) - Returns the string representation of the object
+str('89')
+'89'
+str(77)
+'77'
+str(45+60)
+'105'
+String Indexing
+In programming languages, individual items of the ordered set can be accessed using numeric index or key value. It is often referred as indexing. In Python, indexing starts from 0. Individual characters can be accessed using numbers within [ ] 
+
+str1 = "Programming"
+len(str1) # returns length of the string
+11
+str1[0] # returns first character of the string
+'P'
+'''
+As indexing starts from 0, it goes through n-1, n being the length of the string. 
+If we try to access the string greater than the length, we get an error
+'''
+
+str1[11]
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-10-89759f28ead5> in <module>
+      4 '''
+      5 
+----> 6 str1[11]
+
+IndexError: string index out of range
+String indexing can also be used using negative indexing.
+
+str1[-1] # returns last character of the string
+'g'
+str1[10]
+'g'
+String slicing
+Python also allows advanced form of indexing that extracts substring from the given string
+
+str2 = 'Python Programming'
+str2[2:5]
+'tho'
+If we omit the first index and give only the final index, indexing starts from 0 and, omitting the final index, returns substrings till last character
+
+str2[:5] # returns sub-string from 0 to 4th position
+'Pytho'
+str2[4:] # returns sub-string from 4th till last position
+'on Programming'
+Specifying stride on a string
+Till now we have used indexing that involves string[start_index : final_index]. We have another variant of string indexing that involves third variable called as step_size or stride. step_size indicates the number of characters to skip before retriving another character
+
+str3 = 'Hippopotamus'
+# h i p p o p o t a m u s
+print(str3[0:len(str3):1])
+print(str3[0:len(str3):2])
+Hippopotamus
+Hpooau
+Interpolating Variables to a string
+Starting from python 3.6, new string formatting was introduced. One simple feature of this is, you can use variable straight away as variable interpolation. You can specify variable name sirectly in string literal and python will replace with corresponding value.
+
+x = 1
+y = 2
+print('Value of x is:', x, 'value of y is:', y)
+print('Value of x is: {}, {}'.format(x, y))
+print(f'Value of x is: {x}')
+Value of x is: 1 value of y is: 2
+Value of x is: 1, 2
+Value of x is: 1
+x = 10
+y = 20
+print(f'Value of x: {x} is half than that of y: {y}')
+Value of x: 10 is half than that of y: 20
+# three quoting mechanism
+print(f'Value of x: {x} is half than that of y: {y}') # single quote
+print(f"Value of x: {x} is half than that of y: {y}") # double quote
+print(f'''Value of x: {x} is half than that of y: {y}''') # multiple quote
+Value of x: 10 is half than that of y: 20
+Value of x: 10 is half than that of y: 20
+Value of x: 10 is half than that of y: 20
+Modifying strings
+Strings are immutable, i.e, they cannot be changed.
+
+str1 = "language"
+str1[1]
+'a'
+str1[1] = 'b'
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-24-48c6d1e70f46> in <module>
+----> 1 str1[1] = 'b'
+
+TypeError: 'str' object does not support item assignment
+str2 = 'sunny'
+str2[1:]
+# Instead of changing string, you can create a copy and change the string in place
+str2 = 'sunny'
+str2 = 'f' + str2[2:]
+str2
+'fnny'
+Python also provides built-in methods like replace that can be used to modify strings.
+
+str2 = 'sunny'
+str2.replace('n', 'f')
+str2
+'suffy'
+Built-in String Methods
+Python makes quite easy in performing string operations by providing built-in methods such as capitalize(), upper(), lower(), swapcase(), title()
+
+***capitalize
+
+- Capitalize the target string***<br>
+capitalize() returns a string with first letter convert to uppercase and all other characters converted to lowercase 
+str1 = "fun AT learNING PyThon"
+str1.capitalize()
+'Fun at learning python'
+str2 = "fun AT LeArNiNg pythON #876ADrts9%$" # special characters are unchanged in this case
+str2.capitalize()
+'Fun at learning python #876adrts9%$'
+***upper
+
+- converts all characters to uppercase***<br>
+upper() returns a copy of string with all alphabetical characters converted to uppercase
+str1 = 'fun AT learNING PyThon'
+str1.upper()
+'FUN AT LEARNING PYTHON'
+str2 = "fun AT LeArNiNg pythON #876ADrts9%$" # special characters are unchanged in this case also
+str2.upper()
+'FUN AT LEARNING PYTHON #876ADRTS9%$'
+***swapcase
+
+- characters in uppercase are converted to lowercase and vice-versa***<br>
+swapcase() returns a copy of string with all uppercase characters converted to lowercase and vice-versa
+str1 = 'fun AT learNING PyThon'
+str1.swapcase()
+'FUN at LEARning pYtHON'
+str2 = "fun AT LeArNiNg pythON #876ADrts9%$" # special characters are unchanged in this case also
+str2.swapcase()
+'FUN at lEaRnInG PYTHon #876adRTS9%$'
+***title
+
+- First letter of each word is converted to uppercase***<br>
+title() returns a copy of string where first letter of each word is converted into uppercase and remaining into lowercase
+str1 = 'fun AT learNING PyThon'
+str1.title()
+'Fun At Learning Python'
+str2 = "fun AT LeArNiNg pythON #876ADrts9%$" # list word consist of number followed by characters. first character is capitalized
+str2.title()
+'Fun At Learning Python #876Adrts9%$'
+# String Formatting
+language = 'Python'
+print(f'I am learning {language}')
+print('I am learning', language)
+print('I am learning {}'.format(language))
+I am learning Python
+I am learning Python
+I am learning Python
+print('I am learning', language)
+I am learning Python
+ 
+
+
+

@@ -1,0 +1,35 @@
+path()
+path(route/endpoint, view, kwargs=None, name=None)
+
+Returns an element for inclusion in urlpatterns.
+link : https://docs.djangoproject.com/en/3.1/ref/urls/
+https://docs.djangoproject.com/en/1.8/intro/tutorial02/
+
+
+
+return back
+<a href='http://127.0.0.1:8000/'>Return_Home</a>
+<a href='/'>Return_Home</a>
+
+
+render(request, template_name, context=None, content_type=None, status=None, using=None)¶
+Combines a given template with a given context dictionary and returns an HttpResponse object with that rendered text.
+
+
+command-line utility
+
+
+social network in django project
+
+
+what is static directory
+https://docs.djangoproject.com/en/3.1/howto/static-files/
+What UI means? ==> user interface
+
+
+ginger templating in flask
+
+BASE_DIR  ???
+
+static files ==>  https://data-flair.training/blogs/django-static-files-handling/
+https://www.javatpoint.com/django-static-files-handling

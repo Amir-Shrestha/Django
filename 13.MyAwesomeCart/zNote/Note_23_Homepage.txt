@@ -1,0 +1,20 @@
+In index.html :
+
+<div class="col-xs-3 col-sm-3 col-md-3"> <!-- afterward post -->
+   <div class="card" style="width: 18rem;">
+        <img src='/media/{{ i.image }}' class="card-img-top" alt="...">
+        <div class="card-body">
+             <h5 class="card-title"> {{ forloop.counter }} {{ i.product_name }} </h5>
+             <p class="card-text"> {{ i.desciption }} </p>
+             <p class="card-text">Rs. {{ i.price }} </p>
+             <button class="btn btn-primary cart" id="pr{{i.id}}" > Add Cart </button>
+             <a href="product/{{i.id}}"><button class="btn btn-primary cart" id="qv{{i.id}}" > Quick View </button></a>
+       </div>
+   </div>
+</div>
+
+To :
+
+<p class="card-text"> {{ i.desciption|slice:"0:60" }} </p> #manage decription_view in home page
+
+

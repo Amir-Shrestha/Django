@@ -1,0 +1,1 @@
+Atl + left_click save jupyter file from web in pc and then upload in jupyter and read it.

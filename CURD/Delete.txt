@@ -1,0 +1,42 @@
+all_students = Student.objects.all() # pass all_students  from views.py to template.html file
+for student in all_students:
+
+
+
+
+In template.html:
+<form action=" {% url 'deletestudent' id=student.id %} " class="d-inline">
+	{% csrf_token %}
+	<input type="submit" class="btn btn-danger btn-sm" value="Delete">
+</form>
+
+
+
+
+
+
+
+In urls.py:
+path('deletestudent/<int:id>/', views.delete_std, name='deletestudent'),
+
+
+
+
+
+
+
+In views.py:
+def delete_std(request, id):
+    if request.method == "POST":
+        std = Student.objects.get(id=id)
+        std.delete()
+        return HttpResponseRedirect('/')
+
+
+
+
+
+
+
+
+

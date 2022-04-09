@@ -1,0 +1,221 @@
+
+
+
+
+Note my app name is Blog and in urlpatterns of MyBook.urls I have written blog.urls instead of Blog.urls in path
+i.e :
+
+urlpatterns = [
+    path('blog/', include('blog.urls'))
+]
+
+instead of :
+
+
+urlpatterns = [
+    path('blog/', include('Blog.urls'))
+]
+
+
+
+
+Here we should be carefull while adding app name in INSTALLED_APP and include path of Main_Project's url.
+
+
+
+When you run server for the first time you see this warning regarding migration:
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions. 
+Run 'python manage.py migrate' to apply them.
+Which means we havent migrate our default provide app:
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+]
+
+
+Here:
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'Blog',
+    'Shop',
+]
+
+Default app : 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles',
+Custome app : 'Blog', 'Shop'
+
+So, Migrate default app first:
+cmd : python manage.py migrate 
+
+
+
+Venv prevent crashing of package while working in different Project with different version of django/python/pip
+
+
+
+
+
+#django model import :
+from django.shortcuts import render
+from django.http import HttpResponse
+
+
+#custom import :
+from Blog import views
+from . import views
+
+
+
+from . 
+see files of same root directory
+
+from .templates
+see files inside sub directory of same root directory
+
+
+Till now Template rendering
+
+
+Now database using model.py
+python manage.py migrate
+# here no make make migration at first because we make  migration only if we make change in model.
+# migrate at first is for default django app
+Default app : 'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes', 'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles',
+
+
+
+In class Post(models.Model)
+This models.Model is object. (here models is a module and Model is class inside models_module)
+This models.Model defines our model.
+This models.Model ensure that, this Post is our django model
+
+
+
+We will create super_user in upcoming days so it will have its name.
+Here auther means name of super_user.
+In AUTH_USER_MODEL, name of super_user/auther will be primary key where as when we use it in Post model we will use it as Foreign Key.
+So,
+author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASECADE)
+
+And,
+on_delete=models.CASECADE 
+Means,
+As In this Post Model author/user is reference from AUTH_USER_MODEL. So, when we delete the author/user then at that time all the reference to that certain user also get deleted.
+If not : on_delete=models.CASECADE 
+Then reference to author/user doent get deleted.
+
+Here two parameter ==> settings.AUTH_USER_MODEL & on_delete=models.CASECADE
+
+ 
+
+
+
+There is TIME_ZONE in setting.py :
+created_date = models.DateTimeField()
+so
+from django.utils import timezone
+created_date = models.DateTimeField(default=timezone.now)
+
+published_date = models.DateTimeField(blank=True, null=True)
+blank=True ==> means ==> field published_date  can be blank, its optional
+null=True ==> means ==> if its blank then keep NULL value
+if
+null=False ==> means ==> if its blank then keep no_value/empty
+
+Now makemigrations and migrate
+
+
+
+
+
+
+
+Now register model_class in admin.py :
+
+from .models import Post
+# Register your models here.
+admin.site.register(Post)
+
+
+
+
+
+extra : question :
+
+from . import views
+print(type('views'))
+
+
+
+Here all .py files are module.
+
+
+
+Now add item to table using admin pannel :
+
+#1
+Then in Blog/urls -> urlpattern :
+path('post_list', views.post_list, name='post_list'),
+
+#2
+Then in Blog/views -> fetch all data/record/row_objects
+
+
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+<body>
+    {% block body %}
+
+    
+    {% endblock %}
+</body>
+</html>
+
+
+
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'post_list.html', {'posts':posts})
+    
+
+#3
+Then in Blog/index.html -> show the fetched data. 
+{{ posts[0].title }}
+{{ posts[0].text }}
+
+
+
+
+
+
+
+
+
+
+
+path('a_post/<int:post_id>', views.a_post, name='a_post'), in blog/urls
+def a_post(request,post_id):  in Blog/views
+
+Here, id_argument(post_id) should be same.

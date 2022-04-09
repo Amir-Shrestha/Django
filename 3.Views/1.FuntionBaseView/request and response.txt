@@ -1,0 +1,10 @@
+def home_view(request):
+    params = {}
+    return render(request, 'home.html', params)
+
+
+
+def home_view(response):
+    params = {}
+    return render(response, 'home.html', params)
+

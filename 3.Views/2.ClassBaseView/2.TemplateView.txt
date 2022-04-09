@@ -1,0 +1,8 @@
+# Create your views here.
+class HomeView(TemplateView):
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product_obj_QuerySet'] = Product.objects.all().order_by("-id") #create object of Product class as product_obj_QuerySet and pass to template as key-pair_value of context dictionary
+        return context

@@ -1,0 +1,236 @@
+pip freeze ==> gives list of package installed in our project
+pip freeze > package.txt  ==> create a text file that contains list of package installed in our project
+
+
+
+in setting.py:
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+compress project folder (make it zip file)
+Resume.zip
+
+
+create account in python_any_where
+Now login and upload zip file
+now extra zip file here using command in console/bash
+
+click on console/bash, a terminals gets open:
+
+before unziping file ncreate a virtual environment:
+cmd : mkvirtualenv geek --python=/usr/bin/python3.9.4  
+and activate it if not ==> cmd : workon env1
+
+
+
+10:23 ~ $ python --version
+Python 2.7.12
+10:24 ~ $ alias python=python3.9.4
+10:25 ~ $ python --version
+bash: python3.9.4: command not found
+10:25 ~ $ alias python=python3.9
+10:26 ~ $ python --version                                                                                                                                             
+bash: python3.9: command not found
+10:26 ~ $ alias python=python3.7
+10:26 ~ $ python --version                                                                                                                                             
+Python 3.7.5
+10:26 ~ $ alias pip=pip3
+10:26 ~ $ pi list
+bash: pi: command not found
+10:26 ~ $ pip list
+
+
+cmd : mkvirtualenv env1 --python=/usr/bin/python3.7 
+
+
+
+activate vir_env and unzip it.
+cmd : unzip project_name
+
+
+Now press Web tab and Add new web app,
+next, Manual configuration (including virtualenvs), python3.7,next, Virtualenv: ,type env1 and check.
+
+Again in bash :
+ 
+cmd : dir
+Output : 2.Resume_Project  README.txt  Resume.zip
+
+cmd : cd 2.Resume_Project
+
+Now install all package that we need in this project which is hold by package.txt in out project_root_folder.
+
+cmd : dir
+Resume_Project  core  db.sqlite3  education  manage.py  package.txt  servic
+
+cmd : pip install -r package.txt
+Now all package gets start downloading
+
+
+
+Now go to Web tab and open wsgi file,
+Code:
+     WSGI configuration file:
+
+Editor gets open,
+
+{
+# This file contains the WSGI configuration required to serve up your
+# web application at http://SimbA6.pythonanywhere.com/
+# It works by setting the variable 'application' to a WSGI handler of some
+# description.
+#
+
+url : http://SimbA6.pythonanywhere.com/
+}
+
+Now delete every thing except django text :
+
+{
+# This file contains the WSGI configuration required to serve up your
+# web application at http://SimbA6.pythonanywhere.com/
+# It works by setting the variable 'application' to a WSGI handler of some
+
+# +++++++++++ DJANGO +++++++++++
+# To use your own django app use code like this:
+import os
+import sys
+
+## assuming your django settings file is at '/home/SimbA6/mysite/mysite/settings.py'
+## and your manage.py is is at '/home/SimbA6/mysite/manage.py'
+path = '/home/SimbA6/mysite'
+if path not in sys.path:
+    sys.path.append(path)
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
+## then:
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+}
+
+here:
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+to:
+os.environ['DJANGO_SETTINGS_MODULE'] = 'innerproject_name.settings'
+i.e :
+os.environ['DJANGO_SETTINGS_MODULE'] = 'Resume_Project.settings'
+
+
+and also :
+path = '/home/SimbA6/mysite'
+To:
+path = '/home/SimbA6/Resume_Project'
+
+
+
+Save it and go to files tab
+Now here you can delete zip file,
+
+here go inside project setting:
+2.Resume_Project/Resume_Project/ settings.py :
+
+Now as we are in produnction lets make change in setting.py file
+
+# 1
+DEBUG = True
+To:
+DEBUG = False
+
+# 2 
+ALLOWED_HOSTS = []
+To:
+ALLOWED_HOSTS = ["*"]
+
+# 3
+verify is static path is given or not?
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
+
+SAVE
+
+
+
+Now go to console:
+Run command to collect all static files,
+cmd : python manage.py collectstatic
+
+
+11:17 ~ $ dir
+2.Resume_Project  README.txt
+11:17 ~ $ workon env1
+(env1) 11:18 ~ $ cd 2.Resume_Project
+(env1) 11:18 ~/2.Resume_Project $ dir
+Resume_Project  core  db.sqlite3  education  manage.py  package.txt  servic
+(env1) 11:18 ~/2.Resume_Project $ python manage.py collectstatic
+136 static files copied to '/home/SimbA6/2.Resume_Project/static_assets'.
+
+Now see new folder called as static_assets is created inside root_project_folder.
+
+(env1) 11:19 ~/2.Resume_Project $ dir
+Resume_Project  db.sqlite3  manage.py    servic
+core            education   package.txt  static_assets
+
+
+(env1) 11:21 ~/2.Resume_Project $ cd static_assets
+(env1) 11:21 ~/2.Resume_Project/static_assets $ dir
+admin  core
+
+
+(env1) 11:21 ~/2.Resume_Project/static_assets $ cd core
+(env1) 11:21 ~/2.Resume_Project/static_assets/core $ dir
+css  images  js
+
+
+
+(env1) 11:21 ~/2.Resume_Project/static_assets/core $ cd css
+(env1) 11:22 ~/2.Resume_Project/static_assets/core/css $ dir
+bootstrap.css  core.css  fontawesome.css
+
+
+
+
+Now go to web tab :
+In Static files:
+Enter URL		Enter path
+/static_route/		/home/SimbA6/2.Resume_Project/static_assets
+
+check
+
+Now reload this page ,
+Reload:
+
+
+
+
+Finally you get url to your project:
+SimbA6.pythonanywhere.com
+
+
+
+
+
+{
+python --version
+alias python=python3.7
+python --version
+alias pip=pip3
+pip list
+mkvirtualenv env1 --python=/usr/bin/python3.7
+unzip Resume
+
+Now press Web tab and Add new web app,
+next, Manual configuration (including virtualenvs), python3.7,next, Virtualenv: ,type env1 and check.
+Again in bash :
+ 
+cd 2.Resume_Project
+pip install -r package.txt
+
+
+}
+
+
+
+
+collect static in server terminal
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
+
+

@@ -1,0 +1,154 @@
+# 1
+In setting.py :
+
+# email configuration ...
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'simbaamir55@gmail.com'
+EMAIL_HOST_PASSWORD = "\\2056KartiK6/"
+
+
+some other EMAIL_BACKEND  are : Sengrid, mailfeed, mail service provider.
+'django.core.mail.backends.smtp.EmailBackend' is default EMAIL_BACKEND provide by django.
+
+EMAIL_HOST = 'smtp.gmail.com' ===> SMTP srver address for goggle.
+
+EMAIL_PORT = 587 ===> port number of email_sending_server
+
+EMAIL_HOST_USER = 'simbaamir55@gmail.com'
+EMAIL_HOST_PASSWORD = "\\2056KartiK6/"
+email_id and password of email_ sender
+
+# here we have done all external SMTP configuraton in setting.py module but we know that our setting.py file is always exposed. So we need to do external SMTP configuraton in seperate file atb the time of deployment.
+
+
+In goggle account setting :
+Turn off 2-way verification.
+Turn on less secure app.
+
+
+# 2
+In base.html:
+    <a href=" {% url 'email_subscribe' %} " >Subscribe</a>
+
+
+# 3
+In urtspattern in urls.py:
+    path('email_subscribe', views.subscribe, name='email_subscribe'),
+
+
+# 4
+In views.py :
+
+from .forms import Subscribe
+
+from MyBook.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+
+def subscribe(request):
+    sub = Subscribe() ---------------> call # 5
+    return render(request, 'email.html', {'form':sub})
+
+
+# 5
+In forms.py : 
+Create a  class called as Subscribe.
+Subscribe that inherist helper_class called as Form. Here class Subscribe helps to create a form with one input feild (Email)
+
+class Subscribe(forms.Form):
+	Email = forms.EmailField()
+
+Here we dont need model for Subscribe_class as it has nothing to do with database.(like fetching,sending,retivind,deletig data from database)
+like in below:
+
+class DocumentForm(forms.ModelForm):
+	class Meta:
+		model = Document
+		fields = ('title', 'document')
+
+class Subscribe(forms.Form):
+	Email = forms.EmailField()
+
+
+# 6
+Create a template for email form:
+In email.html :
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Email</title>
+</head>
+<body>
+    <h1>Subscribe Form</h1>
+    <h3>Achiever's Django Program</h3>
+    <form action=" {% url 'email_subscribe' %} " method="POST">
+        {% csrf_token %}
+        <h3> {{ form.as_p}} </h3>
+        <input type="submit" name="Subscribe">
+    </form>
+</body>
+</html>
+
+
+
+
+
+# 7
+In views.py :
+
+from MyBook.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail
+
+def subscribe(request):
+    sub = Subscribe()
+    if request.method == 'POST':
+        sub = Subscribe(request.POST)
+        # print(sub)
+        # print("First ", sub['Email'])
+        subject = "Welcome to Achiever's Group"
+        message = 'Demo email message !'
+        recepient = str(sub['Email'].value())
+        # print("Second ", recepient)
+        send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently=False)
+        return render(request, 'success.html', {'recepient':recepient})
+
+Output:
+
+print(sub)
+<tr><th><label for="id_Email">Email:</label></th><td><input type="email" name="Email" value="simbaamir55@gmail.com" required id="id_Email"></td></tr>
+
+print(type(sub))
+<class 'Blog.forms.SubscribeForm'>
+
+print("First ", sub['Email'])
+First  <input type="email" name="Email" value="simbaamir55@gmail.com" required id="id_Email">
+
+recepient = str(sub['Email'].value())
+print("Second ", recepient)
+Second  simbaamir55@gmail.com
+
+
+
+# 8
+In success.html :
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+</head>
+<body>
+    <h1>Email sent successfully to: {{ recepient }} </h1>
+</body>
+</html>
+
+

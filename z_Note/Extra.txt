@@ -1,0 +1,127 @@
+# 1
+def message1(request):
+    messages.success(request,'i am message !')
+    print('hi','ok')
+    print('hi'+'ok')
+
+Output In Terminal/Console:
+hi ok
+hiok
+
+
+
+# 2
+def message1(request):
+    messages.success(request,'i am message !')
+    return HttpResponse('Hello World !' , 'messages')
+
+Output In Browser:
+Hello World !
+
+
+# 3
+def message1(request):
+    messages.success(request,'i am message !')
+    return HttpResponse('Hello World !' + 'messages')
+
+Output In Browser:
+Hello World !messages
+
+
+You cannot use django template in Project apps without installing it.
+
+
+
+For loops can iterate over any iterable object (example: List, Set, Dictionary, Tuple or String).
+So what are message, QuerySet?
+which iterable object they belongs to?
+are they list?
+message <==> <django.contrib.messages.storage.fallback.FallbackStorage object at 0x00000282647E13D0>
+
+
+
+sequence vs iterable object?
+
+
+
+what is request object in django?
+
+
+
+Html tag        : <p> </p>
+Html element    : <p> I am amir </p>
+Html attributes : <p align="center"> I am amir </p>
+
+
+
+A widget is Django's representation of an HTML input element.
+
+Default widgets of CharField is TextInput with #attrs argument cointaining class, id etc.
+
+password2 = forms.CharField()
+password2 = forms.CharField(widget=forms.PasswordInput)
+password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control', 'id':'uniqueid'}))
+
+
+Default widgets of CharField is TextInput with #attrs argument cointaining class, id etc.
+
+BuiltIn Widgets:
+    TextInput, NumberInput, EmailInput, URLInput, PasswordInput, HiddenInput, DateInput, DateTimeInput, CheckboxInput, Textarea, Select, NullBooleanSelect, SelectMultiple, RadioSet, CheckboxSelectMultiple, FileInput, ClearableFileInput, etc
+
+
+FormField:EmailFeild <==> WidgetField/Input:EmailInput
+
+
+CharField() => PasswordInput() => attrs=(class:, id:)
+
+
+ 
+
+
+BuiltIn FormFields :
+   CharField, BooleanField, IntegerField, DecimalField, FloatField
+
+
+ModelField vs FormFiled vs WidgetInput
+
+
+
+
+
+
+FormWithData : fm
+fm.cleandar => dictionary of value of formdata
+
+
+but its good practise t0 validate form data before accessing clean data
+fm.clean_data['name'] its better
+fm.request.POST['name']
+
+
+Inbuilt Form Validation ==> is_valid  (html form novalidate)
+
+
+
+Redirect vs HttpResponseRedirect
+
+
+
+Particular object/ table row ===> Dynamic URL
+path('route/<path_conertor:variable/>', views.method, name='apple'),
+path('route/<my_id>/', views.method, name='apple'),
+path('route/<int:my_id>/', views.method, name='apple'),
+path('route/<int:my_id>/<int:my_subid>/', views.method, name='apple'),
+path('route/<int:my_id>/<int:my_subid>/<slug:my_slug>/', views.method, name='apple'),
+
+path_conertor : str(default), int, slug, uuid, path
+
+
+
+
+
+print(request.POST)
+<QueryDict: {'csrfmiddlewaretoken': ['VNevxgjY5sOLWnDDPpYA0MoEaiX2K464immlCnuzuMI4o0DQMUmDOElyEltMRMLZ'], 'customer': ['2'], 'product': ['3'], 'status': ['Pending'], 'Submit': ['Submit']}>
+
+
+
+

@@ -1,0 +1,43 @@
+admin
+admin
+
+
+
+test1
+123@test@321
+
+
+
+
+
+In views.py :
+
+def user_login(request):
+    if request.method=="POST":
+        username1 = request.POST["uname"]
+        password1 = request.POST["upass"]
+        user = authenticate(username=username1, password=password1) #return Object of default User Class Model if exist else return None
+        if user is not None:
+            login(request, user)
+            print(request.session)
+            return HttpResponse("Logged In Successfully !")
+        else:
+            return HttpResponse("No user with provided credentials ! !")
+    return render(request, 'login.html')
+
+
+
+
+
+
+In template login.hmtl :
+
+<body>
+    <h1>LogIn Form</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        Username : <input type="text"name="uname" required><br>
+        Password : <input type="password" name="upass" required><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>

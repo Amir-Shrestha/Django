@@ -1,0 +1,64 @@
+In models.py :
+class Document(models.Model):
+    title = models.CharField(max_length=100)
+    document = models.FileField(upload_to='images/')
+    uploaded_at = models.DateTimeField(default=timezone.now)
+
+
+In forms.py :
+class DocumentForm(forms.ModelForm):
+	class Meta:
+		model = Document
+		fields = ('title', 'document')
+
+In views.py upload :
+        doc_obj = DocumentForm(request.POST, request.FILES)
+        print(doc_obj) #doc_obj holds form with data submitted from form
+        print(doc_obj.title)
+
+
+..........................................................................................................................
+
+
+as title is property of DocumentForm_class
+and
+doc_obj is object of DocumentForm_class
+
+Why is print(doc_obj.title) not working?
+
+error : 
+AttributeError at /blog/add_file
+'DocumentForm' object has no attribute 'title'
+
+This is because DocumentForm_class is just a form class as it only hold form for model.
+Here title is attributes of Model_class_Document not of DocumentForm_class.
+
+..........................................................................................................................
+
+
+In models.py
+when i run this file/module :
+
+from .models import Post
+from .models import Document
+
+
+
+error:
+
+ImportError: attempted relative import with no known parent package
+url : https://iq-inc.com/importerror-attempted-relative-import/
+https://stackoverflow.com/questions/16981921/relative-imports-in-python-3
+
+
+
+..........................................................................................................................
+
+
+
+
+
+ModuleNotFoundError: No module named 'django'
+PS C:\Django\AchierverGroup\Project\MyBookBase> 
+
+

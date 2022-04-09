@@ -1,0 +1,26 @@
+#1 In terminal:
+pip install django-crispy-forms
+
+
+#2 In settings.py:
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+INSTALLED_APPS = [ 'crispy_forms' ]
+
+#3 In template/register_user_1_1_crispy.html :
+
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="en">
+<head>
+    <title> Registration1 </title>
+</head>
+<body>
+    <h1>Registration Form !</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ signup_form|crispy }}
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
+

@@ -1,0 +1,35 @@
+view return :
+
+# views import:
+from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.http import HttpResponse
+
+
+
+
+# 1
+from django.http import HttpResponse
+return HttpResponse('Hello world! I am Home HttpResponse !')
+
+# 2
+from django.shortcuts import render
+return render(request, 'blogindex.html',{'key':value})
+
+# 3
+from django.shortcuts import redirect
+return redirect('post_list')		     ===> urls:path('', views.post_list, name='post_list'),
+return redirect('apost', post_id=post.id)    ===> urls:path('a_post/<int:post_id>', views.a_post, name='apost'),
+
+# 4
+from django.shortcuts import HttpResponseRedirect
+return HttpResponseRedirect("/")			===> urls : path('', home_view, name="home")
+return HttpResponseRedirect('/admin_all_orders/')	===> urls : path('admin_all_orders/', admin_all_orders, name="admin_all_orders")
+return HttpResponseRedirect('/customer_profile/')	===> urls : path('customer_profile/', customer_Profile, name="customer_profile")
+
+
+
+
+
+# views import:
+from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.http import HttpResponse

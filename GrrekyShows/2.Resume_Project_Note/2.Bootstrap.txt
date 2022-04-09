@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="text-center">
+  <img
+    src="{% static 'core/images/amira.jpg' %}"
+    alt="Profile_pic"
+    class="image-thumbnail mt-5"
+    height="200px"
+    width="200px"
+  />
+</div>
+<div class="mt-5 text-white mx-5 text-justify">
+  <h1 class="font-weight-bold">Hello,</h1>
+
+  <div class="px-4" style="line-height:2rem;">
+    <p style="text-indent: 110px">
+      Write the perfect <b class="text-warning">resume with</b> help from our resume examples for students
+      and professionals. We have resume samples for all job titles and formats.
+    </p>
+    <p>
+      Write the perfect resume with help from our <b class="text-warning">resume examples</b> for students
+      and professionals. We have resume samples for all job titles and formats.
+      Write the perfect resume with help from our resume examples for students
+      and professionals. We have resume samples for all job titles and formats.
+    </p>
+  </div>
+  <div class="text-center">
+    <a href="" class="btn btn-outline-warning my-3 mr-5">Hire me</a>
+    <a href="" class="btn btn-outline-primary my-3">Contact</a>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,61 @@
+/* navbar style */
+a.nav-link{
+    color:whitesmoke;
+}
+a.nav-link:hover{
+    color:black;
+    background-color: #e9cd79;
+}
+a.nav-link.active{
+    color:black;
+    background-color: #e9cd79;
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Active nav bar:
+
+
+def home(request):
+    status = {'home':'active'}
+    return render(request, 'core/home.html', status)
+
+def contact(request):
+    status = {'contact':'active'}
+    return render(request, 'core/home.html', status)
+
+def eduskill(request):
+    status = {'skill':'active'}
+    return render(request, 'edu/skill.html', status)
+
+def services(request):
+    status = {'service':'active'}
+    return render(request, 'serve/services.html', status)
+
+
+
+    <a href="/" class="nav-link">Home</a>
+    <a href="{% url 'services' %}" class="nav-link">Services</a>
+    <a href="{% url 'educations' %}" class="nav-link">Eduction/Skill</a>
+    <a href="" class="nav-link">Contact</a>
+
+
+To:
+
+
+    <a href="/" class="nav-link {{home}}">Home</a>
+    <a href="{% url 'services' %}" class="nav-link {{service}}">Services</a>
+    <a href="{% url 'educations' %}" class="nav-link {{skill}}">Eduction/Skill</a>
+    <a href="" class="nav-link {{contact}}">Contact</a>

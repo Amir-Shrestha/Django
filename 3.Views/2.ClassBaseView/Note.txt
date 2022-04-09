@@ -1,0 +1,8 @@
+ccbv.co.uk --> website which gives all hints about Class_Base_View. 
+Like how Class_Base_View works? what attributes Class_Base_View has? what functions/methods Class_Base_View has? How Class_Base_View takes request and generate response?
+
+Class_Base_View are the built-in Djnago views. So that we can inherit them and use them directly and avoid writing code again from scratch.
+For small project_code Function_Base_View is quit good and Class_Base_View seems to be bulk for small project_code. 
+But as your projects gets bigger your code in Function_Base_View gets more mess and bulk where as code in Class_Base_View gets bit manageable and reuseable.
+
+View, TemplateView

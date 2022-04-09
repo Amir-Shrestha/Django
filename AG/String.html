@@ -1,0 +1,2367 @@
+<!DOCTYPE html>
+
+<html  dir="ltr" lang="en" xml:lang="en">
+<head>
+      <!-- * * * * * * *
+  
+        Theme: SPACE Moodle Theme
+        Author: Rosea Themes
+        Version: 1.12.6
+  
+        Copyright © 2018 - 2021
+  
+      * * * * * * * -->
+  
+      <title>Python Django: Strings</title>
+      <link rel="shortcut icon" href="//training.achievergroups.com/pluginfile.php/1/theme_space/favicon/1620129514/groupsachiever.ico" />
+  
+      <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700" rel="stylesheet">
+  
+  
+  
+      <script src="https://training.achievergroups.com/theme/space/addons/overlayscrollbars/OverlayScrollbars.min.js"></script>
+  
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="moodle, Python Django: Strings" />
+<link rel="stylesheet" type="text/css" href="https://training.achievergroups.com/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple.css" /><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="https://training.achievergroups.com/theme/styles.php/space/1620129514_1/all" />
+<script>
+//<![CDATA[
+var M = {}; M.yui = {};
+M.pageloadstarttime = new Date();
+M.cfg = {"wwwroot":"https:\/\/training.achievergroups.com","sesskey":"Ni0VY7ngpe","sessiontimeout":"28800","themerev":"1620129514","slasharguments":1,"theme":"space","iconsystemmodule":"core\/icon_system_fontawesome","jsrev":"1620129514","admin":"admin","svgicons":true,"usertimezone":"Asia\/Kathmandu","contextid":219,"langrev":1620129514,"templaterev":"1620129514","developerdebug":true};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
+var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''}
+if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else{me.path=component+'/'+component+'.'+me.type}};
+YUI_config = {"debug":true,"base":"https:\/\/training.achievergroups.com\/lib\/yuilib\/3.17.2\/","comboBase":"https:\/\/training.achievergroups.com\/theme\/yui_combo.php?","combine":true,"filter":"RAW","insertBefore":"firstthemesheet","groups":{"yui2":{"base":"https:\/\/training.achievergroups.com\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"https:\/\/training.achievergroups.com\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"https:\/\/training.achievergroups.com\/theme\/yui_combo.php?m\/1620129514\/","combine":true,"comboBase":"https:\/\/training.achievergroups.com\/theme\/yui_combo.php?","ext":false,"root":"m\/1620129514\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":"DEBUG","modules":{"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-event":{"requires":["event-custom"]},"moodle-core-handlebars":{"condition":{"trigger":"handlebars","when":"after"}},"moodle-core-maintenancemodetimer":{"requires":["base","node"]},"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-widget-focusafterclose","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-core-languninstallconfirm":{"requires":["base","node","moodle-core-notification-confirm","moodle-core-notification-alert"]},"moodle-core-formchangechecker":{"requires":["base","event-focus","moodle-core-event"]},"moodle-core-dragdrop":{"requires":["base","node","io","dom","dd","event-key","event-focus","moodle-core-notification"]},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification-dialogue","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core_availability-form":{"requires":["base","node","event","event-delegate","panel","moodle-core-notification-dialogue","json"]},"moodle-backup-confirmcancel":{"requires":["node","node-event-simulate","moodle-core-notification-confirm"]},"moodle-backup-backupselectall":{"requires":["node","event","node-event-simulate","anim"]},"moodle-course-formatchooser":{"requires":["base","node","node-event-simulate"]},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-course-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-course-coursebase","moodle-course-util"]},"moodle-form-passwordunmask":{"requires":[]},"moodle-form-dateselector":{"requires":["base","node","overlay","calendar"]},"moodle-form-shortforms":{"requires":["node","base","selector-css3","moodle-core-event"]},"moodle-question-searchform":{"requires":["base","node"]},"moodle-question-chooser":{"requires":["moodle-core-chooserdialogue"]},"moodle-question-preview":{"requires":["base","dom","event-delegate","event-key","core_question_engine"]},"moodle-availability_completion-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_date-form":{"requires":["base","node","event","io","moodle-core_availability-form"]},"moodle-availability_grade-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_group-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_grouping-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-availability_profile-form":{"requires":["base","node","event","moodle-core_availability-form"]},"moodle-mod_assign-history":{"requires":["node","transition"]},"moodle-mod_quiz-modform":{"requires":["base","node","event"]},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-mod_quiz-util":{"requires":["node","moodle-core-actionmenu"],"use":["moodle-mod_quiz-util-base"],"submodules":{"moodle-mod_quiz-util-base":{},"moodle-mod_quiz-util-slot":{"requires":["node","moodle-mod_quiz-util-base"]},"moodle-mod_quiz-util-page":{"requires":["node","moodle-mod_quiz-util-base"]}}},"moodle-mod_quiz-quizbase":{"requires":["base","node"]},"moodle-mod_quiz-dragdrop":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-base","moodle-mod_quiz-util-page","moodle-mod_quiz-util-slot","moodle-course-util"]},"moodle-mod_quiz-questionchooser":{"requires":["moodle-core-chooserdialogue","moodle-mod_quiz-util","querystring-parse"]},"moodle-mod_quiz-toolboxes":{"requires":["base","node","event","event-key","io","moodle-mod_quiz-quizbase","moodle-mod_quiz-util-slot","moodle-core-notification-ajaxexception"]},"moodle-message_airnotifier-toolboxes":{"requires":["base","node","io"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-event","moodle-core-notification-alert","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-filter_mathjaxloader-loader":{"requires":["moodle-core-event"]},"moodle-editor_atto-rangy":{"requires":[]},"moodle-editor_atto-editor":{"requires":["node","transition","io","overlay","escape","event","event-simulate","event-custom","node-event-html5","node-event-simulate","yui-throttle","moodle-core-notification-dialogue","moodle-core-notification-confirm","moodle-editor_atto-rangy","handlebars","timers","querystring-stringify"]},"moodle-editor_atto-plugin":{"requires":["node","base","escape","event","event-outside","handlebars","event-custom","timers","moodle-editor_atto-menu"]},"moodle-editor_atto-menu":{"requires":["moodle-core-notification-dialogue","node","event","event-custom"]},"moodle-report_eventlist-eventfilter":{"requires":["base","event","node","node-event-delegate","datatable","autocomplete","autocomplete-filters"]},"moodle-report_loglive-fetchlogs":{"requires":["base","event","node","io","node-event-delegate"]},"moodle-gradereport_grader-gradereporttable":{"requires":["base","node","event","handlebars","overlay","event-hover"]},"moodle-gradereport_history-userselector":{"requires":["escape","event-delegate","event-key","handlebars","io-base","json-parse","moodle-core-notification-dialogue"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-tool_lp-dragdrop-reorder":{"requires":["moodle-core-dragdrop"]},"moodle-tool_monitor-dropdown":{"requires":["base","event","node"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","transition","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-alert","moodle-core-notification-warning","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-atto_accessibilitychecker-button":{"requires":["color-base","moodle-editor_atto-plugin"]},"moodle-atto_accessibilityhelper-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_align-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_bold-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_charmap-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_clear-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_collapse-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emojipicker-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_emoticon-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_equation-button":{"requires":["moodle-editor_atto-plugin","moodle-core-event","io","event-valuechange","tabview","array-extras"]},"moodle-atto_h5p-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_html-beautify":{},"moodle-atto_html-button":{"requires":["promise","moodle-editor_atto-plugin","moodle-atto_html-beautify","moodle-atto_html-codemirror","event-valuechange"]},"moodle-atto_html-codemirror":{"requires":["moodle-atto_html-codemirror-skin"]},"moodle-atto_image-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_indent-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_italic-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_link-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_managefiles-usedfiles":{"requires":["node","escape"]},"moodle-atto_managefiles-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_media-button":{"requires":["moodle-editor_atto-plugin","moodle-form-shortforms"]},"moodle-atto_noautolink-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_orderedlist-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_recordrtc-recording":{"requires":["moodle-atto_recordrtc-button"]},"moodle-atto_recordrtc-button":{"requires":["moodle-editor_atto-plugin","moodle-atto_recordrtc-recording"]},"moodle-atto_rtl-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_strike-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_subscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_superscript-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_table-button":{"requires":["moodle-editor_atto-plugin","moodle-editor_atto-menu","event","event-valuechange"]},"moodle-atto_title-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_underline-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_undo-button":{"requires":["moodle-editor_atto-plugin"]},"moodle-atto_unorderedlist-button":{"requires":["moodle-editor_atto-plugin"]}}},"gallery":{"name":"gallery","base":"https:\/\/training.achievergroups.com\/lib\/yuilib\/gallery\/","combine":true,"comboBase":"https:\/\/training.achievergroups.com\/theme\/yui_combo.php?","ext":false,"root":"gallery\/1620129514\/","patterns":{"gallery-":{"group":"gallery"}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"https:\/\/training.achievergroups.com\/lib\/javascript.php\/1620129514\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker","moodle-core-notification-dialogue"]},"core_comment":{"name":"core_comment","fullpath":"https:\/\/training.achievergroups.com\/lib\/javascript.php\/1620129514\/comment\/comment.js","requires":["base","io-base","node","json","yui2-animation","overlay","escape"]},"mathjax":{"name":"mathjax","fullpath":"https:\/\/cdn.jsdelivr.net\/npm\/mathjax@2.7.8\/MathJax.js?delayStartupUntil=configured"}}};
+M.yui.loader = {modules: {}};
+
+//]]>
+</script>
+
+<meta name="moodle-validation" content="1c5be26899dc4985916396fb8df1139a">
+  
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+</head>
+<body  id="page-mod-resource-view" class="format-topics  path-mod path-mod-resource chrome dir-ltr lang-en yui-skin-sam yui3-skin-sam training-achievergroups-com pagelayout-incourse course-3 context-219 cmid-17 category-4 drawer-open-left">
+<div class="toast-wrapper mx-auto py-0 fixed-top" role="status" aria-live="polite"></div>
+
+<div id="page-wrapper">
+
+    <div>
+    <a class="sr-only sr-only-focusable" href="#maincontent">Skip to main content</a>
+</div><script src="https://training.achievergroups.com/lib/javascript.php/1620129514/lib/babel-polyfill/polyfill.min.js"></script>
+<script src="https://training.achievergroups.com/lib/javascript.php/1620129514/lib/polyfills/polyfill.js"></script>
+<script src="https://training.achievergroups.com/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple.js"></script><script src="https://training.achievergroups.com/theme/jquery.php/core/jquery-3.4.1.js"></script>
+<script src="https://training.achievergroups.com/lib/javascript.php/1620129514/lib/javascript-static.js"></script>
+<script>
+//<![CDATA[
+document.body.className += ' jsenabled';
+//]]>
+</script>
+
+
+
+    
+        <div class="c-logo-mobile d-lg-none text-center">
+          <a href="https://training.achievergroups.com" class="navbar-brand  d-none d-sm-inline">
+              <h1 class=" site-name text-center">Achiever Groups</h1>
+          </a>
+        </div>
+    
+        <div id="topBarContainer">
+            
+
+  <div id="topBar1" class="s-top s-top--sidebar justify-content-center   ">
+
+    
+    
+      <div class="d-sm-inline d-lg-none">
+          <button type="button" class="sidebar-btn" aria-expanded="true" aria-controls="nav-drawer" data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav"></button>
+      </div>
+    
+      <div class="d-sm-inline d-lg-none">
+          <button id="showMobileTopBar" type="button" class="mobile-topbar-btn">
+            <i class="fas fa-th-large" id="mobileTopBarBtn"></i>
+            <i class="fas fa-times hidden" id="mobileTopBarCloseBtn"></i>
+          </button>
+      </div>
+    
+
+    <div id="navBar" class="s-top-container c-container row no-gutters justify-content-start align-items-center">
+
+      
+          <div data-region="drawer-toggle" class="d-sm-none d-lg-inline">
+              <button id="sidebarBtn" type="button" class="sidebar-btn ml-md-0 mr-md-3" aria-expanded="true" aria-controls="nav-drawer" data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav">
+                <i class="fas fa-indent opened"></i>
+                
+                <i class="fas fa-outdent closed"></i>
+      
+              </button>
+          </div>
+
+
+      <div class="c-nav-user nav ml-sm-0 ml-md-auto align-items-center justify-content-sm-end justify-content-lg-center">
+
+          
+          <div class="search-box d-block">
+          
+          </div>
+
+          <!-- navbar_plugin_output -->
+          <div class="top-icons-nav c-menu-sep mr-md-3"><li class="popover-region collapsed popover-region-notifications"
+    id="nav-notification-popover-container" data-userid="35"
+    data-region="popover-region">
+    <div class="popover-region-toggle nav-link"
+        data-region="popover-region-toggle"
+        role="button"
+        aria-controls="popover-region-container-60994795710576099479569b523"
+        aria-haspopup="true"
+        aria-label="Show notification window with no new notifications"
+        tabindex="0">
+                <i class="icon far fa-bell fa-fw " aria-hidden="true" title="Toggle notifications menu" aria-label="Toggle notifications menu"></i>
+        <div class="count-container hidden" data-region="count-container"
+        aria-label="There are 0 unread notifications">0</div>
+
+    </div>
+    <div 
+        id="popover-region-container-60994795710576099479569b523"
+        class="popover-region-container"
+        data-region="popover-region-container"
+        aria-expanded="false"
+        aria-hidden="true"
+        aria-label="Notification window"
+        role="region">
+        <div class="popover-region-header-container">
+            <h3 class="popover-region-header-text" data-region="popover-region-header-text">Notifications</h3>
+            <div class="popover-region-header-actions" data-region="popover-region-header-actions">        <a class="mark-all-read-button"
+           href="#"
+           title="Mark all as read"
+           data-action="mark-all-read"
+           role="button"
+           aria-label="Mark all as read">
+            <span class="normal-icon"><i class="icon fas fa-check fa-fw " aria-hidden="true"  aria-label=""></i></span>
+            <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+        </a>
+        <a href="https://training.achievergroups.com/message/notificationpreferences.php?userid=35"
+           title="Notification preferences"
+           aria-label="Notification preferences">
+            <i class="icon fas fa-cog fa-fw " aria-hidden="true"  aria-label=""></i>
+        </a>
+</div>
+        </div>
+        <div class="popover-region-content-container" data-region="popover-region-content-container">
+            <div class="popover-region-content" data-region="popover-region-content">
+                        <div class="all-notifications"
+            data-region="all-notifications"
+            role="log"
+            aria-busy="false"
+            aria-atomic="false"
+            aria-relevant="additions"></div>
+        <div class="empty-message" tabindex="0" data-region="empty-message">You have no notifications</div>
+
+            </div>
+
+        </div>
+                <a class="see-all-link btn btn-sm btn-primary"
+                    href="https://training.achievergroups.com/message/output/popup/notifications.php">
+                    <div class="popover-region-footer-container">
+                        <div class="popover-region-seeall-text">See all</div>
+                    </div>
+                </a>
+    </div>
+</li><div class="pull-right popover-region collapsed">
+    <a id="message-drawer-toggle-6099479571cd06099479569b524" class="nav-link d-inline-block popover-region-toggle position-relative" href="#" role="button">
+        <i class="icon far fa-comment-dots fa-fw " aria-hidden="true" title="Toggle messaging drawer" aria-label="Toggle messaging drawer"></i>
+        <div class="count-container hidden" data-region="count-container"
+        aria-label="There are 0 unread conversations">0</div>
+    </a>
+    <span class="sr-only sr-only-focusable" data-region="jumpto" tabindex="-1"></span></div></div>
+
+          
+
+          
+
+          <!-- user_menu -->
+          <div class="c-user-menu">
+              <div class="usermenu"><div class="action-menu moodle-actionmenu nowrap-items d-inline" id="action-menu-1" data-enhance="moodle-core-actionmenu">
+
+        <div class="menubar d-flex " id="action-menu-1-menubar" role="menubar">
+
+            
+
+
+                <div class="action-menu-trigger">
+                    <div class="dropdown">
+                        <a href="#" tabindex="0" class="d-inline-block  dropdown-toggle icon-no-margin" id="action-menu-toggle-1" aria-label="User menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="action-menu-1-menu">
+                            
+                            <span class="userbutton"><span class="usertext">Amir Shrestha</span><span class="avatars"><span class="avatar current"><img src="https://training.achievergroups.com/theme/image.php/space/core/1620129514/u/f3" class="userpicture defaultuserpic" width="105" height="105" aria-hidden="true" /></span></span></span>
+                                
+                            <b class="caret"></b>
+                        </a>
+                            <div class="dropdown-menu dropdown-menu-right menu  align-tr-br" id="action-menu-1-menu" data-rel="menu-content" aria-labelledby="action-menu-toggle-1" role="menu" data-align="tr-br">
+                                            <div class="dropdown-item">
+
+
+
+<div class="dropdown-author">Amir Shrestha</div>
+</div>
+                                            <div class="dropdown-item">
+
+
+
+<div class="dropdown-divider dropdown-divider-author"></div>
+</div>
+                                                                <a href="https://training.achievergroups.com/my/" class="dropdown-item menu-action" role="menuitem" data-title="mymoodle,admin" aria-labelledby="actionmenuaction-1">
+                                <i class="icon fas fa-columns fa-fw " aria-hidden="true"  aria-label=""></i>
+                                <span class="menu-action-text" id="actionmenuaction-1">Dashboard</span>
+                        </a>
+                    <div class="dropdown-divider" role="presentation"><span class="filler">&nbsp;</span></div>
+                                                                <a href="https://training.achievergroups.com/user/profile.php?id=35" class="dropdown-item menu-action" role="menuitem" data-title="profile,moodle" aria-labelledby="actionmenuaction-2">
+                                <i class="icon fas fa-user fa-fw " aria-hidden="true"  aria-label=""></i>
+                                <span class="menu-action-text" id="actionmenuaction-2">Profile</span>
+                        </a>
+                                                                <a href="https://training.achievergroups.com/grade/report/overview/index.php" class="dropdown-item menu-action" role="menuitem" data-title="grades,grades" aria-labelledby="actionmenuaction-3">
+                                <i class="icon fas fa-book-open fa-fw " aria-hidden="true"  aria-label=""></i>
+                                <span class="menu-action-text" id="actionmenuaction-3">Grades</span>
+                        </a>
+                                                                <a href="https://training.achievergroups.com/message/index.php" class="dropdown-item menu-action" role="menuitem" data-title="messages,message" aria-labelledby="actionmenuaction-4">
+                                <i class="icon far fa-comment-dots fa-fw " aria-hidden="true"  aria-label=""></i>
+                                <span class="menu-action-text" id="actionmenuaction-4">Messages</span>
+                        </a>
+                                                                <a href="https://training.achievergroups.com/user/preferences.php" class="dropdown-item menu-action" role="menuitem" data-title="preferences,moodle" aria-labelledby="actionmenuaction-5">
+                                <i class="icon fas fa-cog fa-fw " aria-hidden="true"  aria-label=""></i>
+                                <span class="menu-action-text" id="actionmenuaction-5">Preferences</span>
+                        </a>
+                    <div class="dropdown-divider" role="presentation"><span class="filler">&nbsp;</span></div>
+                                                                <a href="https://training.achievergroups.com/login/logout.php?sesskey=Ni0VY7ngpe" class="dropdown-item menu-action" role="menuitem" data-title="logout,moodle" aria-labelledby="actionmenuaction-6">
+                                <i class="icon fas fa-sign-out-alt fa-fw " aria-hidden="true"  aria-label=""></i>
+                                <span class="menu-action-text" id="actionmenuaction-6">Log out</span>
+                        </a>
+                            </div>
+                    </div>
+                </div>
+
+        </div>
+
+</div></div>
+          </div>
+
+      </div>
+      <!-- search_box -->
+    </div>
+
+  </div>
+
+            
+            
+            
+            
+            
+        </div>
+
+    <div id="page" class="container-fluid">
+        <header id="page-header">
+
+    <div class="row no-gutters">
+
+      <div class="breadcrumbs w-100 row no-gutters">
+        <div id="page-navbar" class="breadcrumbs-container w-100">
+            <nav aria-label="Navigation bar">
+    <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="https://training.achievergroups.com/my/"  >Dashboard</a>
+                </li>
+        
+                <li class="breadcrumb-item">My courses</li>
+        
+                <li class="breadcrumb-item">
+                    <a href="https://training.achievergroups.com/course/view.php?id=3"  title="Web Development with Python Django">Python Django</a>
+                </li>
+        
+                <li class="breadcrumb-item">
+                    <a href="https://training.achievergroups.com/course/view.php?id=3#section-1"  >Python Fundamentals</a>
+                </li>
+        
+                <li class="breadcrumb-item">
+                    <a href="https://training.achievergroups.com/mod/resource/view.php?id=17" aria-current="page" title="File">Strings</a>
+                </li>
+        </ol>
+</nav>
+        </div>
+      </div>
+
+      <div class="w-100 row no-gutters align-items-center c-header-content">
+        <div class="page-title"><div class="page-context-header"><div class="page-header-headings"><h1>Web Development with Python Django</h1></div></div></div>
+
+        <div id="settingsMenu" class="settings-menu d-inline-flex">
+          
+        </div>
+
+
+
+        
+
+
+      </div>
+
+    </div>
+
+</header>
+
+        <div id="page-content" class="row no-gutters page-main-content">
+            <div id="region-main-box">
+                <section id="region-main" >
+                    <span class="notifications" id="user-notifications"></span>
+
+                    <section data-region="blocks-main-top-widget" class="blocks-main-top-widget d-print-none">
+                    <aside id="block-region-maintopwidgets" class="block-region" data-blockregion="maintopwidgets" data-droptarget="1"></aside>
+                    </section>
+
+                    <div role="main"><span id="maincontent"></span><h2>Strings</h2><div class="resourcecontent resourcegeneral">
+  <iframe id="resourceobject" src="https://training.achievergroups.com/pluginfile.php/219/mod_resource/content/1/Strings.html?embed=1">
+    Click <a href="https://training.achievergroups.com/pluginfile.php/219/mod_resource/content/1/Strings.html" >Strings.html</a> link to view the file.
+  </iframe>
+</div></div>
+
+                    <div class="course-footer-nav">
+
+    <hr class="hr" />
+
+<div class="row">
+    <div class="col-sm-12 col-md">        <div class="pull-left">
+                <a href="https://training.achievergroups.com/mod/url/view.php?id=16&forceview=1" id="prev-activity-link" class="btn btn-link"  title="More on Python Memory management" > More on Python Memory management</a>
+
+        </div>
+</div>
+    <div class="col-sm-12 col-md-2">        <div class="mdl-align">
+            <div class="urlselect">
+    <form method="post" action="https://training.achievergroups.com/course/jumpto.php" class="form-inline" id="url_select_f6099479569b5213">
+        <input type="hidden" name="sesskey" value="Ni0VY7ngpe">
+            <label for="jump-to-activity" class="sr-only">
+                Jump to...
+            </label>
+        <select  id="jump-to-activity" class="custom-select urlselect" name="jump"
+                 >
+                    <option value="" selected>Jump to...</option>
+                    <option value="/mod/forum/view.php?id=2&amp;forceview=1" >Announcements</option>
+                    <option value="/mod/zoom/view.php?id=50&amp;forceview=1" >LIVE CLASS (Starts from May 2)</option>
+                    <option value="/mod/url/view.php?id=81&amp;forceview=1" >Download Android App</option>
+                    <option value="/mod/url/view.php?id=82&amp;forceview=1" >Download iOS App</option>
+                    <option value="/mod/resource/view.php?id=12&amp;forceview=1" >Python Installation Instructions</option>
+                    <option value="/mod/url/view.php?id=13&amp;forceview=1" >Jupyter Notebook</option>
+                    <option value="/mod/resource/view.php?id=14&amp;forceview=1" >Day - 1 Slides</option>
+                    <option value="/mod/resource/view.php?id=15&amp;forceview=1" >Day 2 Slides</option>
+                    <option value="/mod/url/view.php?id=16&amp;forceview=1" >More on Python Memory management</option>
+                    <option value="/mod/assign/view.php?id=19&amp;forceview=1" >Assignment - 1</option>
+                    <option value="/mod/assign/view.php?id=21&amp;forceview=1" >Draw following pattern in python</option>
+                    <option value="/mod/assign/view.php?id=23&amp;forceview=1" >Python Fundamentals Assignment - 2</option>
+                    <option value="/mod/resource/view.php?id=25&amp;forceview=1" >Lists</option>
+                    <option value="/mod/resource/view.php?id=26&amp;forceview=1" >Tuples</option>
+                    <option value="/mod/resource/view.php?id=27&amp;forceview=1" >Dictionary</option>
+                    <option value="/mod/resource/view.php?id=32&amp;forceview=1" >File Operations</option>
+                    <option value="/mod/resource/view.php?id=37&amp;forceview=1" >Regular Expressions</option>
+                    <option value="/mod/resource/view.php?id=76&amp;forceview=1" >Regular Expressions Contd..</option>
+                    <option value="/mod/assign/view.php?id=83&amp;forceview=1" >Add  code file here</option>
+                    <option value="/mod/resource/view.php?id=89&amp;forceview=1" >Inheritance + Coding questions</option>
+        </select>
+            <noscript>
+                <input type="submit" class="btn btn-secondary ml-1" value="Go">
+            </noscript>
+    </form>
+</div>
+
+        </div>
+</div>
+    <div class="col-sm-12 col-md">        <div class="pull-right">
+                <a href="https://training.achievergroups.com/mod/assign/view.php?id=19&forceview=1" id="next-activity-link" class="btn btn-link"  title="Assignment - 1" >Assignment - 1 </a>
+
+        </div>
+</div>
+</div>
+</div>
+                    
+
+                    <section data-region="blocks-main-footer-widget" class="blocks-main-footer-widget d-print-none">
+                    <aside id="block-region-mainfwidgets" class="block-region" data-blockregion="mainfwidgets" data-droptarget="1"></aside>
+                    </section>
+
+                </section>
+            </div>
+        </div>
+    </div>
+    <div
+    id="drawer-60994795738d16099479569b5214"
+    class=" message-drawer drawer hidden"
+    aria-expanded="false"
+    aria-hidden="true"
+    data-region="right-hand-drawer"
+    role="region"
+    tabindex="0"
+>
+        <div id="message-drawer-60994795738d16099479569b5214" class="message-app" data-region="message-drawer" role="region">
+        <div class="header-container row no-gutters justify-content-between mb-2" data-region="header-container">
+            <button class="message-drawer-toggle"><i class="fas fa-times"></i></button>
+            <div class="col text-right mb-2 no-gutters p-0">
+              <a
+                  href="#"
+                  data-route="view-settings"
+                  class="btn btn-msg"
+                  data-route-param="35"
+              >
+                  <i class="icon fas fa-cog fa-fw " aria-hidden="true"  aria-label=""></i>
+              </a>
+            
+              <a href="#" data-route="view-contacts" class="btn btn-msg btn-msg-gray">
+                  <span><i class="icon fas fa-user fa-fw " aria-hidden="true"  aria-label=""></i></span>
+                  <span class="badge bg-primary text-white ml-2 hidden" data-region="contact-request-count">
+                      0
+                  </span>
+              </a>
+            </div>
+            
+            <div class="d-block w-100">
+              <div aria-hidden="false" data-region="view-overview">
+                  <div class="d-flex align-items-center">
+                      <div class="input-group">
+            
+                          <input
+                              type="text"
+                              class="form-control mb-1 mx-0"
+                              placeholder="Search"
+                              aria-label="Search"
+                              data-region="view-overview-search-input"
+                          >
+                      </div>
+                  </div>
+            
+              </div>
+            </div>
+            
+            <div class="hidden view-search row no-gutters justify-content-between align-items-center w-100"  aria-hidden="true" data-region="view-search">
+                <div class="d-flex align-items-center w-100">
+                    <a
+                        class="mr-2 align-self-stretch d-flex align-items-center btn btn-sm"
+                        href="#"
+                        data-route-back
+                        data-action="cancel-search"
+                        role="button"
+                    >
+                        <span class="dir-rtl-hide"><i class="icon fas fa-arrow-left fa-fw " aria-hidden="true"  aria-label=""></i></span>
+                        <span class="dir-ltr-hide"><i class="icon fas fa-arrow-right fa-fw " aria-hidden="true"  aria-label=""></i></span>
+                    </a>
+                    <div class="input-group">
+                        <input
+                            type="text"
+                            class="form-control m-0"
+                            placeholder="Search"
+                            aria-label="Search"
+                            data-region="search-input"
+                        >
+                        <div class="input-group-append">
+                            <button
+                                class="btn btn-secondary"
+                                type="button"
+                                data-action="search"
+                                aria-label="Search"
+                            >
+                                <span data-region="search-icon-container">
+                                    <i class="icon fas fa-search fa-fw " aria-hidden="true"  aria-label=""></i>
+                                </span>
+                                <span class="hidden" data-region="loading-icon-container">
+                                    <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hidden mt-1" aria-hidden="true" data-region="view-settings">
+                <div class="row no-gutters justify-content-between align-items-center w-100 py-2">
+                    <div class="align-self-stretch" >
+                        <a class="h-100 py-3 d-flex mr-2 align-items-center btn btn-sm" href="#" data-route-back role="button">
+                            <span class="dir-rtl-hide"><i class="icon fas fa-arrow-left fa-fw " aria-hidden="true"  aria-label=""></i></span>
+                            <span class="dir-ltr-hide"><i class="icon fas fa-arrow-right fa-fw " aria-hidden="true"  aria-label=""></i></span>
+                        </a>
+                    </div>
+                    <div class="mt-0 p-2 h3 my-0 h6">
+                        Settings
+                    </div>
+                </div>
+            </div>
+            <div class="hidden row no-gutters justify-content-between align-items-center w-100 py-2" aria-hidden="true" data-region="view-contacts">
+                    <div class="align-self-stretch mt-1">
+                        <a class="h-100 d-flex py-3 mr-2 align-items-center btn btn-sm" href="#" data-route-back role="button">
+                            <span class="dir-rtl-hide"><i class="icon fas fa-arrow-left fa-fw " aria-hidden="true"  aria-label=""></i></span>
+                            <span class="dir-ltr-hide"><i class="icon fas fa-arrow-right fa-fw " aria-hidden="true"  aria-label=""></i></span>
+                        </a>
+                    </div>
+                    <div class="mt-0 p-2 h3 my-0 h6">
+                        Contacts
+                    </div>
+                    <div class="mt-1 ml-auto">
+                        <a href="#" data-route="view-search" class="btn btn-msg btn-msg-gray" role="button" aria-label="Search">
+                            <i class="icon fas fa-search fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </a>
+                    </div>
+            
+            </div>
+            
+            <div
+                class="hidden c-message-header w-100"
+                aria-hidden="true"
+                data-region="view-conversation"
+            >
+                <div class="hidden" data-region="header-content"></div>
+                <div class="hidden" data-region="header-edit-mode">
+                    
+                    <div class="d-flex align-items-center">
+                        <div class="col">
+                          <span class="text-bold">Messages selected:</span>
+                          <span class="m-x-1" data-region="message-selected-court">1</span>
+                        </div>
+                        <button type="button" class="btn btn-msg btn-msg-gray" aria-label="Cancel message selection" data-action="cancel-edit-mode">
+                            <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                        </button>
+                    </div>
+                </div>
+                <div data-region="header-placeholder">
+                    <div class="d-flex">
+                        <div
+                            class="ml-2 rounded bg-pulse-grey align-self-center"
+                            style="height: 38px; width: 38px"
+                        >
+                        </div>
+                        <div class="ml-2 " style="flex: 1">
+                            <div
+                                class="mt-1 bg-pulse-grey w-75"
+                                style="height: 16px;"
+                            >
+                            </div>
+                        </div>
+                        <div
+                            class="ml-2 bg-pulse-grey align-self-center"
+                            style="height: 16px; width: 20px"
+                        >
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="hidden position-absolute"
+                    data-region="confirm-dialogue-container"
+                    style="top: 0; bottom: -1px; right: 0; left: 0; background: rgba(255, 255, 255, 0.84);"
+                ></div>
+            </div>
+        </div>
+        <div class="body-container position-relative" data-region="body-container">
+            
+            <div
+                class="hidden"
+                data-region="view-contact"
+                aria-hidden="true"
+            >
+                <div class="p-0" data-region="content-container"></div>
+            </div>
+            <div class="hidden h-100" data-region="view-contacts" aria-hidden="true" data-user-id="35">
+                <div class="d-flex flex-column h-100">
+                    <div class="border-top">
+                        <ul class="nav nav-pills nav-fill my-3" role="tablist">
+                            <li class="nav-item">
+                                <a
+                                    id="contacts-tab-60994795738d16099479569b5214"
+                                    class="nav-link active"
+                                    href="#contacts-tab-panel-60994795738d16099479569b5214"
+                                    data-toggle="tab"
+                                    data-action="show-contacts-section"
+                                    role="tab"
+                                    aria-controls="contacts-tab-panel-60994795738d16099479569b5214"
+                                    aria-selected="true"
+                                >
+                                    Contacts
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    id="requests-tab-60994795738d16099479569b5214"
+                                    class="nav-link"
+                                    href="#requests-tab-panel-60994795738d16099479569b5214"
+                                    data-toggle="tab"
+                                    data-action="show-requests-section"
+                                    role="tab"
+                                    aria-controls="requests-tab-panel-60994795738d16099479569b5214"
+                                    aria-selected="false"
+                                >
+                                    Requests
+                                    <span class="badge badge-msg ml-2 px-1 py-0hidden"
+                                    data-region="contact-request-count"
+                                    aria-label="There are 0 pending contact requests">
+                                        0
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content d-flex flex-column h-100">
+                                    <div
+                class="tab-pane fade show active h-100 lazy-load-list"
+                aria-live="polite"
+                data-region="lazy-load-list"
+                data-user-id="35"
+                                    id="contacts-tab-panel-60994795738d16099479569b5214"
+                    data-section="contacts"
+                    role="tabpanel"
+                    aria-labelledby="contacts-tab-60994795738d16099479569b5214"
+
+            >
+                
+                <div class="hidden text-center p-2 alert alert-warning my-0" data-region="empty-message-container">
+                    No contacts
+                </div>
+                <div class="hidden list-group" data-region="content-container">
+                    
+                </div>
+                <div class="list-group" data-region="placeholder-container">
+                                        <div class="p-2 d-flex list-group-item border-0" data-region="placeholder">
+                        <div
+                            class="rounded-circle bg-pulse-grey"
+                            style="height: 38px; width: 38px"
+                        >
+                        </div>
+                        <div
+                            class="ml-2 bg-pulse-grey w-50"
+                            style="height: 20px;"
+                        >
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100 text-center p-3 hidden" data-region="loading-icon-container" >
+                    <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+                </div>
+            </div>
+            
+                                    <div
+                class="tab-pane fade h-100 lazy-load-list"
+                aria-live="polite"
+                data-region="lazy-load-list"
+                data-user-id="35"
+                                    id="requests-tab-panel-60994795738d16099479569b5214"
+                    data-section="requests"
+                    role="tabpanel"
+                    aria-labelledby="requests-tab-60994795738d16099479569b5214"
+
+            >
+                
+                <div class="hidden text-center p-2 alert alert-warning my-0" data-region="empty-message-container">
+                    No contact requests
+                </div>
+                <div class="hidden list-group" data-region="content-container">
+                    
+                </div>
+                <div class="list-group" data-region="placeholder-container">
+                    
+                </div>
+                <div class="w-100 text-center p-3 hidden" data-region="loading-icon-container" >
+                    <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div
+                class="view-conversation hidden h-100"
+                aria-hidden="true"
+                data-region="view-conversation"
+                data-user-id="35"
+                data-midnight="1620584100"
+                data-message-poll-min="10"
+                data-message-poll-max="120"
+                data-message-poll-after-max="300"
+                style="overflow-y: auto; overflow-x: hidden"
+            >
+                <div class="conversation-content-container position-relative h-100" data-region="content-container" style="overflow-y: auto; overflow-x: hidden">
+                    <div class="content-message-container hidden h-100 pt-0 pr-3" data-region="content-message-container" role="log" style="overflow-y: auto; overflow-x: hidden">
+                        <div class="p-3 sticky-top alert alert-warning z-index-1 text-center hidden" data-region="contact-request-sent-message-container">
+                            <p class="m-0">Contact request sent</p>
+                            <p class="font-italic font-weight-light" data-region="text"></p>
+                        </div>
+                        <div class="p-3 alert alert-info text-center hidden rounded" data-region="self-conversation-message-container">
+                            <p class="m-0">Personal space</p>
+                            <p class="font-italic font-weight-light" data-region="text">Save draft messages, links, notes etc. to access later.</p>
+                       </div>
+                        <div class="hidden text-center p-3" data-region="more-messages-loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</div>
+                    </div>
+                    <div class="p-4 w-100 h-100 hidden position-absolute" data-region="confirm-dialogue-container" style="top: 0; background: rgba(0,0,0,0.3);">
+                        
+                        <div class="p-4 bg-white rounded" data-region="confirm-dialogue" role="alert">
+                            <h3 class="h6 hidden" data-region="dialogue-header"></h3>
+                            <p class="text-center p-2" data-region="dialogue-text"></p>
+                            <div class="mb-2 custom-control custom-checkbox hidden" data-region="delete-messages-for-all-users-toggle-container">
+                                <input type="checkbox" class="custom-control-input" id="delete-messages-for-all-users" data-region="delete-messages-for-all-users-toggle">
+                                <label class="custom-control-label text-muted" for="delete-messages-for-all-users">
+                                    Delete for me and for everyone else
+                                </label>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block hidden" data-action="confirm-block">
+                                <span data-region="dialogue-button-text">Block</span>
+                                <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-block hidden" data-action="confirm-unblock">
+                                <span data-region="dialogue-button-text">Unblock</span>
+                                <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-block hidden" data-action="confirm-remove-contact">
+                                <span data-region="dialogue-button-text">Remove</span>
+                                <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-block hidden" data-action="confirm-add-contact">
+                                <span data-region="dialogue-button-text">Add</span>
+                                <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-block hidden" data-action="confirm-delete-selected-messages">
+                                <span data-region="dialogue-button-text">Delete</span>
+                                <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-block hidden" data-action="confirm-delete-conversation">
+                                <span data-region="dialogue-button-text">Delete</span>
+                                <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-block hidden" data-action="request-add-contact">
+                                <span data-region="dialogue-button-text">Send contact request</span>
+                                <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-block hidden" data-action="accept-contact-request">
+                                <span data-region="dialogue-button-text">Accept and add to contacts</span>
+                                <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            </button>
+                            <button type="button" class="btn btn-secondary btn-block hidden" data-action="decline-contact-request">
+                                <span data-region="dialogue-button-text">Decline</span>
+                                <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-block" data-action="okay-confirm">OK</button>
+                            <button type="button" class="btn btn-secondary btn-block" data-action="cancel-confirm">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="px-2 pb-2 pt-0" data-region="content-placeholder">
+                        <div class="h-100 d-flex flex-column">
+                            <div
+                                class="px-2 pb-2 pt-0 bg-light h-100"
+                                style="overflow-y: auto"
+                            >
+                                <div class="mt-4">
+                                    <div class="mb-4">
+                                        <div class="mx-auto bg-white" style="height: 25px; width: 100px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                </div>                                <div class="mt-4">
+                                    <div class="mb-4">
+                                        <div class="mx-auto bg-white" style="height: 25px; width: 100px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                </div>                                <div class="mt-4">
+                                    <div class="mb-4">
+                                        <div class="mx-auto bg-white" style="height: 25px; width: 100px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                </div>                                <div class="mt-4">
+                                    <div class="mb-4">
+                                        <div class="mx-auto bg-white" style="height: 25px; width: 100px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                </div>                                <div class="mt-4">
+                                    <div class="mb-4">
+                                        <div class="mx-auto bg-white" style="height: 25px; width: 100px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                    <div class="d-flex flex-column p-2 bg-white rounded mb-2">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <div class="mr-2">
+                                                <div class="rounded-circle bg-pulse-grey" style="height: 35px; width: 35px"></div>
+                                            </div>
+                                            <div class="mr-4 w-75 bg-pulse-grey" style="height: 16px"></div>
+                                            <div class="ml-auto bg-pulse-grey" style="width: 35px; height: 16px"></div>
+                                        </div>
+                                        <div class="bg-pulse-grey w-100" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-100 mt-2" style="height: 16px"></div>
+                                        <div class="bg-pulse-grey w-75 mt-2" style="height: 16px"></div>
+                                    </div>
+                                </div>                            </div>
+                        </div>                    </div>
+                </div>
+            </div>
+            
+            <div
+                class="hidden"
+                aria-hidden="true"
+                data-region="view-group-info"
+            >
+                <div
+                    class="pt-0 h-100 d-flex flex-column"
+                    data-region="group-info-content-container"
+                    style="overflow-y: auto"
+                ></div>
+            </div>
+            <div class="h-100 view-overview-body" aria-hidden="false" data-region="view-overview"  data-user-id="35">
+                <div id="message-drawer-view-overview-container-60994795738d16099479569b5214" class="d-flex flex-column h-100" style="overflow-y: auto">
+                        
+                        
+                        <div
+                            class="section card"
+                            data-region="view-overview-favourites"
+                        >
+                            <div id="view-overview-favourites-toggle" class="card-header p-0" data-region="toggle">
+                                <button
+                                    class="btn btn-link w-100 text-left pl-3 pr-1 py-2 d-flex align-items-center overview-section-toggle border-0 collapsed"
+                                    data-toggle="collapse"
+                                    data-target="#view-overview-favourites-target-60994795738d16099479569b5214"
+                                    aria-expanded="false"
+                                    aria-controls="view-overview-favourites-target-60994795738d16099479569b5214"
+                                >
+                        
+                                    <span class="Starred font-weight-bold text-uppercase">Starred</span>
+                        
+                                    <div class="ml-auto">
+                                      <small class="hidden mx-1 badge badge-info font-weight-bold" data-region="section-total-count-container"
+                                      aria-label=" total conversations">
+                                          <span data-region="section-total-count"></span>
+                                      </small>
+                                      <span class="hidden ml-2" data-region="loading-icon-container">
+                                          <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+                                      </span>
+                                      <span class="hidden badge badge-danger ml-auto"
+                                      data-region="section-unread-count"
+                                      >
+                                          
+                                      </span>
+                                    </div>
+                        
+                                </button>
+                            </div>
+                                                    <div
+                            class="collapse  lazy-load-list"
+                            aria-live="polite"
+                            data-region="lazy-load-list"
+                            data-user-id="35"
+                                        id="view-overview-favourites-target-60994795738d16099479569b5214"
+            aria-labelledby="view-overview-favourites-toggle"
+            data-parent="#message-drawer-view-overview-container-60994795738d16099479569b5214"
+
+                        >
+                            
+                            <div class="hidden text-center p-2 alert alert-warning my-0" data-region="empty-message-container">
+                                        <p class="small my-2">No starred conversations</p>
+
+                            </div>
+                            <div class="hidden list-group" data-region="content-container">
+                                
+                            </div>
+                            <div class="list-group" data-region="placeholder-container">
+                                        <div class="text-center py-2"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</div>
+
+                            </div>
+                            <div class="w-100 text-center p-3 hidden" data-region="loading-icon-container" >
+                                <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        
+                        <div
+                            class="section card"
+                            data-region="view-overview-group-messages"
+                        >
+                            <div id="view-overview-group-messages-toggle" class="card-header p-0" data-region="toggle">
+                                <button
+                                    class="btn btn-link w-100 text-left pl-3 pr-1 py-2 d-flex align-items-center overview-section-toggle border-0 collapsed"
+                                    data-toggle="collapse"
+                                    data-target="#view-overview-group-messages-target-60994795738d16099479569b5214"
+                                    aria-expanded="false"
+                                    aria-controls="view-overview-group-messages-target-60994795738d16099479569b5214"
+                                >
+                        
+                                    <span class="Group font-weight-bold text-uppercase">Group</span>
+                        
+                                    <div class="ml-auto">
+                                      <small class="hidden mx-1 badge badge-info font-weight-bold" data-region="section-total-count-container"
+                                      aria-label=" total conversations">
+                                          <span data-region="section-total-count"></span>
+                                      </small>
+                                      <span class="hidden ml-2" data-region="loading-icon-container">
+                                          <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+                                      </span>
+                                      <span class="hidden badge badge-danger ml-auto"
+                                      data-region="section-unread-count"
+                                      >
+                                          
+                                      </span>
+                                    </div>
+                        
+                                </button>
+                            </div>
+                                                    <div
+                            class="collapse  lazy-load-list"
+                            aria-live="polite"
+                            data-region="lazy-load-list"
+                            data-user-id="35"
+                                        id="view-overview-group-messages-target-60994795738d16099479569b5214"
+            aria-labelledby="view-overview-group-messages-toggle"
+            data-parent="#message-drawer-view-overview-container-60994795738d16099479569b5214"
+
+                        >
+                            
+                            <div class="hidden text-center p-2 alert alert-warning my-0" data-region="empty-message-container">
+                                        <p class="small my-2">No group conversations</p>
+
+                            </div>
+                            <div class="hidden list-group" data-region="content-container">
+                                
+                            </div>
+                            <div class="list-group" data-region="placeholder-container">
+                                        <div class="text-center py-2"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</div>
+
+                            </div>
+                            <div class="w-100 text-center p-3 hidden" data-region="loading-icon-container" >
+                                <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+                            </div>
+                        </div>
+                        </div>
+                        
+                        
+                        <div
+                            class="section card"
+                            data-region="view-overview-messages"
+                        >
+                            <div id="view-overview-messages-toggle" class="card-header p-0" data-region="toggle">
+                                <button
+                                    class="btn btn-link w-100 text-left pl-3 pr-1 py-2 d-flex align-items-center overview-section-toggle border-0 collapsed"
+                                    data-toggle="collapse"
+                                    data-target="#view-overview-messages-target-60994795738d16099479569b5214"
+                                    aria-expanded="false"
+                                    aria-controls="view-overview-messages-target-60994795738d16099479569b5214"
+                                >
+                        
+                                    <span class="Private font-weight-bold text-uppercase">Private</span>
+                        
+                                    <div class="ml-auto">
+                                      <small class="hidden mx-1 badge badge-info font-weight-bold" data-region="section-total-count-container"
+                                      aria-label=" total conversations">
+                                          <span data-region="section-total-count"></span>
+                                      </small>
+                                      <span class="hidden ml-2" data-region="loading-icon-container">
+                                          <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+                                      </span>
+                                      <span class="hidden badge badge-danger ml-auto"
+                                      data-region="section-unread-count"
+                                      >
+                                          
+                                      </span>
+                                    </div>
+                        
+                                </button>
+                            </div>
+                                                    <div
+                            class="collapse  lazy-load-list"
+                            aria-live="polite"
+                            data-region="lazy-load-list"
+                            data-user-id="35"
+                                        id="view-overview-messages-target-60994795738d16099479569b5214"
+            aria-labelledby="view-overview-messages-toggle"
+            data-parent="#message-drawer-view-overview-container-60994795738d16099479569b5214"
+
+                        >
+                            
+                            <div class="hidden text-center p-2 alert alert-warning my-0" data-region="empty-message-container">
+                                        <p class="text-muted mt-2">No private conversations</p>
+
+                            </div>
+                            <div class="hidden list-group" data-region="content-container">
+                                
+                            </div>
+                            <div class="list-group" data-region="placeholder-container">
+                                        <div class="text-center py-2"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</div>
+
+                            </div>
+                            <div class="w-100 text-center p-3 hidden" data-region="loading-icon-container" >
+                                <span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            
+            <div
+                data-region="view-search"
+                aria-hidden="true"
+                class="h-100 hidden"
+                data-user-id="35"
+                data-users-offset="0"
+                data-messages-offset="0"
+                style="overflow-y: auto"
+                
+            >
+                <div class="hidden" data-region="search-results-container" style="overflow-y: auto">
+                    
+                    <div class="d-flex flex-column">
+                        <div class="mb-3 bg-white" data-region="all-contacts-container">
+                            <div data-region="contacts-container"  class="pt-2">
+                                <h4 class="mt-2 px-2">Contacts</h4>
+                                <div class="list-group" data-region="list"></div>
+                            </div>
+                            <div data-region="non-contacts-container" class="pt-2">
+                                <h4 class="mt-3 px-2">Non-contacts</h4>
+                                <div class="list-group" data-region="list"></div>
+                            </div>
+                            <div class="my-2 px-2">
+                                <button class="btn btn-sm btn-secondary w-100" data-action="load-more-users">
+                                    <span data-region="button-text">Load more</span>
+                                    <span data-region="loading-icon-container" class="hidden"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bg-white" data-region="messages-container">
+                            <h4 class="px-2 pt-2">Messages</h4>
+                            <div class="list-group" data-region="list"></div>
+                            <div class="my-3 px-2">
+                                <button class="btn btn-sm btn-secondary w-100" data-action="load-more-messages">
+                                    <span data-region="button-text">Load more</span>
+                                    <span data-region="loading-icon-container" class="hidden"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="hidden p-3 text-center" data-region="no-results-container">No results</p>
+                    </div>
+                </div>
+                <div class="hidden" data-region="loading-placeholder">
+                    <div class="text-center pt-3 icon-size-4"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</div>
+                </div>
+                <div class="p-3 text-center" data-region="empty-message-container">
+                    <p>Search people and messages</p>
+                </div>
+            </div>            
+            <div class="h-100 hidden bg-white" aria-hidden="true" data-region="view-settings">
+                <div class="hidden" data-region="content-container">
+                    
+                    <div data-region="settings" class="p-3">
+                        <h3 class="h6 font-weight-bold">Privacy</h3>
+                        <p>You can restrict who can message you</p>
+                        <div data-preference="blocknoncontacts" class="mb-3">
+                                <div class="custom-control custom-radio mb-2">
+                                    <input
+                                        type="radio"
+                                        name="message_blocknoncontacts"
+                                        class="custom-control-input"
+                                        id="block-noncontacts-60994795738d16099479569b5214-1"
+                                        value="1"
+                                    >
+                                    <label class="custom-control-label ml-1" for="block-noncontacts-60994795738d16099479569b5214-1">
+                                        My contacts only
+                                    </label>
+                                </div>
+                                <div class="custom-control custom-radio mb-2">
+                                    <input
+                                        type="radio"
+                                        name="message_blocknoncontacts"
+                                        class="custom-control-input"
+                                        id="block-noncontacts-60994795738d16099479569b5214-0"
+                                        value="0"
+                                    >
+                                    <label class="custom-control-label ml-1" for="block-noncontacts-60994795738d16099479569b5214-0">
+                                        My contacts and anyone in my courses
+                                    </label>
+                                </div>
+                        </div>
+                    
+                        <hr />
+                        
+                        <div class="hidden" data-region="notification-preference-container">
+                            <h3 class="h6 mb-2 mt-4 font-weight-bold">Notification preferences</h3>
+                        </div>
+                    
+                        <hr />
+                    
+                        <h3 class="h6 mb-2 mt-4 font-weight-bold">General</h3>
+                        <div data-preference="entertosend">
+                            <span class="switch custom-controls-stacked">
+                                <label class="custom-control ios-switch d-inline-flex align-items-center">
+                                    <input class="ios-switch-control-input" type="checkbox"
+                                        id="enter-to-send-60994795738d16099479569b5214"
+                                        checked
+                                    >
+                                    <span class="ios-switch-control-indicator"></span>
+                                    <label class="my-0" for="enter-to-send-60994795738d16099479569b5214">
+                                        Use enter to send
+                                    </label>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div data-region="placeholder-container">
+                    
+                    <div class="d-flex flex-column p-3">
+                        <div class="w-25 bg-pulse-grey h6" style="height: 18px"></div>
+                        <div class="w-75 bg-pulse-grey mb-4" style="height: 18px"></div>
+                        <div class="mb-3">
+                            <div class="w-100 d-flex mb-3">
+                                <div class="bg-pulse-grey rounded-circle" style="width: 18px; height: 18px"></div>
+                                <div class="bg-pulse-grey w-50 ml-2" style="height: 18px"></div>
+                            </div>
+                            <div class="w-100 d-flex mb-3">
+                                <div class="bg-pulse-grey rounded-circle" style="width: 18px; height: 18px"></div>
+                                <div class="bg-pulse-grey w-50 ml-2" style="height: 18px"></div>
+                            </div>
+                            <div class="w-100 d-flex mb-3">
+                                <div class="bg-pulse-grey rounded-circle" style="width: 18px; height: 18px"></div>
+                                <div class="bg-pulse-grey w-50 ml-2" style="height: 18px"></div>
+                            </div>
+                        </div>
+                        <div class="w-50 bg-pulse-grey h6 mb-3 mt-2" style="height: 18px"></div>
+                        <div class="mb-4">
+                            <div class="w-100 d-flex mb-2 align-items-center">
+                                <div class="bg-pulse-grey w-25" style="width: 18px; height: 27px"></div>
+                                <div class="bg-pulse-grey w-25 ml-2" style="height: 18px"></div>
+                            </div>
+                            <div class="w-100 d-flex mb-2 align-items-center">
+                                <div class="bg-pulse-grey w-25" style="width: 18px; height: 27px"></div>
+                                <div class="bg-pulse-grey w-25 ml-2" style="height: 18px"></div>
+                            </div>
+                        </div>
+                        <div class="w-25 bg-pulse-grey h6 mb-3 mt-2" style="height: 18px"></div>
+                        <div class="mb-3">
+                            <div class="w-100 d-flex mb-2 align-items-center">
+                                <div class="bg-pulse-grey w-25" style="width: 18px; height: 27px"></div>
+                                <div class="bg-pulse-grey w-50 ml-2" style="height: 18px"></div>
+                            </div>
+                        </div>
+                    </div>                </div>
+            </div>        </div>
+        <div class="footer-container position-relative" data-region="footer-container">
+            
+            <div
+                class="hidden position-relative"
+                aria-hidden="true"
+                data-region="view-conversation"
+                data-enter-to-send="1"
+            >
+                <div class="hidden" data-region="content-messages-footer-container">
+                    
+                    
+                        <div
+                            class="d-block emoji-auto-complete-container w-100 hidden"
+                            data-region="emoji-auto-complete-container"
+                            aria-live="polite"
+                            aria-hidden="true"
+                        >
+                        </div>
+                    
+                    <div class="mt-1 row no-gutters">
+                        <textarea
+                            dir="auto"
+                            data-region="send-message-txt"
+                            class="form-control w-100 mx-0"
+                            rows="3"
+                            data-auto-rows
+                            data-min-rows="3"
+                            data-max-rows="5"
+                            role="textbox"
+                            aria-label="Write a message..."
+                            placeholder="Write a message..."
+                            style="resize: none"
+                        ></textarea>
+                        <button
+                            class="btn btn-primary mt-1 col mr-2 "
+                            aria-label="Send message"
+                            data-action="send-message"
+                        >
+                            <span data-region="send-icon-container"><i class="icon far fa-paper-plane fa-fw " aria-hidden="true"  aria-label=""></i></span>
+                            <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                        </button>
+                    
+                            <div
+                                data-region="emoji-picker-container"
+                                class="w-100 emoji-picker-container hidden"
+                                aria-hidden="true"
+                            >
+                                
+                                <div
+                                    data-region="emoji-picker"
+                                    class="emoji-picker"
+                                >
+                                    <div class="card-header px-1 pt-1 pb-0 d-flex justify-content-between flex-shrink-0">
+                                        <button
+                                            class="btn btn-secondary icon-no-margin category-button selected mr-1"
+                                            data-action="show-category"
+                                            data-category="Recent"
+                                            title="Recent"
+                                        >
+                                            <i class="icon fas fa-history fa-fw " aria-hidden="true"  aria-label=""></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-secondary icon-no-margin category-button mr-1"
+                                            data-action="show-category"
+                                            data-category="Smileys & People"
+                                            title="Smileys & people"
+                                        >
+                                            <i class="icon far fa-smile fa-fw " aria-hidden="true"  aria-label=""></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-secondary icon-no-margin category-button mr-1"
+                                            data-action="show-category"
+                                            data-category="Animals & Nature"
+                                            title="Animals & nature"
+                                        >
+                                            <i class="icon fas fa-leaf fa-fw " aria-hidden="true"  aria-label=""></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-secondary icon-no-margin category-button mr-1"
+                                            data-action="show-category"
+                                            data-category="Food & Drink"
+                                            title="Food & drink"
+                                        >
+                                            <i class="icon fas fa-utensils fa-fw " aria-hidden="true"  aria-label=""></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-secondary icon-no-margin category-button mr-1"
+                                            data-action="show-category"
+                                            data-category="Travel & Places"
+                                            title="Travel & places"
+                                        >
+                                            <i class="icon fas fa-plane fa-fw " aria-hidden="true"  aria-label=""></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-secondary icon-no-margin category-button mr-1"
+                                            data-action="show-category"
+                                            data-category="Activities"
+                                            title="Activities"
+                                        >
+                                            <i class="icon fas fa-futbol fa-fw " aria-hidden="true"  aria-label=""></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-secondary icon-no-margin category-button mr-1"
+                                            data-action="show-category"
+                                            data-category="Objects"
+                                            title="Objects"
+                                        >
+                                            <i class="icon fas fa-lightbulb fa-fw " aria-hidden="true"  aria-label=""></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-secondary icon-no-margin category-button mr-1"
+                                            data-action="show-category"
+                                            data-category="Symbols"
+                                            title="Symbols"
+                                        >
+                                            <i class="icon fas fa-heart fa-fw " aria-hidden="true"  aria-label=""></i>
+                                        </button>
+                                        <button
+                                            class="btn btn-secondary icon-no-margin category-button"
+                                            data-action="show-category"
+                                            data-category="Flags"
+                                            title="Flags"
+                                        >
+                                            <i class="icon fas fa-flag-usa fa-fw " aria-hidden="true"  aria-label=""></i>
+                                        </button>
+                                    </div>
+                                    <div class="card-body p-2 d-flex flex-column overflow-hidden">
+                                        <div class="input-group mb-1 flex-shrink-0">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                placeholder="Search"
+                                                aria-label="Search"
+                                                data-region="search-input"
+                                            >
+                                        </div>
+                                        <div class="flex-grow-1 overflow-auto emojis-container" data-region="emojis-container">
+                                            <div class="position-relative" data-region="row-container"></div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-auto search-results-container h-100 hidden" data-region="search-results-container">
+                                            <div class="position-relative" data-region="row-container"></div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="card-footer d-flex flex-shrink-0"
+                                        data-region="footer"
+                                    >
+                                        <div class="emoji-preview" data-region="emoji-preview"></div>
+                                        <div data-region="emoji-short-name" class="emoji-short-name text-muted text-wrap ml-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button
+                                class="btn btn-secondary mt-1"
+                                aria-label="Toggle emoji picker"
+                                data-action="toggle-emoji-picker"
+                            >
+                                <i class="icon far fa-smile fa-fw " aria-hidden="true"  aria-label=""></i>
+                            </button>
+                    </div>
+                </div>
+                <div class="hidden" data-region="content-messages-footer-edit-mode-container">
+                    
+                    <div class="d-flex justify-content-end">
+                        <button
+                            class="btn btn-reset w-100"
+                            data-action="delete-selected-messages"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="Delete selected messages"
+                        >
+                            <span data-region="icon-container"><i class="icon fas fa-trash fa-fw " aria-hidden="true"  aria-label=""></i></span>
+                            <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                            <span class="sr-only">Delete selected messages</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="hidden alert alert-warning m-0" data-region="content-messages-footer-require-contact-container">
+                    
+                    
+                        <p data-region="title"></p>
+                        <p class="text-muted" data-region="text"></p>
+                        <button type="button" class="btn btn-primary btn-block" data-action="request-add-contact">
+                            <span data-region="dialogue-button-text">Send contact request</span>
+                            <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                        </button>
+                </div>
+                <div class="hidden alert alert-warning m-0" data-region="content-messages-footer-require-unblock-container">
+                    
+                        <p class="text-muted" data-region="text">You have blocked this user.</p>
+                        <button type="button" class="btn btn-primary btn-block" data-action="request-unblock">
+                            <span data-region="dialogue-button-text">Unblock user</span>
+                            <span class="hidden" data-region="loading-icon-container"><span class="loading-icon icon-no-margin"><i class="icon fas fa-circle-notch fa-spin fa-fw " aria-hidden="true" title="Loading" aria-label="Loading"></i></span>
+</span>
+                        </button>
+                </div>
+                <div class="hidden alert alert-warning m-0" data-region="content-messages-footer-unable-to-message">
+                    
+                    
+                        <p class="text-muted" data-region="text">You are unable to message this user</p>
+                </div>
+                <div class="p-2" data-region="placeholder-container">
+                    <div class="d-flex">
+                        <div class="bg-pulse-grey w-100" style="height: 80px"></div>
+                        <div class="mx-2 mb-2 align-self-end bg-pulse-grey" style="height: 20px; width: 20px"></div>
+                    </div>                </div>
+                <div
+                    class="hidden position-absolute"
+                    data-region="confirm-dialogue-container"
+                    style="top: -1px; bottom: 0; right: 0; left: 0; background: rgba(0,0,0,0.3);"
+                ></div>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+<div class="message-drawer-backdrop hidden" role="region" aria-expanded="false" aria-hidden="true" data-region="right-hand-drawer" tabindex="-1"></div>
+    <div id="nav-drawer" data-region="drawer" class="nav-drawer-with-logo  d-print-none moodle-has-zindex " aria-hidden="false">
+    
+        <div class="c-logo text-center">
+          <a href="https://training.achievergroups.com" class="navbar-brand  d-none d-sm-inline">
+    
+    
+    
+    
+              <h1 class=" site-name text-center">Achiever Groups</h1>
+    
+          </a>
+        </div>
+    
+        <aside id="block-region-sidebar-top" class="block-region" data-blockregion="sidebar-top" data-droptarget="1"></aside>
+    
+        
+    
+        <nav class="c-flat-nav mt-0 m-b-1 list-group" aria-label="Python Django">
+          <ul class="m-1 p-0">
+                <li>
+                    <a class="list-group-item list-group-item-action  " href="https://training.achievergroups.com/course/view.php?id=3" data-key="coursehome" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" >
+                        <div class="c-nav-item-container">
+                        <span class="nav-icon">
+                            <i class="icon fas fa-graduation-cap fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </span>
+                        <span class="text m-l-0">Python Django</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="list-group-item list-group-item-action  " href="https://training.achievergroups.com/user/index.php?id=3" data-key="participants" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="90" data-nodetype="1" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="3">
+                        <div class="c-nav-item-container">
+                        <span class="nav-icon">
+                            <i class="icon fas fa-users fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </span>
+                        <span class="text m-l-0">Participants</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="list-group-item list-group-item-action  " href="https://training.achievergroups.com/badges/view.php?type=2&amp;id=3" data-key="badgesview" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="3">
+                        <div class="c-nav-item-container">
+                        <span class="nav-icon">
+                            <i class="icon fas fa-trophy fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </span>
+                        <span class="text m-l-0">Badges</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="list-group-item list-group-item-action  " href="https://training.achievergroups.com/admin/tool/lp/coursecompetencies.php?courseid=3" data-key="competencies" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="3">
+                        <div class="c-nav-item-container">
+                        <span class="nav-icon">
+                            <i class="icon fas fa-check fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </span>
+                        <span class="text m-l-0">Competencies</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="list-group-item list-group-item-action  " href="https://training.achievergroups.com/grade/report/index.php?id=3" data-key="grades" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="3">
+                        <div class="c-nav-item-container">
+                        <span class="nav-icon">
+                            <i class="icon fas fa-book-open fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </span>
+                        <span class="text m-l-0">Grades</span>
+                        </div>
+                    </a>
+                </li>
+                      <li class="sidebar-accordion list-group-item p-0 my-1" data-key="course-sections">
+                          <button class="accordion btn btn-accordion has-arrow w-100 d-block collapsed mt-2" id="accordionNav-course-sections" data-toggle="collapse" data-target="#accordionNavC-course-sections" aria-expanded="false" aria-controls="accordionNavC">
+        
+                              <i class="icon fas fa-align-left"></i>
+                              <span class="text">Course sections</span>
+                              <i class="accordion-icon fas fa-caret-down"></i>
+        
+                          </button>
+                          
+                          <ul id="accordionNavC-course-sections" class="sidebar-accordion-body m-0 p-1 collapse" data-parent="#accordionNav-course-sections">
+                                      <li class="" data-key="2">
+                                        <div class="list-group-item " data-key="2" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="30" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="course-sections">
+                                          <a class="" href="https://training.achievergroups.com/course/view.php?id=3#section-0">
+                                            <div class="c-nav-item-container">
+                                              <span class="nav-icon">
+                                                  <i class="icon far fa-folder fa-fw " aria-hidden="true"  aria-label=""></i>
+                                              </span>
+                                              <span class="text">General</span>
+                                            </div>
+                                          </a>
+                                        </div>
+                                      </li>
+                                      <li class="" data-key="3">
+                                        <div class="list-group-item " data-key="3" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="30" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="course-sections">
+                                          <a class="" href="https://training.achievergroups.com/course/view.php?id=3#section-1">
+                                            <div class="c-nav-item-container">
+                                              <span class="nav-icon">
+                                                  <i class="icon far fa-folder fa-fw " aria-hidden="true"  aria-label=""></i>
+                                              </span>
+                                              <span class="text">Python Fundamentals</span>
+                                            </div>
+                                          </a>
+                                        </div>
+                                      </li>
+                                      <li class="" data-key="4">
+                                        <div class="list-group-item " data-key="4" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="30" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="course-sections">
+                                          <a class="" href="https://training.achievergroups.com/course/view.php?id=3#section-2">
+                                            <div class="c-nav-item-container">
+                                              <span class="nav-icon">
+                                                  <i class="icon far fa-folder fa-fw " aria-hidden="true"  aria-label=""></i>
+                                              </span>
+                                              <span class="text">Topic 2</span>
+                                            </div>
+                                          </a>
+                                        </div>
+                                      </li>
+                                      <li class="" data-key="5">
+                                        <div class="list-group-item " data-key="5" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="30" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="course-sections">
+                                          <a class="" href="https://training.achievergroups.com/course/view.php?id=3#section-3">
+                                            <div class="c-nav-item-container">
+                                              <span class="nav-icon">
+                                                  <i class="icon far fa-folder fa-fw " aria-hidden="true"  aria-label=""></i>
+                                              </span>
+                                              <span class="text">Topic 3</span>
+                                            </div>
+                                          </a>
+                                        </div>
+                                      </li>
+                                      <li class="" data-key="6">
+                                        <div class="list-group-item " data-key="6" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="30" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="course-sections">
+                                          <a class="" href="https://training.achievergroups.com/course/view.php?id=3#section-4">
+                                            <div class="c-nav-item-container">
+                                              <span class="nav-icon">
+                                                  <i class="icon far fa-folder fa-fw " aria-hidden="true"  aria-label=""></i>
+                                              </span>
+                                              <span class="text">Topic 4</span>
+                                            </div>
+                                          </a>
+                                        </div>
+                                      </li>
+                          </ul>
+                      </li>
+                  </ul>
+                </nav>
+                <nav class="c-nav mt-0 m-b-1 list-group" aria-label="Site">
+                  <ul class="m-0 p-0">
+                <li>
+                    <a class="list-group-item list-group-item-action  " href="https://training.achievergroups.com/my/" data-key="myhome" data-isexpandable="0" data-indent="0" data-showdivider="1" data-type="1" data-nodetype="1" data-collapse="0" data-forceopen="1" data-isactive="0" data-hidden="0" data-preceedwithhr="0" >
+                        <div class="c-nav-item-container">
+                        <span class="nav-icon">
+                            <i class="icon fas fa-columns fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </span>
+                        <span class="text m-l-0">Dashboard</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="list-group-item list-group-item-action  " href="https://training.achievergroups.com/?redirect=0" data-key="home" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="myhome">
+                        <div class="c-nav-item-container">
+                        <span class="nav-icon">
+                            <i class="icon fas fa-home fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </span>
+                        <span class="text m-l-0">Site home</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="list-group-item list-group-item-action  " href="https://training.achievergroups.com/calendar/view.php?view=month&amp;course=3" data-key="calendar" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="1">
+                        <div class="c-nav-item-container">
+                        <span class="nav-icon">
+                            <i class="icon far fa-calendar-alt fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </span>
+                        <span class="text m-l-0">Calendar</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="list-group-item list-group-item-action  " href="https://training.achievergroups.com/user/files.php" data-key="privatefiles" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="70" data-nodetype="0" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="1">
+                        <div class="c-nav-item-container">
+                        <span class="nav-icon">
+                            <i class="icon far fa-hdd fa-fw " aria-hidden="true"  aria-label=""></i>
+                        </span>
+                        <span class="text m-l-0">Private files</span>
+                        </div>
+                    </a>
+                </li>
+                      <li class="sidebar-accordion list-group-item p-0 my-1" data-key="mycourses">
+                          <button class="accordion btn btn-accordion has-arrow w-100 d-block collapsed mt-2" id="accordionNav-mycourses" data-toggle="collapse" data-target="#accordionNavC-mycourses" aria-expanded="false" aria-controls="accordionNavC">
+        
+                              <i class="icon fas fa-align-left"></i>
+                              <span class="text">My courses</span>
+                              <i class="accordion-icon fas fa-caret-down"></i>
+        
+                          </button>
+                          
+                          <ul id="accordionNavC-mycourses" class="sidebar-accordion-body m-0 p-1 collapse" data-parent="#accordionNav-mycourses">
+                                      <li class="" data-key="3">
+                                        <div class="list-group-item " data-key="3" data-isexpandable="1" data-indent="0" data-showdivider="0" data-type="20" data-nodetype="1" data-collapse="0" data-forceopen="1" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="mycourses">
+                                          <a class="" href="https://training.achievergroups.com/course/view.php?id=3">
+                                            <div class="c-nav-item-container">
+                                              <span class="nav-icon">
+                                                  <i class="icon fas fa-graduation-cap fa-fw " aria-hidden="true"  aria-label=""></i>
+                                              </span>
+                                              <span class="text">Python Django</span>
+                                            </div>
+                                          </a>
+                                        </div>
+                                      </li>
+                          </ul>
+                      </li>
+          </ul>
+        </nav>
+    
+        <aside id="block-region-sidebar" class="block-region" data-blockregion="sidebar" data-droptarget="1"></aside>
+    
+        <nav class="c-flat-nav my-4"><div class="c-flat-nav-items"></div></nav>
+    
+    
+    
+    </div>
+</div>
+
+
+<footer id="page-footer" class="s-footer">
+
+  <div class="c-container">
+
+        
+
+        <div class="s-footer--copy row no-gutters">
+
+          <div class="s-footer--additional col-12 contact p-0">
+              <ul class="list-inline">
+                  <li class="d-sm-block d-lg-inline mb-sm-3 mb-lg-0 mr-sm-0 mr-lg-4"><i class="mx-2 fas fa-globe-africa"></i><a href="https://achievergroups.com" target="_blank">Achiever Groups</a></li>
+                  <li class="d-sm-block d-lg-inline mb-sm-3 mb-lg-0 mr-sm-0 mr-lg-4"><i class="mx-2 fas fa-mobile-alt"></i>Tel: 01-4221824</li>
+                  <li class="d-sm-block d-lg-inline"><i class="mx-2 far fa-envelope-open"></i><a href="mailto:info@achievergroups.com">info@achievergroups.com</a></li>
+              </ul>
+          </div>
+
+
+          <div class="col-12 my-3 p-0">
+            <span class="copy">Achiever Groups</span><span class="sep">All rights reserved</span>
+          </div>
+
+        </div>
+
+        <div class="o-course-footer">
+            <div id="course-footer"></div>
+            <div class="tool_usertours-resettourcontainer"></div>
+        </div>
+
+        <div class="o-standard-footer-html"><div class="tool_dataprivacy"><a href="https://training.achievergroups.com/admin/tool/dataprivacy/summary.php">Data retention summary</a></div><a href="https://download.moodle.org/mobile?version=2020110900.06&amp;lang=en&amp;iosappid=633359593&amp;androidappid=com.moodle.moodlemobile">Get the mobile app</a><div class="performanceinfo siteinfo container-fluid px-md-0 overflow-auto mt-3"><ul class="list-unstyled row mx-md-0"><li class="timeused col-sm-4">0.07983 secs</li> <li class="memoryused col-sm-4">RAM: 7.9MB</li> <li class="memoryused col-sm-4">RAM peak: 9MB</li> </ul><ul class="list-unstyled row mx-md-0"><li class="included col-sm-4">Included 402 files</li> <li class='contextswithfilters col-sm-4'>Contexts for which filters were loaded: 1 </li> <li class='filterscreated col-sm-4'>Filters created: 12 </li> <li class='textsfiltered col-sm-4'>Pieces of content filtered: 5 </li> <li class='stringsfiltered col-sm-4'>Strings filtered: 0 </li> <li class='langcountgetstring col-sm-4'>get_string calls: 297 </li> <li class="dbqueries col-sm-4">DB reads/writes: 34/1</li> <li class="dbtime col-sm-4">DB queries time: 0.00702 secs</li> <li class="posixtimes col-sm-4">ticks: 8 user: 7sys: 0 cuser: 0 csys: 0</li> <li class="serverload col-sm-4">Load average: 0.00</li> <li class="serverload col-sm-4"><div class="sessionsize">Session (core\session\file): 8KB</div></li></ul><table class="cachesused table table-dark table-sm w-auto table-bordered">
+<thead>
+<tr>
+<th class="header c0" style="text-align:left;" scope="col">Mode</th>
+<th class="header c1" style="text-align:left;" scope="col">Cache item</th>
+<th class="header c2" style="text-align:left;" scope="col">Static</th>
+<th class="header c3" style="text-align:right;" scope="col">H</th>
+<th class="header c4" style="text-align:right;" scope="col">M</th>
+<th class="header c5" style="text-align:left;" scope="col">Primary store</th>
+<th class="header c6" style="text-align:right;" scope="col">H</th>
+<th class="header c7" style="text-align:right;" scope="col">M</th>
+<th class="header c8 lastcol" style="text-align:right;" scope="col">S</th>
+</tr>
+</thead>
+<tbody><tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="request cache">Req</span></td>
+<td class="cell c1" style="text-align:left;">adhoc/filter_activitynames</td>
+<td class="cell c2" style="text-align:left;"></td>
+<td class="cell c3" style="text-align:right;"></td>
+<td class="cell c4" style="text-align:right;"></td>
+<td class="hihits cell c5" style="text-align:left;">default_request</td>
+<td class="hihits cell c6" style="text-align:right;">12</td>
+<td class="hihits cell c7" style="text-align:right;">1</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">3</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/capabilities</td>
+<td class="hihits cell c2" style="text-align:left;">** static accel. **</td>
+<td class="hihits cell c3" style="text-align:right;">221</td>
+<td class="hihits cell c4" style="text-align:right;">1</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">1</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="session cache">Ses</span></td>
+<td class="cell c1" style="text-align:left;">core/coursecat</td>
+<td class="cell c2" style="text-align:left;"></td>
+<td class="cell c3" style="text-align:right;"></td>
+<td class="cell c4" style="text-align:right;"></td>
+<td class="hihits cell c5" style="text-align:left;">default_session</td>
+<td class="hihits cell c6" style="text-align:right;">2</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">1</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/coursecompletion</td>
+<td class="nohits bg-danger cell c2" style="text-align:left;">** static accel. **</td>
+<td class="nohits bg-danger cell c3" style="text-align:right;">0</td>
+<td class="nohits bg-danger cell c4" style="text-align:right;">1</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">1</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/coursemodinfo</td>
+<td class="cell c2" style="text-align:left;"></td>
+<td class="cell c3" style="text-align:right;"></td>
+<td class="cell c4" style="text-align:right;"></td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">2</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/databasemeta</td>
+<td class="hihits cell c2" style="text-align:left;">** static accel. **</td>
+<td class="hihits cell c3" style="text-align:right;">9</td>
+<td class="hihits cell c4" style="text-align:right;">9</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">9</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/eventinvalidation</td>
+<td class="nohits bg-danger cell c2" style="text-align:left;">** static accel. **</td>
+<td class="nohits bg-danger cell c3" style="text-align:right;">0</td>
+<td class="nohits bg-danger cell c4" style="text-align:right;">2</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">2</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/fontawesomeiconmapping</td>
+<td class="nohits bg-danger cell c2" style="text-align:left;">** static accel. **</td>
+<td class="nohits bg-danger cell c3" style="text-align:right;">0</td>
+<td class="nohits bg-danger cell c4" style="text-align:right;">1</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">1</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/langmenu</td>
+<td class="hihits cell c2" style="text-align:left;">** static accel. **</td>
+<td class="hihits cell c3" style="text-align:right;">2</td>
+<td class="hihits cell c4" style="text-align:right;">1</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">1</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/message_processors_enabled</td>
+<td class="nohits bg-danger cell c2" style="text-align:left;">** static accel. **</td>
+<td class="nohits bg-danger cell c3" style="text-align:right;">0</td>
+<td class="nohits bg-danger cell c4" style="text-align:right;">1</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">1</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/observers</td>
+<td class="nohits bg-danger cell c2" style="text-align:left;">** static accel. **</td>
+<td class="nohits bg-danger cell c3" style="text-align:right;">0</td>
+<td class="nohits bg-danger cell c4" style="text-align:right;">2</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">2</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/plugin_functions</td>
+<td class="nohits bg-danger cell c2" style="text-align:left;">** static accel. **</td>
+<td class="nohits bg-danger cell c3" style="text-align:right;">0</td>
+<td class="nohits bg-danger cell c4" style="text-align:right;">16</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">16</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/plugin_manager</td>
+<td class="cell c2" style="text-align:left;"></td>
+<td class="cell c3" style="text-align:right;"></td>
+<td class="cell c4" style="text-align:right;"></td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">2</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/roledefs</td>
+<td class="nohits bg-danger cell c2" style="text-align:left;">** static accel. **</td>
+<td class="nohits bg-danger cell c3" style="text-align:right;">0</td>
+<td class="nohits bg-danger cell c4" style="text-align:right;">2</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">2</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/string</td>
+<td class="hihits cell c2" style="text-align:left;">** static accel. **</td>
+<td class="hihits cell c3" style="text-align:right;">327</td>
+<td class="hihits cell c4" style="text-align:right;">27</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">27</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">core/yuimodules</td>
+<td class="cell c2" style="text-align:left;"></td>
+<td class="cell c3" style="text-align:right;"></td>
+<td class="cell c4" style="text-align:right;"></td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">3</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="lastrow">
+<td class="cell c0" style="text-align:left;"> <span title="application cache">App</span></td>
+<td class="cell c1" style="text-align:left;">tool_usertours/tourdata</td>
+<td class="nohits bg-danger cell c2" style="text-align:left;">** static accel. **</td>
+<td class="nohits bg-danger cell c3" style="text-align:right;">0</td>
+<td class="nohits bg-danger cell c4" style="text-align:right;">1</td>
+<td class="hihits cell c5" style="text-align:left;">default_application</td>
+<td class="hihits cell c6" style="text-align:right;">1</td>
+<td class="hihits cell c7" style="text-align:right;">0</td>
+<td class="hihits cell c8 lastcol" style="text-align:right;">0</td>
+</tr>
+</tbody>
+</table>
+<table class="cachesused table table-dark table-sm w-auto table-bordered">
+<thead>
+<tr>
+<th class="header c0" style="text-align:left;" scope="col">Store name</th>
+<th class="header c1" style="text-align:left;" scope="col">Cache store</th>
+<th class="header c2" style="text-align:right;" scope="col">H</th>
+<th class="header c3" style="text-align:right;" scope="col">M</th>
+<th class="header c4 lastcol" style="text-align:right;" scope="col">S</th>
+</tr>
+</thead>
+<tbody><tr class="">
+<td class="hihits cell c0" style="text-align:left;">** static accel. **</td>
+<td class="hihits cell c1" style="text-align:left;"></td>
+<td class="hihits cell c2" style="text-align:right;">559</td>
+<td class="hihits cell c3" style="text-align:right;">64</td>
+<td class="hihits cell c4 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="hihits cell c0" style="text-align:left;">default_application</td>
+<td class="hihits cell c1" style="text-align:left;">cachestore_file</td>
+<td class="hihits cell c2" style="text-align:right;">71</td>
+<td class="hihits cell c3" style="text-align:right;">0</td>
+<td class="hihits cell c4 lastcol" style="text-align:right;">0</td>
+</tr>
+<tr class="">
+<td class="hihits cell c0" style="text-align:left;">default_request</td>
+<td class="hihits cell c1" style="text-align:left;">cachestore_static</td>
+<td class="hihits cell c2" style="text-align:right;">12</td>
+<td class="hihits cell c3" style="text-align:right;">1</td>
+<td class="hihits cell c4 lastcol" style="text-align:right;">3</td>
+</tr>
+<tr class="">
+<td class="hihits cell c0" style="text-align:left;">default_session</td>
+<td class="hihits cell c1" style="text-align:left;">cachestore_session</td>
+<td class="hihits cell c2" style="text-align:right;">2</td>
+<td class="hihits cell c3" style="text-align:right;">0</td>
+<td class="hihits cell c4 lastcol" style="text-align:right;">1</td>
+</tr>
+<tr class="lastrow">
+<td class="cell c0" style="text-align:left;">Total</td>
+<td class="cell c1" style="text-align:left;"></td>
+<td class="cell c2" style="text-align:right;">644</td>
+<td class="cell c3" style="text-align:right;">65</td>
+<td class="cell c4 lastcol" style="text-align:right;">4</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+
+  </div>
+
+</footer>
+
+
+<script>
+//<![CDATA[
+var require = {
+    baseUrl : 'https://training.achievergroups.com/lib/requirejs.php/1620129514/',
+    // We only support AMD modules with an explicit define() statement.
+    enforceDefine: true,
+    skipDataMain: true,
+    waitSeconds : 0,
+
+    paths: {
+        jquery: 'https://training.achievergroups.com/lib/javascript.php/1620129514/lib/jquery/jquery-3.4.1.min',
+        jqueryui: 'https://training.achievergroups.com/lib/javascript.php/1620129514/lib/jquery/ui-1.12.1/jquery-ui.min',
+        jqueryprivate: 'https://training.achievergroups.com/lib/javascript.php/1620129514/lib/requirejs/jquery-private'
+    },
+
+    // Custom jquery config map.
+    map: {
+      // '*' means all modules will get 'jqueryprivate'
+      // for their 'jquery' dependency.
+      '*': { jquery: 'jqueryprivate' },
+      // Stub module for 'process'. This is a workaround for a bug in MathJax (see MDL-60458).
+      '*': { process: 'core/first' },
+
+      // 'jquery-private' wants the real jQuery module
+      // though. If this line was not here, there would
+      // be an unresolvable cyclic dependency.
+      jqueryprivate: { jquery: 'jquery' }
+    }
+};
+
+//]]>
+</script>
+<script src="https://training.achievergroups.com/lib/javascript.php/1620129514/lib/requirejs/require.min.js"></script>
+<script>
+//<![CDATA[
+M.util.js_pending("core/first");require(['core/first'], function() {
+require(['core/prefetch']);
+;
+require(["media_videojs/loader"], function(loader) {
+    loader.setUp('en');
+});;
+
+require(['jquery', 'message_popup/notification_popover_controller'], function($, controller) {
+    var container = $('#nav-notification-popover-container');
+    var controller = new controller(container);
+    controller.registerEventListeners();
+    controller.registerListNavigationEventListeners();
+});
+;
+
+require(
+[
+    'jquery',
+    'core_message/message_popover'
+],
+function(
+    $,
+    Popover
+) {
+    var toggle = $('#message-drawer-toggle-6099479571cd06099479569b524, .message-drawer-toggle, .message-drawer-backdrop');
+    Popover.init(toggle);
+});
+;
+
+        require(['jquery', 'core/custom_interaction_events'], function($, CustomEvents) {
+            CustomEvents.define('#jump-to-activity', [CustomEvents.events.accessibleChange]);
+            $('#jump-to-activity').on(CustomEvents.events.accessibleChange, function() {
+                if (!$(this).val()) {
+                    return false;
+                }
+                $('#url_select_f6099479569b5213').submit();
+            });
+        });
+    ;
+
+  require(['jquery', 'core_message/message_drawer'], function($, MessageDrawer) {
+      var root = $('#message-drawer-60994795738d16099479569b5214, .message-drawer-toggle, .message-drawer-backdrop');
+      MessageDrawer.init(root, '60994795738d16099479569b5214', false);
+  });
+  ;
+
+require(['jquery'], function($) {
+
+  var searchbar = $("#searchField"),
+      searchbox = $(".search-box"),
+      searchbarToggle = $("#searchBtn"),
+      searchbarClose = $("#searchBtnClose");
+
+  searchbarToggle.on("click", function(e) {
+     e.preventDefault();
+     searchbar.toggleClass("show");
+     searchbox.toggleClass("active");
+  });
+
+  searchbarClose.on("click", function(e) {
+     searchbar.removeClass("show");
+     searchbox.removeClass("active");
+  });
+
+  var mobileTopBar = $(".s-top-container"),
+      mobileTopBarBtn = $("#showMobileTopBar");
+      mobileTopBarToggle = $("#mobileTopBarBtn, #mobileTopBarCloseBtn, .topbar-backdrop");
+
+  mobileTopBarBtn.on("click", function(e) {
+     e.preventDefault();
+     mobileTopBar.toggleClass("show");
+     mobileTopBarToggle.toggleClass("hidden");
+  });
+
+  var sidebar = $("#nav-drawer"),
+      sidebarToggle = $(".sidebar-btn, .sidebar-btn--close");
+      pageWrapper = $("#page-wrapper, #page-footer .c-container");
+      topBarWrapper = $(".s-top");
+
+  /*
+   * Bootstrap Cookie Alert by Wruczek
+   * https://github.com/Wruczek/Bootstrap-Cookie-Alert
+   * Released under MIT license
+   */
+  (function () {
+      "use strict";
+
+      var customAlert = document.querySelector("#customAlert");
+      var closeCustomAlert = document.querySelector("#customAlertClose");
+
+      if (!customAlert) {
+         return;
+      }
+
+      customAlert.offsetHeight; // Force browser to trigger reflow (https://stackoverflow.com/a/39451131)
+
+      // Show the alert if we cant find the "closeCustomAlert" cookie
+      if (!getCookie("closeCustomAlert")) {
+          customAlert.classList.add("show");
+      }
+
+      // When clicking on the agree button, create a 1 year
+      // cookie to remember user's choice and close the banner
+      closeCustomAlert.addEventListener("click", function () {
+          setCookie("closeCustomAlert", true, 1);
+          customAlert.classList.remove("show");
+      });
+
+      // Cookie functions from w3schools
+      function setCookie(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+          var expires = "expires=" + d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for (var i = 0; i < ca.length; i++) {
+              var c = ca[i];
+              while (c.charAt(0) === ' ') {
+                  c = c.substring(1);
+              }
+              if (c.indexOf(name) === 0) {
+                  return c.substring(name.length, c.length);
+              }
+          }
+          return "";
+      }
+  })();
+
+
+});
+
+;
+
+M.util.js_pending('theme_space/loader');
+require(['theme_space/loader'], function() {
+    M.util.js_complete('theme_space/loader');
+});
+require(['theme_space/backtotop'], function(mod) {
+    mod.init();
+});
+
+M.util.js_pending('theme_space/drawer');
+require(['theme_space/drawer'], function(drawer) {
+    drawer.init();
+    M.util.js_complete('theme_space/drawer');
+});
+;
+M.util.js_pending('core/notification'); require(['core/notification'], function(amd) {amd.init(219, []); M.util.js_complete('core/notification');});;
+M.util.js_pending('core/log'); require(['core/log'], function(amd) {amd.setConfig({"level":"trace"}); M.util.js_complete('core/log');});;
+M.util.js_pending('core/page_global'); require(['core/page_global'], function(amd) {amd.init(); M.util.js_complete('core/page_global');});M.util.js_complete("core/first");
+});
+//]]>
+</script>
+<script>
+//<![CDATA[
+M.str = {"moodle":{"lastmodified":"Last modified","name":"Name","error":"Error","info":"Information","yes":"Yes","no":"No","cancel":"Cancel","confirm":"Confirm","areyousure":"Are you sure?","closebuttontitle":"Close","unknownerror":"Unknown error","file":"File","url":"URL"},"repository":{"type":"Type","size":"Size","invalidjson":"Invalid JSON string","nofilesattached":"No files attached","filepicker":"File picker","logout":"Logout","nofilesavailable":"No files available","norepositoriesavailable":"Sorry, none of your current repositories can return files in the required format.","fileexistsdialogheader":"File exists","fileexistsdialog_editor":"A file with that name has already been attached to the text you are editing.","fileexistsdialog_filemanager":"A file with that name has already been attached","renameto":"Rename to \"{$a}\"","referencesexist":"There are {$a} alias\/shortcut files that use this file as their source","select":"Select"},"admin":{"confirmdeletecomments":"You are about to delete comments, are you sure?","confirmation":"Confirmation"},"debug":{"debuginfo":"Debug info","line":"Line","stacktrace":"Stack trace"},"langconfig":{"labelsep":": "}};
+//]]>
+</script>
+<script>
+//<![CDATA[
+(function() { M.util.js_pending('random6099479569b521'); Y.on('domready', function() { M.util.init_maximised_embed(Y, "resourceobject");  M.util.js_complete('random6099479569b521'); });
+Y.use("moodle-filter_mathjaxloader-loader",function() {M.filter_mathjaxloader.configure({"mathjaxconfig":"\nMathJax.Hub.Config({\n    config: [\"Accessible.js\", \"Safe.js\"],\n    errorSettings: { message: [\"!\"] },\n    skipStartupTypeset: true,\n    messageStyle: \"none\"\n});\n","lang":"en"});
+});
+M.util.help_popups.setup(Y);
+ M.util.js_pending('random6099479569b5215'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random6099479569b5215'); });
+})();
+//]]>
+</script>
+
+<div class="topbar-backdrop hidden"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  //The first argument are the elements to which the plugin shall be initialized
+  //The second argument has to be at least a empty object or a object with your desired options
+  OverlayScrollbars(document.querySelectorAll('#nav-drawer, .sidebar-accordion-body'),
+  {scrollbars :
+      {
+        visibility       : "auto",
+        autoHide         : "l",
+        autoHideDelay    : 800,
+        dragScrolling    : true,
+        clickScrolling   : false,
+        touchSupport     : true
+      }
+  });
+  OverlayScrollbars(document.querySelectorAll('.region-main-settings-menu .dropdown-menu, .course-contacts-ext-content, .dropdown-scrollable'),
+  {scrollbars :
+      {
+        visibility       : "auto",
+        autoHide         : "never",
+        autoHideDelay    : 800,
+        dragScrolling    : true,
+        clickScrolling   : false,
+        touchSupport     : true
+      }
+  });
+  OverlayScrollbars(document.querySelectorAll('.s-courses .course-box-content-desc, .form-description pre, .accordion-nav-content'),
+  {scrollbars :
+      {
+        visibility       : "auto",
+        dragScrolling    : true,
+        clickScrolling   : false,
+        touchSupport     : true
+      }
+  });
+});
+
+$(".course_category_tree").on("click", "[data-toggle='collapse'], .collapseexpand, .content .subcategories .category .info, .course_category_tree .category.with_children>.info>.categoryname, .category.with_children:not(.collapsed), .category.with_children" ,function(){
+  OverlayScrollbars(document.querySelectorAll('.course-contacts-ext-content, .course-box-content-desc'),
+  {scrollbars :
+      {
+        visibility       : "auto",
+        autoHide         : "never",
+        autoHideDelay    : 800,
+        dragScrolling    : true,
+        clickScrolling   : false,
+        touchSupport     : true
+      }
+  });
+});
+
+window.onscroll = function() {stickyNav()};
+
+var navbar = document.getElementById("topBarContainer");
+var navbarH = navbar.offsetHeight;
+var settingsBtn = document.getElementById("settingsMenu");
+var sticky = navbar.offsetTop + 300;
+
+function stickyNav() {
+  if (window.pageYOffset > sticky) {
+    navbar.classList.add("sticky-nav");
+    settingsBtn.classList.add("sticky");
+    settingsBtn.style.top = 10 + navbarH + "px";
+  } else {
+    navbar.classList.remove("sticky-nav");
+    settingsBtn.classList.remove("sticky");
+    settingsBtn.style.top = "-15px";
+  }
+}
+
+</script>
+
+
+<script src="https://training.achievergroups.com/theme/space/addons/bootstrapnavbar/bootstrap-4-navbar.min.js"></script>
+
+
+
+
+</body>
+</html>

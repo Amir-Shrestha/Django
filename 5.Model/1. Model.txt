@@ -1,0 +1,50 @@
+Inoder to see models in admin pannel we need to register them in admin.py
+
+
+models.py: Category ModelClass
+
+from django.db import models
+class Category(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.title
+
+
+model class(Category) with two atributes/fields : title, slug
+Model Field types     ------------------------------------------------->   CharField, SlugField
+Model Field options   ------------------------------------------------->   unique, max_length, 
+
+
+Some other Model Field types    ------------------> AutoField, CharField, TextField, SlugField, EmailField, BooleanField, DateField, DateTimeField, IntegerField, PositiveIntegerField, ImageField, OneToOneField, ForeignKey
+Some other Model Field options  ------------------> primary_key, max_length, default, null, blank, unique, upload_to, auto_now_add, choices, on_delete, related_name
+
+
+Model-Field-options depends upon Model-Field-types.
+
+
+Values of Model-Field-options  ========================>
+primary_key=True
+null=True
+blank=True
+unique=True
+auto_now_add=True
+on_delete=models.CASCADE or models.SET_NULL
+max_length=200
+default="Cash on delivery" or "profile.jpg" or 100 or "Anonymous" or timezone.now
+upload_to="dir_path" or "events_app/event_thumbnail"
+
+PAYMENT_METHOD = (
+    ("Cash on delivery", "Cash on delivery"),
+    ("Khalti", "Khalti"),
+    ("Esewa", "Esewa"),
+    ("PayPal", "PayPal"),
+)
+choices=PAYMENT_METHOD
+
+related_name='Profile' or 'comments'
+
+
+
+

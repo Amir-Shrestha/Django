@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About{% endblock title %}
+
+{% block content %}
+    <div class="container ">
+        <div class="row">
+            <h2>Step 1 - Manage Your Cart</h2>
+            <hr>
+            <div class="my-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">S.N</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Product_Id</th>
+                            <th scope="col">Rate</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">SubTotal</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cartproduct in cart_obj.cartproduct_set.all %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td> 
+                                <td style="text-align:left;">  <a href="{% url 'a_product' cartproduct.product.slug %}" style="text-decoration: none;" >{{ cartproduct.product.title }}</td></a>
+                                <td>{{ cartproduct.product.id }}</td>
+                                <td>{{ cartproduct.product.selling_price }}</td> <!--Or <td>{{ cartproduct.rate }}</td> Or you can remove rate attribute from CartProduct class-->
+                                <td>{{ cartproduct.quantity }}</td>
+                                <td>Rs.{{ cartproduct.sub_total }}</td>
+                                <td>
+                                    {% comment %} <a href="{% url 'manage_my_cart' cartproduct.id %}?action=plus" ><img src="{% static  'images/arrow-up.png' %}"></a>
+                                    <a href="{% url 'manage_my_cart' cartproduct.id %}?action=minus" ><img src="{% static  'images/arrow-down.png' %}"></a> {% endcomment %}
+                                    <div class="quantity">
+                                        <div class="row">
+                                        <div class="col">
+                                            <a href="{% url 'manage_my_cart' cartproduct.id %}?action=plus" ><img class="chg-quantity" src="{% static  'images/arrow-up.png' %}"></a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="{% url 'manage_my_cart' cartproduct.id %}?action=minus" ><img class="chg-quantity" src="{% static  'images/arrow-down.png' %}"></a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="{% url 'manage_my_cart' cartproduct.id %}?action=delete"><img class="chg-quantity" src="{% static  'images/cancel.jpg' %}"></a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                            <tr>
+                                <th colspan="5"  style="text-align:center;">Total</th>
+                                <th>Rs.{{cart_obj.total_amount}}/- </th>
+                            {% if cart_obj.cartproduct_set.all.exists %}
+                                <th>
+                                    <a href="{% url 'clear_cart'%}" style="text-decoration: none; color:red;">Clear Cart</a>
+                                    <a href="{% url 'checkout'%}" style="text-decoration: none;">CheckOut</a>
+                                </th>
+                            {% endif %}
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

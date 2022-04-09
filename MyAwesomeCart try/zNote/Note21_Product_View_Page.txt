@@ -1,0 +1,80 @@
+In index.html :
+Add new Product View Button:
+<a href="product"><button class="btn btn-primary cart" id="qv{{i.id}}" > Quick View </button></a>
+
+
+Again 
+To :
+<a href="product/{{i.id}}"><button class="btn btn-primary cart" id="qv{{i.id}}" > Quick View </button></a>
+
+
+
+
+In shop/urls.py :
+
+path('product', views.product_view, name='product_view')
+
+To:
+
+path('product/<int:id>', views.product_view, name='product_view')
+
+
+Because of this is you get id of product in urls : http://127.0.0.1:8000/shop/product/9
+
+
+In views.py
+
+def product_view(request):
+    return render(request, 'shop/product_view.html')
+
+To :
+
+def product_view(request, id):
+    #fetch the product using id
+    id
+    return render(request, 'shop/product_view.html')
+
+
+
+Now:
+def product_view(request, pro_id):
+    #fetch the product using id
+    product = Product.objects.filter(id=pro_id)
+    print(product)
+    return render(request, 'shop/product_view.html')
+
+See in terminal:
+<QuerySet [<Product: Gate>]>
+
+
+
+
+
+Again,
+def product_view(request, pro_id):
+    #fetch the product using id
+    product = Product.objects.filter(id=pro_id)
+    return render(request, 'shop/product_view.html', {'product_item':product})
+
+
+
+
+filter gives ==> list_of_Object and list_of_Object doesnt have attributes instead object inside list_of_Object  has attributes so we have to identify the object first using index fromlist_of_Object and call attributes.
+
+product = Product.objects.filter(id=pro_id) ==> <class 'django.db.models.query.QuerySet'>
+print(product.product_name) ==> not allow
+print(product[0].product_name) ==> allow
+
+
+
+So,
+Again,
+def product_view(request, pro_id):
+    #fetch the product using id
+    product = Product.objects.filter(id=pro_id)
+    return render(request, 'shop/product_view.html', {'product_item':product[0]})
+
+
+
+
+

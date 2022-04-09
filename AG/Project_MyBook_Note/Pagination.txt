@@ -1,0 +1,276 @@
+Pagination => split data into several pages....
+Django provies few class that helps us to pagiante data :
+   1. Paginate Class
+   2. Page Class
+
+
+
+
+from django.core.paginator import Paginator
+    print(Paginator)        ====>      <class 'django.core.paginator.Paginator'>
+    print(paginator)        ====>      <django.core.paginator.Paginator object at 0x0000018EA2B8C3A0>
+
+
+
+from django import core
+    print(core)    	    ===><module 'django.core' from 'C:\\Users\\SimbA\\Python_V_EN\\Virtual_Environment_1\\lib\\site-packages\\django\\core\\__init__.py'>
+
+
+
+from django.core import paginator
+    print(paginator)  ===>  <module 'django.core.paginator' from 'C:\\Users\\SimbA\\Python_V_EN\\Virtual_Environment_1\\lib\\site-packages\\django\\core\\paginator.py'>
+    
+
+
+from django.core.paginator import Paginator
+    print(paginator)   ====>    <django.core.paginator.Paginator object at 0x00000247E0C82760>
+    
+
+
+from django.core.paginator import Paginator
+    posts = Post.objects.all()
+    paginator = Paginator(posts, 3)
+    print(Paginator)        ====>      <class 'django.core.paginator.Paginator'>
+    print(paginator)        ====>      <django.core.paginator.Paginator object at 0x0000018EA2B8C3A0>
+
+from django.core.paginator import Paginator
+    posts = Post.objects.all()
+    paginator = Paginator(posts, 3)
+    print(paginator.num_pages)       =====>   3 as we have 7 post in database
+
+
+If we have total 17 blog post in our database,
+If paginator = Paginator(posts, 3), ===> one page can contain 3 post
+Then, 
+	17/3=math.ceil(5.666666666666667)  ==>6
+        print(paginator.num_pages)         =====>   6
+
+
+
+
+Here
+The Paginator class¶
+Under the hood, all methods of pagination use the Paginator class. It does all the heavy lifting of actually splitting a QuerySet into Page objects.
+
+Give Paginator a list_of_objects/QuerySet, plus the number of items you’d like to have on each page, and it gives you methods for accessing the items for each page:
+
+    .num_pages
+    .count    
+    .has_next()
+    .has_previous()
+    .has_other_pages()
+    .next_page_number()
+    .get_page()
+
+Paginator(QuerySet, Number_of_post_per_page)
+i.e : Paginator(posts, 3)
+
+Here, posts is QuerySet : posts = Post.objects.all()
+Terefore,  
+paginator = Paginator(posts, 3)
+
+Extra :
+paginator.count                     ===> 17
+paginator.num_pages                 ===> 6
+
+Note : If total 17 post,
+paginator = Paginator(posts, 3)
+paginator ==> holds 6 pages
+
+page1 = paginator.page(1) ===>  <Page 1 of 6> ===> First page with 3 post   ============> type : <class 'django.core.paginator.Page'>
+page2 = paginator.page(2) ===>  <Page 2 of 6> ===> Second page with 3 post
+page3 = paginator.page(3) ===>  <Page 3 of 6> ===> Third page with 3 post
+page4 = paginator.page(4) ===>  <Page 4 of 6> ===> Fourth page with 3 post
+page5 = paginator.page(5) ===>  <Page 5 of 6> ===> Fifth page with 3 post
+page6 = paginator.page(6) ===>  <Page 6 of 6> ===> Sixth page with 3 post
+page7 = paginator.page(7) ===>  django.core.paginator.EmptyPage: That page contains no results   ===> No more page left in object_paginator
+
+
+
+
+Also,
+type(paginator.page_range)   ===>   <class 'range_iterator'> or <class 'range'> ==> means object_paginator is iterable
+paginator.page_range         ===>   range(1, 7) ==> means object_paginator has range from 1 to 7 ==> 6
+
+
+print(paginator.object_list)   ====>  means ->  posts
+<QuerySet [<Post: Smachar>, <Post: Bazar>, <Post: Pasal>, <Post: Demo Title>, <Post: Hero>, <Post: o>, <Post: Mero Katha>, <Post: Dolorum facere atque unde in molestias>]>
+
+
+
+paginator.has_next()                ===>
+paginator.has_previous()            ===>
+paginator.has_other_pages()         ===>
+paginator.next_page_number()        ===>
+
+
+
+
+Now,
+Like, name = request.POST.get('name', '') when receiving data from form_submit
+Same, page_no = request.GET.get('page') 
+
+https://stackoverflow.com/questions/44598962/what-does-request-get-get-mean
+https://www.w3schools.com/tags/ref_httpmethods.asp
+
+Simply here,
+request.GET is the dictionary of the GET variables in the http request made to your server for example:
+
+www.google.com?thisIsAGetVarKey=3&thisIsAnotherOne=hello
+request.GET would be: {"thisIsAGetVarKey": 3, "thisIsAnotherOne":"hello"}
+
+Because request.GET is a dictionary, it has the method .get() which retrieves a value for a key in the dictionary
+
+Likewise our url might be,
+url ===> http://127.0.0.1:8000/blog/?page=1
+url ===> http://127.0.0.1:8000/blog/?page=2
+url ===> http://127.0.0.1:8000/blog/?page=3
+
+So,
+request.GET    ===>   {"page": 1}  or {"page": 2}  or  {"page": 3}
+method -> .get("page")    ===>  request.GET.get("page")   ===> 1 or 2 or 3
+
+
+
+
+
+Ok now,
+posts = Post.objects.all()        ====> hold all posts from database   =====>     <QuerySet [<Post: Smachar>, <Post: Bazar>, <Post: Pasal>, <Post: Demo Title>, <Post: Hero>, <Post: o>, <Post: Mero Katha>, <Post: Dolorum facere atque unde in molestias>]> 
+paginator = Paginator(posts, 3)   ====> hold objects of pages, each page holding 3_post from database    ====>       <django.core.paginator.Paginator object at 0x000002B2D5850CA0>
+posts = paginator.page(page_number)      ====> hold a page among paginator with 3_posts on the baiss of page number    ==>  <Page 2 of 3>  ==> type-> <class 'django.core.paginator.Page'>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+def post_list(request):
+    posts = Post.objects.all()
+    print(paginator)
+    return render(request, 'post_list.html', {'posts':posts})
+
+
+To :
+
+from django.core.paginator import Paginator
+
+def post_list(request):
+    posts = Post.objects.all()
+    paginator = Paginator(posts, 3)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    return render(request, 'post_list.html', {'page':page, 'posts':posts})
+
+
+
+
+
+Post_Lists:
+
+
+{% extends 'base.html' %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block body %}
+    <a href=" {% url 'create_post' %} " >Add Post</a>
+    {% for post in posts %}
+        <article>
+            <h1>Id :{{ post.id }}</h1>
+            <h1>Text :{{ post.text }}</h1>
+            <h3>Authur :{{ post.author }}</h3>
+            <p>Created at :{{ post.created_date }}</p>
+            <p>Publish at :{{ post.published_date }}</p>
+            <a href="a_post/{{post.id}}"> View Post </a>
+            <br>
+            <hr>
+        </article>
+    {% endfor %}
+{% endblock %}
+
+
+
+To:
+
+
+
+{% extends 'base.html' %}
+    {% block body %}
+        {% for post in posts %}
+        <article class="container">
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text }}</p>
+            <time>Published date: {{post.published_date}}</time>
+        </article>
+        <hr>
+        {% endfor %}
+    {% if posts.has_other_pages %}
+        <nav aria-label="Page navigation container"></nav>
+        <ul class="pagination justify-content-center">
+            {% if posts.has_previous %}
+                <button><a href="?page={{ posts.previous_page_number }}">&laquo; PREV</a></button>
+            {% endif %}
+            {% if posts.has_next %}
+            <button><a href="?page={{ posts.next_page_number }}">NEXT &raquo;</a></button>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+
+At the begining :
+
+In view.py -> post_list()
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    return render(request, 'post_list.html', {'page':page, 'posts':posts})
+
+In post_list.html :
+	{% block body %}
+    		{{page}}
+    		{{posts}}
+	
+
+Output :
+None <Page 1 of 3> 	 #we have not assign any valu to page key {'page':page, 'posts':posts}       #url ===>  http://127.0.0.1:8000/blog/
+
+
+Press Next>>             #url ===>  http://127.0.0.1:8000/blog/?page=2
+2 <Page 2 of 3>
+
+Again Press Next>>       #url ===>   http://127.0.0.1:8000/blog/?page=3
+3 <Page 3 of 3>
+
+Now press <<Prev
+2 <Page 2 of 3>
+
+Again press <<Prev      #url ===>    http://127.0.0.1:8000/blog/?page=1
+1 <Page 1 of 3>
+
+
+
+At first In First Page: None <Page 1 of 3>
+After pressing button In First Page: None <Page 1 of 3>
+
+
+
+
+
+
+
+
+

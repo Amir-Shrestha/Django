@@ -1,0 +1,112 @@
+In views.py :
+
+def index(request):
+    all_products = Product.objects.all()
+    print(all_products)
+    n = len(all_products)
+    print(n)
+    No_of_Slides = n // 4 + ceil(n / 4 - n // 4)
+    params = {'product':all_products, 'total_slides':No_of_Slides, 'range':range(1,No_of_Slides) }
+    return render(request, 'shop/index.html',params)
+
+To 
+
+def index(request):
+    all_products = Product.objects.all()
+    print(all_products)
+    n = len(all_products)
+    print(n)
+    No_of_Slides = n // 4 + ceil(n / 4 - n // 4)
+    ListOfListOfAllProduct = [
+                                [all_products, range( 1,No_of_Slides), No_of_Slides],
+                                [all_products, range( 1,No_of_Slides), No_of_Slides]
+                                ]
+    params = { 'D_ListOfAllProduct' : ListOfListOfAllProduct }
+    return render(request, 'shop/index.html',params)
+
+
+
+
+
+
+
+In index.py :
+{% block body %}
+{% load static %}
+
+<div class="container">
+
+    {% for product, range, No_of_Slides in D_ListOfAllProduct %}
+    <!-- Carsousel_Start -->
+    <div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
+
+        <!-- carsousel slide indicator -->   # Total crousel slides-------------------------------
+        <ul class="carousel-indicators">
+            <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li> #First active crousel slides-------------------------------
+            {% for i in range %}
+            <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to={{i}}></li>   #Remaining crousel slides-------------------------------
+            {% endfor %}
+        </ul>
+
+        <!-- posts Slideshow starts here -->
+        <div class="container carousel-inner no-padding">    # containner for crousels ------------------------------------
+
+            <div class="carousel-item active">   # first crousels slides ------------------------------------
+                <div class="col-xs-3 col-sm-3 col-md-3">   # first_active_post inside crousels slides ------------------------------------
+                    <div class="card" style="width: 18rem;">
+                        <img src='/media/{{ product.0.image }}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ product.0.product_name }} </h5>
+                            <p class="card-text"> {{ product.0.desciption }} </p>
+                            <p class="card-text">Rs. {{ product.0.price }} </p>
+                            <a href="#" class="btn btn-primary"> Add Cart </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% for i in product|slice:"1:" %}        # looping remaining_post inside crousels slides ------------------------------------
+                <div class="col-xs-3 col-sm-3 col-md-3"> <!-- afterward post -->
+                    <div class="card" style="width: 18rem;">
+                        <img src='/media/{{ i.image }}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ i.product_name }} </h5>
+                            <p class="card-text"> {{ i.desciption }} </p>
+                            <p class="card-text">Rs. {{ i.price }} </p>
+                            <a href="#" class="btn btn-primary"> Add Cart </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}      # breaking current crousels slides and strating new crousels slides------------------------------------
+            </div>
+            <div class="carousel-item" >
+                {% endif %}
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- carousel control -->
+    <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+
+
+In basic.html add this for carsoul_slides_control : 
+
+.carousel-control-next, .carousel-control-prev {
+          position: absolute;
+          top: auto;
+          bottom: auto;
+          }

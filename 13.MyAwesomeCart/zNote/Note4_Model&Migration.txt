@@ -1,0 +1,191 @@
+
+
+Each models in django maps to a single database table. <==> means <==> a model makes/have its own single table in database in django.
+Each app in django have a model.py file by default at a time we create app.
+As data get store in database, In django by default data gets store in sqlite.
+You can see db.sqlite3 in Mac_project_folder
+
+If we go inside our setting.py in our Mac_project_app we can see that we have db.sqlite3 as our default database.
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+Extra :
+{
+'NAME': BASE_DIR / 'db.sqlite3', this means that it has join 'db.sqlite3' to our base directory of our os path.
+SQLite is a relational database management system (RDBMS software) contained in a C library.
+}
+Therefore Django stores data in sqlite database.
+
+
+
+
+Now, Apps that we have over here.(see inside setting.py) will use/have a table in database overhere as every app have to store their data somewhere.
+For example : admin, shop, blog are some of apps in our Mac project.
+So all these apps uses table in our database.
+Therefore we have to make tables for all app.
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog',
+    'shop'
+]
+
+
+
+
+
+
+
+As before we used to see error in our terminal that : 
+error : you have 15 unapplied migrations and your project may not work properly
+
+This error appears/means that we have not made tables that we need for our this project/project_apps
+
+so we need to issue command to make table
+cmd : python manage.py make migrate
+We are commanding dajngo to make all the required tables for our project and keep it in sqlite
+Here python manage.py make migrate will apply all the migration that were needed.
+But before applying migrate we need to make migration
+But why we have not make any migration over here before doing migrate.
+
+Migration means we are storing/saving information of those changes that we have made in our model.
+So after we change model we make migration that save information of change made in model but not link with database.
+And when we migrate which will make change in database too, i.e : cmd : python manage.py migrate
+Till now we have just applyed migrate but not make migration.
+
+But we can also make our own migration in our shop/migration directory.
+
+But before applying migrate we need to make migration
+But why we have not make any migration over here before doing migrate.
+
+
+
+
+
+
+
+
+Ok to see this come into model.py of our shop app,
+
+Create table : 
+
+   from django.db import models
+
+   class Product(models.Model):
+      product_id = models.AutoField
+      product_name = models.CharField(max_length=50)
+      desciption = models.CharField(max_length=300)
+      publish_date = models.DateField()
+
+Module : django.db.models
+Table_name : Product 
+Column_name : product_id, product_name, desciption , publish_date.
+Field_Reference : AutoField, CharField, DateField.
+
+
+
+
+
+Now go to the shop/apps.py we have class called ShopConfig. This file is create at the time we make this app using cmd : python manage.py startapp
+
+class ShopConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'shop'
+
+This file is create at the time we make this app using cmd : python manage.py startapp
+
+Before in INSTALLED_APPS  we add shop and blog app just to make use of it but in real we dont do that we actually should add apps as shop.apps.ShopConfig.
+So, we need to replace shop by shop.apps.ShopConfig in our INSTALLED_APPS 
+
+Therefore:
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog',
+    'shop'
+]
+
+to
+
+INSTALLED_APPS = [
+    'shop.apps.ShopConfig', #here*********************************************
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog' #yet to come as we are working in shop app at the moment
+]
+
+
+Now test this by restarting server.
+cmd : python manage.py runserver
+
+
+
+Now as we said before : 
+migration means we are storing/saving information of those changes that we have made in our model.
+Here model doesnt means to model.py file instead model refer to class name that create table i.e (class Product)
+Here as we have made change in shop/models.py over (class Product). 
+
+So now make our own migration ==> cmd : python manage.py makemigrations
+This will make/create migration(info) in our shop/migration directory.
+
+i.e :
+
+C:\Users\SimbA\PycharmProjects\MyAwesomeCart\Mac>python manage.py makemigrations
+Migrations for 'shop':
+  shop\migrations\0001_initial.py
+    - Create model Product
+
+
+Now you can see migration_info inside shop/migrations  named as : 0001_initial.py
+See it !
+Till here we have not write/saved it in database we have just saved information of change made in model(class Product).
+
+
+Now, we need to apply migration that we have saved/stored in our app.
+cmd : python manage.py migrate
+
+
+i.e :
+C:\Users\SimbA\PycharmProjects\MyAwesomeCart\Mac>python manage.py migrate
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions, shop
+Running migrations:
+  Applying shop.0001_initial... OK
+
+Therefore we have write/created table in our sqlite database. But how can we see it ?
+Answer : We can see it using/creating admin account.
+By default django provide us perfect admin pannel for super_user.
+We just need to write command to use it.
+We can do add, remove etc operation in our tables.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

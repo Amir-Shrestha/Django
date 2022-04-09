@@ -1,0 +1,94 @@
+{% extends 'events_app/base.html' %}
+{% load static %}
+
+
+
+{% block title %} DashBoard {% endblock title %}
+
+
+
+{% block msg %}
+    {% if messages %}
+        {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show mb-5" {% endif %}>
+                <strong> {{message}} </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock msg %}
+
+
+
+{% block profile %}
+    <div class="col-sm-2 my-5 text-center">
+        <h2 class=" my-3"> DashBoard </h2>
+        <div class="border-right border-warning h-100">
+        <div class="text-center">
+            <img src="{{profile.profile_img.url}}" alt="User Photo" class="image-fulid rounded-circle" height="130px" width="130px"/>
+        </div>
+        <h4>User : {{user}}</h4>
+        <hr class="border-light" />
+        <nav class="nav flex-column text-center">
+            <a href="{% url 'profile' user.id %}" class="btn btn-success mt-2">Profile</a>
+            <a href="/dashboard" class="btn btn-success mt-2"> Posts List</a>
+            <a href="/create_event" class="btn btn-success mt-2">Create a Post</a>
+            {% if usertype == "admin" %}
+                <a href="/authorlist" class="btn btn-success mt-2">Authors List</a>
+            {% endif %}
+        </nav>
+        </div>
+    </div>
+{% endblock profile %}
+
+
+
+{% block content %}
+    <div class="col-sm-10">
+        
+        <br>
+        <br>
+        <h4 class="text-center alert alert-info mt-4"> Author List </h4>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show mb-5" {% endif %}>
+                    <strong> {{message}} </strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        {% if authors %}
+        <div class="container table-responsive" style="height:400px;">
+            <table class="table table-hover bg-white table-hover" height="100px">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col" style="width:2%">ID</th>
+                        <th scope="col" style="width:2%">Author</th>
+                        <th scope="col" style="width:2%">FirstName</th>
+                        <th scope="col" style="width:2%">LastName</th>
+                        <th scope="col" style="width:2%">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for author in authors %}
+                    <tr>
+                        <td scope+"row">{{author.id}}</td>
+                        <td scope+"row"><a href="{% url 'profile' author.id %}">{{author.username}}</a></td>
+                        <td scope+"row">{{author.first_name}}</td>
+                        <td scope+"row">{{author.last_name}}</td>
+                        <td scope+"row">{{author.email}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+{% endblock content %}

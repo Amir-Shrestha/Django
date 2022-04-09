@@ -1,0 +1,57 @@
+# 1. urls.py
+
+from django.urls import path
+from . views import register_user_1, register_user_1_1_crispy_form
+
+urlpatterns = [
+    path('', register_user_1, name="register_user_1"),
+]
+
+
+
+
+
+
+# 2. views.py
+
+from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse
+
+# Create your views here.
+
+def register_user_1(request):
+    if request.method == "POST":
+        new_rgister = UserCreationForm(request.POST)
+        if new_rgister.is_valid():
+            new_rgister.save()
+            return HttpResponse('New User Registered !')
+    signup_form = UserCreationForm()
+    return render(request, 'register_user_1.html', {'signup_form':signup_form})
+
+
+
+
+
+
+
+# 3. register_user_1.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Registration1 </title>
+
+</head>
+<body>
+    <h1>Registration Form !</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{signup_form.as_p}}
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,8 @@
+#1
+when we create model in models.py we need to register that model in admin.py
+Or
+admin.py is used to register sql table so that we could perform CRUD operation from Admin Application(admin pannel) 
+Admin Application(admin pannel) is provided by Django to perform CURD operation.
+
+
+

@@ -1,0 +1,28 @@
+urls.py:
+	path('log_in/', login_user, name="log_in"),
+
+
+
+views.py:
+   def login_user(request):
+        if request.method == "POST":
+            login_form = UserLogInForm(request.POST)
+            if login_form.is_valid():
+                uname = login_form.cleaned_data['login_username']
+                upass = login_form.cleaned_data['login_password']
+                user = authenticate(username=uname, password=upass)
+                if user is not None:
+                    login(request, user)
+                    if next_url:
+                        return redirect(next_url)
+                    else:
+                        return HttpResponseRedirect('/customer_profile/')
+        login_form = UserLogInForm()
+        return render(request, 'login.html', {'login_form':login_form})	
+
+
+forms.py:
+class UserLogInForm(forms.Form):
+    login_username = forms.CharField(widget=forms.TextInput())
+    login_password = forms.CharField(widget=forms.PasswordInput())
+	

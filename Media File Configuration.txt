@@ -1,0 +1,58 @@
+In models.py:
+class Product(models.Model):
+    image = models.ImageField(upload_to="store/images", default="", null=True, blank=True)
+
+Install Pillow:
+python -m pip install Pillow 
+
+In settings.py:
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_dir')
+MEDIA_URL = '/media_url_route/'                                                   ********#Media Root #upload some media files OR  managing media files
+
+In urls.py:(project_main_url)
+urlpatterns = [
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+In template.html:
+<img class="thumbnail" src="{{product.image.url}}">
+            or
+<img class="thumbnail" src="/media_route_url/{{product.image}}">
+
+
+
+
+{{product.image}}	==>  store/images/headphone_1ICq9RS.jpg
+{{product.image.url}}   ==>  /media_route_url/store/images/headphone_1ICq9RS.jpg
+
+
+Like path <--> like static
+
+
+
+
+In case not image is uploaded
+#1.
+image = models.ImageField(upload_to="store/images", default="")
+<img class="thumbnail" src="{{product.image.url}}">
+
+
+#2.
+Inmodels.py
+image = models.ImageField(upload_to="store/images")
+
+@property
+def image_url(self):
+	try:
+		url = self.image.url
+	except:
+		url = ''
+	return url
+
+In template.html:
+<img class="thumbnail" src="{{product.image_url}}">
+
+
+#3
+image = models.ImageField(upload_to="store/images", default="abc.html")

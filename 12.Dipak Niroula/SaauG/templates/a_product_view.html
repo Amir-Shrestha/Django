@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Product View{% endblock title %}
+
+{% block content %}
+    <div class="container"> <!-- container div -->
+        <div class="row mx-4">  <!-- category div -->
+            <h3>Product: {{product_obj.title}} </h3>
+            {% comment %} <p class="text-primary">(Viewed {{product_obj.view_count}} times)</p><hr> {% endcomment %}
+            <button type="button" class="btn" disabled> (Viewed {{product_obj.view_count}} times) </button><hr>
+            <div class="col-6">
+                <img src="{{ product_obj.image.url }}" alt="" class="img-fluid"  style="height:400px; width:400px;">
+            </div>
+            <div class="col-6">
+                <h4>{{product_obj.title}}</h4>
+                <hr>
+                <h5>Category: {{product_obj.category}} </h5>
+                <p class="mt-3 mb-4"><i><b>Price</b>: <strike>Rs. {{product_obj.marked_price}}</strike> Rs. {{product_obj.selling_price}} </strike></i></p>
+                <hr>
+                <p class="text-info">Warranty: {{ product_obj.warranty }}</p>
+                <p class="text-info">Return Policy: {{ product_obj.return_policy }}</p>
+                <hr>
+                <p>{{ product_obj.desciption }}</p>
+                <hr>
+                <a href="{% url 'add_to_cart' product_obj.id %}" class="btn btn-info">Add To Cart</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

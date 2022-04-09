@@ -1,0 +1,76 @@
+all_product = Product.objects.all()
+print(all_product)
+
+Output :
+<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>, <Product: Shirt>, <Product: Pant>, <Pr
+oduct: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>, <Product: Jiban ek katha>, <Product: Wall Board>, <Product: Iron Chair>, <Product: Iron Glass Table>]>
+
+
+
+
+
+
+all_product_category_and_id = Product.objects.values('category', 'id')
+print(all_product_category_and_id)
+
+Output :
+<QuerySet [{'category': 'Grill Karkhana', 'id': 9}, {'category': 'Grill Karkhana', 'id': 10}, {'category': 'Grill Karkhana', 'id': 11}, {'category': 'Grill Karkhana', 'id': 12}, {'category': 'Grill Karkhana', 'id': 13}, {'category': 'Grill Karkhana', 'id': 14}, {'category': 'Clothing', 'id': 15}, {'category': 'Clothing', 'id': 16}, {'category': 'Kitchen', 'id': 17}, {'category': 'Kitchen', 'id': 18}, {'category': 'Kitchen', 'id': 19}, {'category': 'Kitchen', 'id': 20}, {'category': 'Kitchen', 'id': 21}, {'category': 'Book', 'id': 22}, {'category': 'Grill Karkhana', 'id': 23}, {'category': 'Grill Karkhana', 'id': 24}, {'category': 'Grill Karkhana', 'id': 25}]>
+
+
+
+
+
+
+
+
+distinct_categories = {item['category'] for item in all_product_category_and_id 
+print(distinct_categories)
+print(type(distinct_categories))
+
+Output :
+{'Clothing', 'Grill Karkhana', 'Book', 'Kitchen'}
+<class 'set'>
+
+
+
+
+
+
+for category in distinct_categories:
+    distinct_product_category  = Product.objects.filter(category=category) #Retrieving specific objects with filters/category #fetch product with category
+    print(distinct_product_category)
+
+Output :
+<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>, <Product: Shirt>, <Product: Pant>, <Pr
+oduct: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>, <Product: Jiban ek katha>, <Product: Wall Board>, <Product: Iron Chair>, <Product: Iron Glass Table>]>
+<QuerySet [<Product: Jiban ek katha>]>
+<QuerySet [<Product: Shirt>, <Product: Pant>]>
+<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>, <Product: Wall Board>, <Product: Iron 
+Chair>, <Product: Iron Glass Table>]>
+<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>
+
+
+
+
+
+
+
+
+Category_Slides_List = []
+all_product = Product.objects.all()
+product_duplicate_categories_id_QuerySet = Product.objects.values('category', 'id') #QuerySet
+distinct_categories = {item['category'] for item in product_duplicate_categories_id_QuerySet} #Set
+for category in distinct_categories:
+    distinct_product_category  = Product.objects.filter(category=category) #Retrieving specific objects with filters/category #fetch product with category
+    n=len(distinct_product_category)
+    Slides_No = n // 4 + ceil(n / 4 - n // 4)
+    Category_Slides_List.append([distinct_product_category, range(1,Slides_No), Slides_No])
+print(Category_Slides_List)
+
+Output :
+[[<QuerySet [<Product: Shirt>, <Product: Pant>]>, range(1, 1), 1], [<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Sw
+ing>, <Product: Tanki Stand>, <Product: Wall Board>, <Product: Iron Chair>, <Product: Iron Glass Table>]>, range(1, 3), 3], [<QuerySet [<Product: Jiban ek katha>]>, range(1, 1), 1], [<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>, range(1, 2), 2]]
+
+
+
+

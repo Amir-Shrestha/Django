@@ -1,0 +1,63 @@
+1. textutils 
+
+2. urls.py
+path('', views.index, name='index') #home page or index page 
+
+3. views.py
+def index(request):
+    return HttpResponse("Hello")
+
+
+# I have created this file - Amir (views.py)
+
+# def index():
+#     return "Hello"
+# TypeError at /
+# index() takes 0 positional arguments but 1 was given
+
+
+# def index(request):
+#     return "Hello"
+# AttributeError at /
+# 'str' object has no attribute 'get'
+
+
+
+from django.http import HttpResponse
+def index(request):
+    return HttpResponse("Hello")
+#Hello
+
+
+
+
+Now in broswer url bar : http://127.0.0.1:8000/about
+
+2. urls.py
+path('about', views.about, name="about") #route to about view page
+
+3. views.py
+def about(request):
+    return HttpResponse("About")
+#About
+
+
+
+
+Herer,
+http://127.0.0.1:8000/home  ==> in development server
+facebook.com/home  ==> in real after deploy in server
+domain/view
+
+
+
+Note:
+path('about', views.about, name="about")
+path(end_point_of_url, view_function_that_need_to_be_append, name_of_path)
+
+
+
+we can also keep html in HttpResponse
+def about(request):
+    return HttpResponse("<h1>About</h1>")
+ 

@@ -1,0 +1,27 @@
+Register all apps_model_class in admin.py inorder to see it in Admin pannel,
+Install all created apps in projects inorder to make migration,
+
+
+
+Some of libaries :
+Pillow,
+Crispy_Form,
+
+
+
+
+# 1
+Create from terminal
+from shop.models import Product
+from django.utils import timezone
+product3 = Product(product_name="mouse", category="computer", sub_category="device", price=250, desciption="Dell is234", publish_date=timezone.now()))
+product3.save()
+
+
+
+# Retrive - Select specific object from table :
+1. product = Product.objects.get(product_name="Mouse") 
+2. products.0 # here products is query set
+3. products.0.name # here products is query set
+4. product_category = Product.objects.values('category', 'id')
+5. distinct_product_category  = Product.objects.filter(category=category)

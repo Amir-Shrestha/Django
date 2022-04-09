@@ -1,0 +1,41 @@
+In urls.py:
+path('', views.show_student, name='show_student')
+
+
+
+
+
+In views.py:
+def show_student(request):
+    all_students = Student.objects.all() #querySet
+    return render(request, 'show_student.html', {'student_form':student_form, 'all_students':all_students})
+
+
+
+
+
+In template.html file:
+                <table class="table table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for student in  all_students%}
+                        <tr>
+                            <td scope="row">{{ student.id }}</td>
+                            <td>            {{ student.name }}</td>
+                            <td>            {{ student.email }}</td>
+                            <td>            {{ student.password }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+

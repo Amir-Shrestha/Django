@@ -1,0 +1,108 @@
+By default django can find out upto templates folder for html_templating_files.
+
+
+created services.html template
+create views_function for that services.html template
+map urls for the views_function 
+and include apps_urls to main project_urls.
+
+# 1
+create services.html template :
+{% extends 'core/base.html' %}
+
+
+# 2
+create views_function for that services.html template :
+def services(request):
+    return render(request, 'serve/services.html')
+
+# here tempalte file location is : servic/templates/serve/services.html
+# so, serve/services.html as By default django can find out upto templates folder for html_templating_files.
+
+
+# 3
+map urls for the views_function :
+from django.urls import path
+from . import views #from current root dir import views
+
+urlpatterns = [
+        path('', views.services, name='services'),
+]
+
+
+# 4
+include apps_urls to main project_urls.
+path('services/', include('servic.urls')),
+
+
+......................................................................................
+
+
+
+Extra here :
+    <a href="services" class="nav-link">Services</a>
+    http://127.0.0.1:8000/services/services
+So,
+    <a href="{% url 'services' %}" class="nav-link">Services</a>
+    http://127.0.0.1:8000/services/
+
+......................................................................................
+
+
+
+# 1
+    <a href="services" class="nav-link">Services</a>
+    path('services/', include('servic.urls')),
+    path('', views.services, name='services'),
+    return render(request, 'serve/services.html')
+    
+url : http://127.0.0.1:8000/services
+
+
+# 2
+    <a href="serv" class="nav-link">Services</a>
+    path('serv/', include('servic.urls')),
+    path('services/', views.services, name='services'),
+    return render(request, 'serve/services.html')
+url : http://127.0.0.1:8000/serv/services
+
+
+# 3
+    <a href="{% url 'services' %}" class="nav-link">Services</a>
+    path('services/', include('servic.urls')),
+    path('', views.services, name='services'),
+    return render(request, 'serve/services.html')
+url : http://127.0.0.1:8000/services/
+
+
+
+......................................................................................
+
+
+
+
+Now create services index page : services.html
+
+
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="mt-5 container">
+        <h1 class="text-warning mb-5 border-bottom">Services</h1>
+        <div class="div row text-white"> 
+            <div class="div col-sm-4">Html</div>
+            <div class="div col-sm-4">Css</div>
+            <div class="div col-sm-4">Javascript</div>
+        </div>
+        <div class="div row text-white">
+            <div class="div col-sm-4">C/C++</div>
+            <div class="div col-sm-4">Php</div>
+            <div class="div col-sm-4">Python</div>
+        </div>
+        <div class="div row text-white">
+            <div class="div col-sm-4">BootStrap</div>
+            <div class="div col-sm-4">Django</div>
+            <div class="div col-sm-4"></div>
+        </div>
+    </div>
+{% endblock content %}

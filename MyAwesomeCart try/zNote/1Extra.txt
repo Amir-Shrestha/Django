@@ -1,0 +1,111 @@
+project directory structure :
+
+127.0.0.1:8000  ===>  BASE_DIR  ===>  C:\Users\SimbA\Python_V_EN\Project_Root\MyBookBase>
+
+MyBookBase
+	Blog
+	media1
+		images
+			apple.jpg
+	MyBook
+		__init__.py
+		urls.py
+	db.sqlite
+	manage.py
+
+.....................................................................................................
+
+url : http://127.0.0.1:8000/media1
+
+MEDIA_URL = '/media2/'
+
+
+
+error :
+
+Request Method:	GET
+Request URL:	http://127.0.0.1:8000/media1/images/apple.jpg
+Using the URLconf defined in MyBook.urls, Django tried these URL patterns, in this order:
+
+admin/
+blog/
+^media2/(?P<path>.*)$
+The current path, media1/images/apple.jpg, didn’t match any of these.
+
+
+..............................................................................................
+url : http://127.0.0.1:8000/media1
+
+MEDIA_URL = '/media1/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media2')
+
+
+error :
+
+“C:\Users\SimbA\Python_V_EN\Project_Root\MyBookBase\media2\images\apple.jpg” does not exist
+Request Method:	GET
+Request URL:	http://127.0.0.1:8000/media1/images/apple.jpg
+Raised by:	django.views.static.serve
+Using the URLconf defined in MyBook.urls, Django tried these URL patterns, in this order:
+
+admin/
+blog/
+^media1/(?P<path>.*)$
+The current path, media1/images/apple.jpg, matched the last one.
+
+..............................................................................................
+
+url : http://127.0.0.1:8000/media1
+i.e :
+url : http://127.0.0.1:8000/media1/images/apple.jpg
+
+import os
+MEDIA_URL = '/media1/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media1')
+
+
+error: No
+show image in browser.
+
+
+..............................................................................................
+
+
+url : http://127.0.0.1:8000/media2
+i.e :
+url : http://127.0.0.1:8000/media2/images/apple.jpg
+
+
+
+import os
+MEDIA_URL = '/media2/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media1')
+
+
+error: No
+show image in browser.
+
+..............................................................................................
+
+
+url : http://127.0.0.1:8000/kxabhai
+i.e :
+url : http://127.0.0.1:8000/media2/images/apple.jpg
+
+
+
+import os
+MEDIA_URL = '/kxabhai/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media1')
+
+
+error: No
+show image in browser.
+
+..............................................................................................
+
+
+
+
+
+

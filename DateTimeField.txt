@@ -1,0 +1,73 @@
+created_date = models.DateTimeField(auto_now_add=True/False) => add for the first time, permanent but can we change it?
+updated_date = models.DateTimeField(auto_now=True, null=True) => update
+
+auto_now_add=True/False
+null=True/False
+blank=True/False
+default=''
+
+
+
+
+
+
+#4.1
+In model.py :
+created_date = models.DateTimeField(default=timezone.now)
+VS
+created_date = models.DateTimeField(auto_now_add=True)
+
+Nothing In views.py
+
+
+
+#4.2
+In model.py:
+published_date = models.DateTimeField(blank=True, null=True)
+published_date = models.DateTimeField(auto_now=True, null=True)
+
+In views.py:
+new_event.published_date = timezone.now()
+
+
+
+
+
+
+#5
+In model.py In class Events:
+created_date = models.DateTimeField(auto_now_add=True)
+published_date = models.DateTimeField(auto_now=True, null=True)
+
+In form.py in EventForm:
+fields = ['created_date', 'published_date']
+
+error:
+django.core.exceptions.FieldError: 'created_date' cannot be specified for Event model form as it is a non-editable field
+django.core.exceptions.FieldError: 'published_date' cannot be specified for Event model form as it is a non-editable field
+
+
+
+
+#6
+In model.py
+created_date = models.DateTimeField(auto_now_add=True)
+published_date = models.DateTimeField(auto_now=True, null=True)
+
+in views.py:
+new_event.published_date = timezone.now() but can we do it with created date aslo?
+
+
+#7
+
+
+
+
+
+
+
+
+
+
+
+

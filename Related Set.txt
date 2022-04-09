@@ -1,0 +1,103 @@
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return str(self.product) + ' is ' + str(self.status)
+
+
+Shell :
+c1 = Customer.objects.get(id=1)
+print(c1)
+Amir Shrestha
+
+Amir_order = c1.order_set.all()
+printAmir_order 
+<QuerySet [<Order: Half Pant is Pending>, <Order: Raincoat is Pending>, <Order: Raincoat is Pending>]>t is Pending>, <Order: Raincoat is Pending>]>
+all order of Amir Shrestha
+
+Amir_order.first()
+Out[19]: <Order: Half Pant is Pending>
+
+
+Amir_first_order = Amir_order.first()
+print(Amir_first_order)
+Half Pant is Pending
+
+print(Amir_first_order.customer)
+Amir Shrestha
+
+print(Amir_first_order.product)
+Half Pant
+
+print(Amir_first_order.date_created)
+2021-08-02 03:59:27.966916+00:00
+
+List od all atributes that an objects holds:
+print(Amir_first_order.__dict__)
+{'_state': <django.db.models.base.ModelState object at 0x000001C0544703D0>, 'id': 1, 'customer_id': 1, 'product_id': 2, 'date_created': datetime.datetime(2021, 8, 2, 3, 59, 27, 966916, tzinfo=<UTC>), 'status': 'Pending'} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+first_order = Order.objects.first()
+
+print(first_order)
+Half Pant is Pending
+
+print(first_order.customer)
+Amir Shrestha
+
+print(first_order.customer.name)
+Amir Shrestha
+
+print(first_order.customer.phone)
++1 (144) 551-9229
+
+print(first_order.customer.email)
+simbaamir55@gmail.com
+
+
+
+
+
+
+Product.objects.values('category', 'id')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

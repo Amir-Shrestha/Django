@@ -1,0 +1,66 @@
+In urls.py
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.index, name='index'), #home page or index page
+    path('fb', views.fb, name="fb") #route to fackebook view page
+    path('youtube', views.youtube, name="youtube") #route to fackebook view page
+    path('instagram', views.instagram, name="instagram") #route to fackebook view page
+    path('twitter', views.twitter, name="twitter") #route to fackebook view page
+    path('linkdin', views.linkdin, name="linkdin") #route to fackebook view page
+]
+
+
+In views.py
+
+# I have created this file - Amir
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Home")
+
+def fb(request):
+    return HttpResponse("<h1>FB</h1>")
+
+def youtube(request):
+    return HttpResponse("<h1>YoutubE</h1>")
+
+def instagram(request):
+    return HttpResponse("<h1>InstagraM</h1>")
+
+def twitter(request):
+    return HttpResponse("<h1>TwitteR</h1>")
+
+def linkdin(request):
+    return HttpResponse("<h1>LinkdiN</h1>")
+
+
+
+
+
+
+
+In views.py
+def index(request):
+    return HttpResponse('''
+        <a href=''> Home </a>
+        <a href='https://www.facebook.com/'> FB </a>
+        <a href='https://www.youtube.com/'> YoutubE </a>
+        <a href='https://www.instagram.com/'> InstgraM </a>
+        <a href='https://twitter.com/?lang=en'> TwitteR </a>
+        <a href='https://www.linkedin.com/signup/cold-join'> LinkdiN </a>
+    ''')
+
+
+
+
+Pipeline
+Templates --> setting --> TEMPLATES = ['DIRS': ['templates'],]
+
+
+from django.http import HttpResponse    ===>    return HttpResponse("Home")
+from django.shortcuts import render     ===>    return render(request,'index.html')
+In template
+<h1>Hello World I am {{age}} years old {{name}}.</h1>
+OutPut:
+Hello World I am 22 years old Amir.

@@ -1,0 +1,51 @@
+# Displays Calender to select date in add_event_form_template
+
+
+urls.py:
+path('admin_add_event/', admin_add_event, name="admin_add_event")
+
+
+
+views.py:
+from .forms import EventForm
+def admin_add_event(request):
+    if request.method=='POST':
+       event_form = EventForm(request.POST)
+       if event_form.is_valid():
+          event_form.save()
+    event_form = EventForm()
+    params = {"event_form":event_form}
+    return render(request, "admin/admin_add_event.html", params)
+
+
+
+forms.py:
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ["event_title", "event_date"]
+        widgets = {'event_title':forms.TextInput(attrs={'class':'form-control'}),
+                   'event_date':DateInput(),
+                    }
+
+
+
+models.py:
+class Event(models.Model):
+    event_title = models.CharField(max_length=50)
+    event_date = models.DateField()
+
+    def __str__(self):
+        return self.event_title
+
+
+
+template:
+	<form action="" method="POST">
+             {% csrf_token %}
+             {{event_form.as_p}}
+             <button class="btn btn-info">Add Event</button>
+        </form>

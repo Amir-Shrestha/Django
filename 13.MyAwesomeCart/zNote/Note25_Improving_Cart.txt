@@ -1,0 +1,13 @@
+Here,
+Cart only print the number of items but doesnt print Quantity of items.
+
+i.e :
+{pr9: 3, pr11: 3, pr10: 3, pr13: 1, pr15: 10}
+Cart(5) ==> number of items
+
+But we need :
+{pr9: 3, pr11: 3, pr10: 3, pr13: 1, pr15: 10}
+Cart(20) ==> quantity of product
+
+
+So, solution :

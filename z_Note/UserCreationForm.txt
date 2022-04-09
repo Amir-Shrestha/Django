@@ -1,0 +1,75 @@
+
+views.py
+def register_user(request):
+    if request.method == "POST":
+        user_register_form = RegisterUser(request.POST)
+        if user_register_form.is_valid():
+            user_register_form.save()
+            return redirect('login_user')
+    user_register_form = RegisterUser()
+    params = {'user_register_form':user_register_form}
+    return render(request, 'accounts/register_user.html', params)
+
+
+
+
+
+
+
+
+forms.py
+
+class RegisterUser(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
+
+
+
+
+
+registerform.html
+
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <br>
+
+        {% comment %} 1
+        {{ user_register_form.as_p }} {% endcomment %}
+
+        {% comment %} 2
+        {% for field in user_register_form %}
+            {{ field }}
+        {% endfor %} {% endcomment %}
+
+        {% comment %} 3
+        {% for field in user_register_form %}
+            {{ field.label }}
+            {{ field }}
+            <br>
+        {% endfor %} {% endcomment %}
+
+        {{ user_register_form.username.label }}
+        {{ user_register_form.username }}
+        <br>
+        {{ user_register_form.first_name.label }}
+        {{ user_register_form.first_name }}
+        <br>
+        {{ user_register_form.last_name.label }}
+        {{ user_register_form.last_name }}
+        <br>
+        {{ user_register_form.email.label }}
+        {{ user_register_form.email }}
+        <br>
+        {{ user_register_form.password1.label }}
+        {{ user_register_form.password1 }}
+        <br>
+        {{ user_register_form.password2.label }}
+        {{ user_register_form.password2 }}
+        <br>
+
+        <input type="submit" value="Register User">
+    </form>
+{% endblock %}

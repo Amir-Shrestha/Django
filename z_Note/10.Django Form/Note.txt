@@ -1,0 +1,40 @@
+https://www.youtube.com/watch?v=K_NJZd-YsoU&list=PLbGui_ZYuhigchy8DTw4pX4duTTpvqlh6&index=47&ab_channel=GeekyShowsGeekyShowsVerified
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from django import forms #here forms is module and ModelForm, Form are classes
+
+
+class SubscribeForm(forms.Form): #Form_API
+	Email = forms.EmailField()
+
+class CommentForm(forms.ModelForm): #ModelForm
+	class Meta:
+		model = Comment
+		fields = ('name', 'email', 'comment_body')
+
+classes in model.py is responsible to create database_table,
+whereas classes in form.py is responsible to create template_form
+
+when we render object of classes in form.py to template.html from views.py, html code is generated in html_template,
+i.e :
+{{ form_obj.as_p }}
+
+
+
+
+

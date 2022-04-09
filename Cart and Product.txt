@@ -1,0 +1,89 @@
+Views:
+
+def cart(request):
+     if request.user.is_authenticated:
+          print(request.user)
+          customer = request.user.customer
+          print(customer)
+          cart, created = Cart.objects.get_or_create(customer=customer, complete=False) #fetch or create a cart
+          print(cart)
+          items = cart.orderproduct_set.all() # objects of OrderProduct class
+          print(items)
+
+
+
+
+
+
+
+
+
+Output:
+
+admin
+Admin
+Cart: 1
+<QuerySet [<OrderProduct: Cart_Id:1, by Customer:Admin, Product:HeadPhone>, <OrderProduct: Cart_Id:1, by Customer:Admin, Product:Rolex Watch>]>
+
+
+
+
+
+
+
+
+
+
+Models:
+
+# Create your models here.
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=200, null=True)
+    email = models.CharField(max_length=200)
+    # email = user.email
+
+    def __str__(self):
+        return self.name
+
+
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=200)
+    price = models.FloatField()
+    digital = models.BooleanField(default=False, null=True, blank=True)
+    image = models.ImageField(upload_to="store/images", default="", null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def image_Url(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
+
+
+class Cart(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+    cart_date = models.DateTimeField(auto_now_add=True)
+    complete = models.BooleanField(default=False)
+    transaction_id = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return "Cart: " + str(self.id)
+
+
+
+
+class OrderProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField(default=0, null=True, blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "Cart_Id:" + str(self.cart.id) + ", by Customer:" + self.cart.customer.name + ", Product:" + self.product.name

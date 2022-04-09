@@ -1,0 +1,7 @@
+Yes, as long as the URL requested is within the same domain and path defined in the cookie (and all of the other restrictions -- secure, httponly, not expired, etc) hold, then the cookie will be sent for every request. As others have said, if the cookie's host, path, etc.
+
+
+
+An HTTP cookie (also called web cookie, Internet cookie, browser cookie, or simply cookie) is a small piece of data placed on a user's computer or other device by a web browser while the user is browsing a website. Cookies enable websites to remember stateful information (such as items added in the shopping cart in an online store) or to track the user's browsing activity (including clicking particular buttons, logging in, or recording which pages were visited in the past). They can also be used to save for subsequent use information that the user previously entered into form fields, such as names, addresses, passwords, and payment card numbers.
+
+

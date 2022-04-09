@@ -1,0 +1,400 @@
+    //JavaScript if not cart_object(cart_items) exist in localStorage create one else prase the present object
+    if(localStorage.getItem('cartstorage')==null){
+        var cartobj = {};
+        console.log(cartobj);
+    }
+    else{
+        cartobj = JSON.prase(localStorage.getItem('cartstorage'));
+        console.log(cartobj);
+    }
+
+
+
+
+
+
+    //jQuery when button with class addcart is clicked add/remove items
+    $('.addcart').click(function(){
+        console.log('clicked');
+        var idstr = this.id.toString();
+        console.log(idstr);
+        if(cartobj[idstr] != undefined){
+            cartobj[idstr] += 1;
+        }
+        else{
+            cartobj[idstr] = 1;
+        }
+        console.log(cartobj)
+        x= JSON.stringify(cartobj)
+        console.log(x)
+	localStorage.setItem('cartstorage', JSON.stringify(cartobj)) //  // Add_Itmes_to_Cart_and_save_in_localStorage
+	document.getElementById('mycart').innerHTML = Object.keys(cartobj).length; //print numbers of items inside cart in navbar
+    })
+
+
+
+
+
+    //jQuery for Cart_Popover
+    $('#cart_popover').popover()
+    document.getElementById('cart_popover').setAttribute('data-content', '<h1>My Cart</h1>');  //JavaScript for Content_of_Cart_Popover
+
+
+
+
+
+
+
+
+
+    <span id="span_pr_idpr_id{{product.id}}" class="divpr">
+         <p>span_pr_idpr{{product.id}}</p>
+         <button id="pr_id{{product.id}}" class="btn btn-primary addcart">Add To Cart</button>
+    </span>
+
+    // JavaScript for +/- button when clicked AddToCart button
+    function updateCart(cartobj){
+        for( var item in cartobj){
+            console.log('span_pr_id'+item);
+            document.getElementById('span_pr_id'+item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cartobj[item] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+        }
+    }
+
+
+
+
+
+
+
+    // jQuery if +/- button is clicked, change cart as well as display value
+    $('.span_pr_idpr_id').on("click", "button.minus", function() {
+        console.log('minus clicked');
+        console.log(this.id)
+        a = this.id.slice(10, );
+        console.log(a)
+        cartobj['pr_id' + a] = cartobj['pr_id' + a] - 1;
+        cartobj['pr_id' + a] = Math.max(0, cartobj['pr_id' + a]);
+        document.getElementById('valpr_id' + a).innerHTML = cartobj['pr_id' + a];
+        updateCart(cartobj);
+    });
+
+    $('.span_pr_idpr_id').on("click", "button.plus", function() {
+        console.log('plus clicked');
+        a = this.id.slice(9, );
+        cartobj['pr_id' + a] = cartobj['pr_id' + a] + 1;
+        document.getElementById('valpr_id' + a).innerHTML = cartobj['pr_id' + a];
+        updateCart(cartobj);
+    });
+
+
+
+
+
+
+
+
+
+
+    // JavaScript for +/- button when clicked AddToCart button
+    function updateCart(cartobj){
+        for( var item in cartobj){
+            document.getElementById('span_pr_id'+item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cartobj[item] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+        }
+        localStorage.setItem('cartstorage', JSON.stringify(cartobj)); // Add_Itmes_to_Cart_and_save_in_localStorage
+        document.getElementById('mycart').innerHTML = Object.keys(cartobj).length; //print numbers of items inside cart in navbar
+    }
+
+
+
+
+
+
+
+    //jQuery when button with class addcart is clicked add/remove items
+    $('.addcart').click(function(){
+        var idstr = this.id.toString();
+        if(cartobj[idstr] != undefined){
+            cartobj[idstr] += 1;
+        }
+        else{
+            cartobj[idstr] = 1;
+        }
+        updateCart(cartobj);
+    })
+
+
+
+
+
+
+
+
+    //JavaScript fucntion to update Cart_Popover
+
+    <h5 class="card-title" id="namepr_id{{product.id}}"> {{ product.product_name }} </h5>
+
+    //jQuery for Cart_Popover
+    $('#cart_popover').popover()
+    document.getElementById('cart_popover').setAttribute('data-content', '<h1>My Cart</h1>');    //JavaScript for Content_of_Cart_Popover
+
+
+    //JavaScript fucntion to update Cart_Popover
+    function updatePopover(cartobj){
+        console.log('We are inside Popover !')
+        var popStr = "";
+        popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+        var i = 1;
+        for (var item in cartobj){
+            popStr = popStr + "<b>" + i + "</b>. ";
+            popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cartobj[item] + '<br>';
+            i = i+1;
+        }
+        popStr = popStr + "</div>" 
+        document.getElementById('cart_popover').setAttribute('data-content', popStr);
+        $('#cart_popover').popover('show');
+    }
+
+    // JavaScript fucntion for +/- button when clicked AddToCart button
+    function updateCart(cartobj){
+        ..........................
+	updatePopover(cartobj);
+    }
+
+
+
+
+
+
+
+
+
+    // cart item number sum
+    function updateCart(cartobj){
+        sum = 0;
+        for( var item in cartobj){
+            sum += cartobj[item];
+            document.getElementById('span_pr_id'+item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cartobj[item] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+        }
+        localStorage.setItem('cartstorage', JSON.stringify(cartobj)); // Add_Itmes_to_Cart_and_save_in_localStorage
+        document.getElementById('mycart').innerHTML = sum; //print numbers of items inside cart in navbar
+        updatePopover(cartobj);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   //jQuery when button with class addcart is clicked add/remove items
+    // $('.addcart').click(function(){
+    $('.span_pr_idpr_id').on('click', 'button.addcart', function(){
+        var idstr = this.id.toString();
+        if(cartobj[idstr] != undefined){
+            qty = cartobj[idstr][0] + 1;
+        }
+        else{
+        qty = 1;
+        console.log(idstr)
+        name = document.getElementById('name'+idstr).innerHTML
+        console.log(name)
+        cartobj[idstr] = [qty, name];
+        console.log(cartobj)
+        console.log(cartobj[idstr])
+        }
+        updateCart(cartobj);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% block js %}
+
+<script>
+
+if (localStorage.getItem('cartstorage') == null) {
+    var cartobj = {};
+} else {
+    cartobj = JSON.parse(localStorage.getItem('cartstorage'));
+}
+
+console.log(cartobj);
+var sum = 0;
+
+if ($.isEmptyObject(cartobj)) {
+    //if object is empty
+    mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+    $('#items').append(mystr);
+} else {
+    for(item in cartobj){
+        let name = cartobj[item][1];
+        let qty = cartobj[item][0];
+        sum += qty;
+        console.log(name+'  '+qty)
+        mystr = `<li class="list-group-item d-flex justify-content-between align-items-center"> ${name} <span class="badge badge-primary badge-pill">${qty}</span> </li>`
+        console.log(mystr)
+        $('#items').append(mystr);
+    }
+}
+
+document.getElementById('mycart').innerHTML = sum;
+
+
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def tracker(request):
+    if request.method=="POST":
+        orderId = request.POST.get('orderId', '')
+        email = request.POST.get('email', '')
+        try:
+            # print('a')
+            order = Orders.objects.filter(order_id=orderId, email=email)
+            # print('b')
+            if len(order)>0:
+                # print('c')
+                order_update_objs = OrderUpdate.objects.filter(order_id=orderId) #QuerySet of objects of order_updated
+                # print(order_update_objs)
+                order_updates_list = [] #list of dictionary of order_updated key-value-pair(text,time)
+                for order_updates_obj in order_update_objs:
+                    # print(order_updates_obj)
+                    order_updates_list.append({'text': order_updates_obj.update_desc, 'time': order_updates_obj.timestamp}) #append dictionary of order_updated key-value-pair(text,time) to list(order_updates_list)
+                    # print(order_updates_list)
+                    # print(type(order_updates_list))
+                    response = json.dumps(order_updates_list, default=str) # convert list(order_updates_list) into string(response),  like Javascript array
+                    # print(response)
+                    # print(type(response))
+                # print(type(order_updates_list[0]))
+                print(order_updates_list)
+                print(type(order_updates_list))
+                print(response)
+                print(type(response))
+                return HttpResponse(response)
+            else:
+                return HttpResponse('else')
+        except Exception as e:
+            return HttpResponse(e)
+    return render(request, 'shop/tracker.html')
+
+
+
+
+
+
+#tracker
+
+{% block js %}
+<script>
+$('#trackerForm').submit(function(event) {
+    $('#items').empty();
+    var formData = {
+        'orderId': $('input[name=orderId]').val(),
+        'email': $('input[name=email]').val(),
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+    };
+    $.ajax({
+            type: 'POST',
+            url: '/tracker',
+            data: formData,
+            encode: true
+        })
+        .done(function(data) {
+            //console.log(data)
+            order_update_objs = JSON.parse(data);
+            //console.log(order_update_objs)
+            if (order_update_objs.length > 0 & order_update_objs != {}) {
+                for (i = 0; i < order_update_objs.length; i++) {
+                    let text = order_update_objs[i]['text'];
+                    let time = order_update_objs[i]['time'];
+                    //console.log(text)
+                    //console.log(time)
+                    mystr = `<li class="list-group-item d-flex justify-content-between align-items-center"> ${text} <span class="badge badge-primary badge-pill">${time}</span></li>`
+                    $('#items').append(mystr);
+                }
+            } else {
+            	mystr = `<li class="list-group-item d-flex justify-content-between align-items-center"> Sorry, We are not able to fetch this order id and email. Make sure to type correct order Id and email</li>`
+            	$('#items').append(mystr);
+            }
+        });
+    event.preventDefault();
+});
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+def a_post(request,post_id):
+    apost = get_object_or_404(Post, id=post_id) #Not_QuerySet , its object of Post model_class
+    comments = apost.comments.filter(active=True)
+    new_comment = None
+
+    #If add comment, in comment form, posted comment for current post.
+    if request.method=='POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form .is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = apost
+            new_comment.save()
+            #render to a_post page with empty comment form
+
+    comment_form = CommentForm() #render to a_post page with empty comment form
+    params = {'apost':apost, 'comments':comments, 'comment_form':comment_form, 'new_comment':new_comment}
+    return render(request, 'a_post.html', params)

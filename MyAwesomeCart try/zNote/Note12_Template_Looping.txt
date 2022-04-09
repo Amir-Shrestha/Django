@@ -1,0 +1,330 @@
+Here
+
+#params = {'product':all_products, 'total_slides':No_of_Slides, 'range':range(No_of_Slides) }
+
+For carsoul_slide :
+{
+<ul class="carousel-indicators">
+     <li data-target="#demo" data-slide-to="0" class="active"></li>
+     <li data-target="#demo" data-slide-to="1"></li>
+     <li data-target="#demo" data-slide-to="2"></li>
+</ul>
+
+To:
+
+<ul class="carousel-indicators">
+	<li data-target="#demo" data-slide-to="0" class="active"></li> #because of this we have started our range from 1 in params i.e : 'range':range(1,No_of_Slides)
+     {% for i in range %} #for_loop_end_syntax_in_django
+	<li data-target="#demo" data-slide-to="{{ i }}"></li>   #  data-slide-to="1" ====> data-slide-to="{{ i }}" #django_syntax
+     {% endloop %} #for_loop_end_syntax_in_django
+</ul>
+}
+
+
+
+
+
+
+
+.............................................................................................................................................................................
+
+
+Now for slide_show :
+{
+
+
+
+          <div class="container carousel-inner no-padding">     #Main container for all slides in carousel...............................................................................
+	     <div class="carousel-item active">    #First active_crousel_slide with 4_post/object/record...............................................................................
+                <div class="col-xs-3 col-sm-3 col-md-3"> #1st_post/object/record...............................................................................
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-sm-3 col-md-3"> #2nd_post/object/record...............................................................................
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-sm-3 col-md-3"> #3rd_post/object/record...............................................................................
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-sm-3 col-md-3"> #4th_post/object/record...............................................................................
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+	    <div class="carousel-item"> #Second active_crousel_slide with 4_post/object/record..........................................................................
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top img" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk
+                                of the card's content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+          <div>     #Main container for all slides in carousel...............................................................................
+	     <div>    #First active_crousel_slide with 4_post/object/record...............................................................................
+                <div> #1st_post/object/record...............................................................................
+                <div> #2nd_post/object/record...............................................................................
+                <div> #3rd_post/object/record...............................................................................
+                <div> #4th_post/object/record...............................................................................
+
+
+
+
+.............................................................................................................................................................................
+
+Like :
+numbs = [0,1,2,3,4,5,6,7]
+for numb in numbs[1:]:
+    print(numb)
+Output : 1 2 3 4 5 6 7
+
+
+Like :
+numbs = [0,1,2,3,4,5,6,7]
+for numb in numbs[slice(1)]:
+    print(numb)
+Output : 1 2 3 4 5 6 7
+
+
+Here :
+product = QuerySet
+{% for i in product|slice:"1:" %} # loop all ther proucts post/object/record
+   <div> after_ward post/object/record...............................................................................
+{% endfor %}
+
+
+.............................................................................................................................................................................
+
+
+Here we will leave  #First active_crousel_slide with 1_post/object/record as it is but will start looping after_ward posts/objects/records.....
+
+
+To :
+
+         <div>     #Main container for all slides in carousel...............................................................................
+	     <div>    #First active_crousel_slide with 4_post/object/record...............................................................................
+                <div> #1st_post/object/record...............................................................................
+                
+	     {% for i in product|slice:"1:" %} # loop all ther proucts post/object/record
+		<div> after_ward post/object/record...............................................................................
+	     {% endfor %}
+
+
+To :
+
+         <div>     #Main container for all slides in carousel...............................................................................
+	     <div class="carousel-item active">    #First active_crousel_slide with 4_post/object/record...............................................................................
+                <div> #1st_post/object/record...............................................................................
+                
+	     {% for i in product|slice:"1:" %} # loop all ther proucts post/object/record
+		<div> after_ward post/object/record...............................................................................
+		
+		{% if forloop.counter|divisibleby:3 and forloop.counter>0 and not forloop.last %} #break from current carsoul_slides_div and start to another carsoul_slides_div from line_apple........................
+	    </div>
+	    <div class="carousel-item"> #line_apple
+		{% endif %}
+
+	     {% endfor %}
+         </div> #close carsoul_slides_div after last record............................ if forloop.last the comes here and carousel_slide ends
+
+
+
+
+
+In 1_active_post/object/record..........................
+
+                <div class="col-xs-3 col-sm-3 col-md-3"> #1st_post/object/record...............................................................................
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ product.0.product_name }} </h5>
+                            <p class="card-text"> {{ product.0.description }} </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+In afterward post/object/record..........................
+
+                <div class="col-xs-3 col-sm-3 col-md-3"> #1st_post/object/record...............................................................................
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ i.product_name }} </h5>
+                            <p class="card-text"> {{ i.description }} </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+
+
+
+}
+
+
+
+
+So, Finally :
+
+
+{% block body %}
+{% load static %}
+
+<div class="container">
+    <div id="demo" class="carousel slide my-3" data-ride="carousel">
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            {% for i in range %}
+            <li data-target="#demo" data-slide-to={{i}}></li>
+            {% endfor %}
+        </ul>
+
+        <!--Slideshow starts here -->
+        <div class="container carousel-inner no-padding">
+
+            <div class="carousel-item active">
+                <div class="col-xs-3 col-sm-3 col-md-3"> <!-- first_active_post -->
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ product.0.product_name }} </h5>
+                            <p class="card-text"> {{ product.0.desciption }} </p>
+                            <a href="#" class="btn btn-primary"> Add Cart </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% for i in product|slice:"1:" %}
+                <div class="col-xs-3 col-sm-3 col-md-3"> <!-- afterward post -->
+                    <div class="card" style="width: 18rem;">
+                        <img src='{% static "shop/doko.jpg" %}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ i.product_name }} </h5>
+                            <p class="card-text"> {{ i.desciption }} </p>
+                            <a href="#" class="btn btn-primary"> Add Cart </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+            </div>
+            <div class="carousel-item" >
+                {% endif %}
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- left and right controls for the slide -->
+    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+</div>
+{% endblock %}
+
+
+
+
+
+Now it time to apply dynamic image also :

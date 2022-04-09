@@ -1,0 +1,82 @@
+<div class="carousel-item active">
+                <div class="col-xs-3 col-sm-3 col-md-3"> <!-- first_active_post -->
+                    <div class="card" style="width: 18rem;">
+                        <img src='/media/{{ product.0.image }}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ product.0.product_name }} </h5>   Line____2
+                            <p class="card-text"> {{ product.0.desciption }} </p>
+                            <p class="card-text">Rs. {{ product.0.price }} </p>
+                            <a class="btn btn-primary cart" id="pr{{product.0.id}}" > Add Cart </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% for i in product|slice:"1:" %}
+                <div class="col-xs-3 col-sm-3 col-md-3"> <!-- afterward post -->
+                    <div class="card" style="width: 18rem;">
+                        <img src='/media/{{ i.image }}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ i.product_name }} </h5>
+                            <p class="card-text"> {{ i.desciption }} </p>
+                            <p class="card-text">Rs. {{ i.price }} </p>
+                            <a class="btn btn-primary cart" id="pr{{i.id}}" > Add Cart </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}  Line____3
+            </div>
+
+
+
+
+
+To
+
+
+
+
+
+	   <div class="carousel-item active">
+l			 Line____1
+            
+                {% for i in product %}
+                <div class="col-xs-3 col-sm-3 col-md-3"> <!-- afterward post -->
+                    <div class="card" style="width: 18rem;">
+                        <img src='/media/{{ i.image }}' class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ forloop.counter }} {{ i.product_name }} </h5>  Line____2
+                            <p class="card-text"> {{ i.desciption }} </p>
+                            <p class="card-text">Rs. {{ i.price }} </p>
+                            <a class="btn btn-primary cart" id="pr{{i.id}}" > Add Cart </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}    Line____3
+
+            </div>
+
+
+
+Here,
+ Line____1 : delete first active post
+
+ Line____2 :
+	<h5 class="card-title"> {{ i.product_name }} </h5>
+	<h5 class="card-title"> {{ forloop.counter }} {{ i.product_name }} </h5> //add {{ forloop.counter }} to see loop_number/post_number
+
+ Line____3 :
+	{% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %} 
+	{% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %} 
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %} Upload Document {% endblock %}
+{% block body %}
+    <h1> Upload Document </h1>
+    <form method='post' action=" {% url 'add_file' %} " enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ doc_obj.as_p }} <!-- display form in paragraph style  -->
+        <button type="submit">Upload</button>
+    </form>
+    <hr>
+    <br>
+    <a href="{% url 'post_list' %}" >Go To Blog Home</a>
+{% endblock %}

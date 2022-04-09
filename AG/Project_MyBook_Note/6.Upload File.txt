@@ -1,0 +1,603 @@
+#1
+In setting.py :
+
+import os
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'meida')
+
+
+#2
+In MyBook.urls.py :
+
+from . import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+Its like path :    path('blog/', include('Blog.urls'))
+Its like path :    path('/media/', os.path.join(BASE_DIR, 'meida'))
+
+
+
+
+#3
+In models.py :
+class Document(models.Model):
+    title = models.CharField(max_length=100)
+    document = models.FileField(upload_to='images/')
+    upload_at = models.DateTimeField(default=timezone.now)
+
+
+
+#4
+In admin.py :
+from .models import Document
+admin.site.register(Document)
+
+
+Then migrate !
+
+#5
+In base.html
+    <a href=" {% url 'add_file' %} " >Add Document</a>
+
+
+
+#6
+In urls.py/Blog :
+
+urlpatterns = [
+    path('add_file', views.upload, name='add_file'),
+]
+
+
+
+#7
+In views.py :
+
+def upload(request):
+    return HttpResponse('I am Form To Upload Document !')
+
+
+
+#8
+In forms.py :
+
+from .models import Document
+class DocumentForm(forms.ModelForm):
+	class Meta:
+		model = Document
+		fields = ('title', 'document')
+
+
+
+#9
+In views.py :
+
+from .forms import DocumentForm
+def upload(request):
+    doc_obj = DocumentForm()
+    return render(request, 'add_file.html', {'doc_obj':doc_obj})
+
+
+#10 
+Create and In add_file.html :
+
+{% extends 'base.html' %}
+{% block title %} Upload Document {% endblock %}
+{% block body %}
+    <h1> Upload Document </h1>
+    <form method='post' action=" {% url 'add_file' %} ">
+        {% csrf_token %}
+        {{ form_obj.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <hr>
+    <br>
+    <a href="{% url 'post_list' %}" >Go To Blog Home</a>
+{% endblock %}
+
+
+
+
+
+
+#11
+In views.py : After Pressing Submit Document Form,
+
+def upload(request):
+    if request.method == 'POST':
+        doc_obj = DocumentForm(request.POST, request.FILES)
+        if doc_obj.is_valid():
+            form.save()
+            return redirect('post_list')
+
+    doc_obj = DocumentForm()
+    return render(request, 'add_file.html', {'doc_obj':doc_obj})
+
+
+
+
+
+Problem :     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+
+
+
+..........................................................................................................................................................................................
+
+
+
+Like urls for our view.
+
+urlpatterns = [
+    # path('', views.blogindex, name='blogindex'),
+    path('', views.post_list, name='post_list'),
+    path('a_post/<int:post_id>', views.a_post, name='a_post'),
+    path('new_post', views.create_post, name='create_post'),
+    path('add_file', views.upload, name='add_file'),
+    # path('about', views.about, name='blogabout'),
+]
+
+
+Same to access our media files, we should give url path.
+While specifying path of this file we neeed to specify it in our Inner MyBook project.
+Because it is our main project dir and consist of our Root_urls, which include/import all other apps urls.
+So we should give our MEDIA_URL path in MyBook/urls.py
+
+
+
+Here,
+
+like : x=5, x+=1 ==> 6
+Same,
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+In setting.py we have variable called as MEDIA_URL that hold the url/path of media.
+settings.MEDIA_URL
+
+document_root ==> where to create that folder ==>  settings.MEDIA_ROOT
+document_root=settings.MEDIA_ROOT
+
+Add, new media_url to our urlpatterns which route toward media_root.
+urlpatterns += static(MEDIA_URL, MEDIA_ROOT)
+urlpatterns += static(route, directory)
+
+
+So,
+Finally, In MyBook/urls.py :
+
+
+
+from django.conf import settings               #from . import settings
+from django.conf.urls.static import static
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+
+As we have, DEBUG = True in our settings.py.
+So, if settings.DEBUG: return True.
+
+As we are currently in our development mode,
+So, DEBUG = True,
+And store our static_media_files in MEDIA_ROOT. (MyBooK/media/images) 
+Which create media dir in our MyBook.
+
+But In production level when we deploy our project,
+we dont store our files in our project directory, (MyBooK/media/images) 
+Instead we may store our static_media_files in cloud service like AWS, Google etc.
+In that case we should save link of our static_media_files stored in cloud into our database.
+
+Note: we dont save our static_media_files in database.
+Instead we save our static_media_files  in other MEDIA_ROOT or cloud and then save link/url of those static_media_files into database.
+Rather then saving all static_media_files itself inside database
+
+Therefore in that case we dont need to add this Medial url into our urlspattern.
+
+At the time we deploy our project we set,  DEBUG = False,
+And, wew will change it:
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+Here we imported setting.py
+which consist of : DEBUG, MEDIA_URL, MEDIA_ROOT,
+we used these three variable of setting.py in our MyBook/urls.py.
+
+So before adding Url we need to define all these variables.
+
+..........................................................................................................................................................................................
+
+
+So in setting.py :
+
+import os
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'meida')
+
+here our base directory of our project is : MyBookBase
+which consist of all apps, and main project.
+So,
+BASE_DIR => MyBookBase
+
+
+
+
+
+
+
+import os
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'meida')
+
+print(MEDIA_URL)
+print(type(MEDIA_URL))
+print(MEDIA_ROOT)
+print(type(MEDIA_ROOT))
+
+Output :
+/media/
+<class 'str'>
+C:\Users\SimbA\Python_V_EN\Project_Root\MyBookBase\meida
+<class 'str'>>
+
+Here, MEDIA_URL & MEDIA_ROOT are variables.
+MEDIA_ROOT = holds the location of static_media_files directory
+MEDIA_URL = holds the name of url/link/route to be used to call the static_media_files directory (directory where static_media_files  ares saved.)
+
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'meida')  ==>  C:\Users\SimbA\Python_V_EN\Project_Root\MyBookBase\meida
+os.path.join(BASE_DIR, 'meida')
+os.path.join(C:\Users\SimbA\Python_V_EN\Project_Root\MyBookBase, 'meida')
+BASE_DIR ==> C:\Users\SimbA\Python_V_EN\Project_Root\MyBookBase
+joins BASE_DIR and 'meida'
+
+Therefore,
+MEDIA_ROOT = os.path.join(BASE_DIR, 'meida') = C:\Users\SimbA\Python_V_EN\Project_Root\MyBookBase\meida
+where to store all static_media_files.
+
+MEDIA_URL = '/media/'
+what name/url to use to call/link/route to this MEDIA_ROOT.
+
+Therefore,
+urlpatterns += static(MEDIA_URL,MEDIA_ROOT)
+
+like,
+	       path('admin/', admin.site.urls),
+
+
+Here path vs static.
+
+
+
+Because of this:
+In base url we can see :
+admin/
+blog/
+^media/(?P<path>.*)$
+
+
+
+Finally,
+
+MEDIA_URL = '/media/'        ======> when we upload image, we need url to access acces that image/file. So this line sets our url for that file
+MEDIA_ROOT = os.path.join(BASE_DIR, 'meida') ======> and when we upload our file it needs to et store somewhere as in database we only save the path not file itself, so this line specifies the path, by creating the media folder automatically in base directory(MyBookBase) to store all file  
+
+
+..........................................................................................................................................................................................
+
+
+Question :
+We can create static directory inside all apps in our project.
+So after we create this media dir in our base_dir, do we use app_static directory?
+If yes for what purpose?
+
+
+Here path vs static.
+
+..........................................................................................................................................................................................
+
+
+Class Meta : # specifies the property of class
+
+like,
+
+Class Meta :
+   ordering = ['-id']
+gives all record in desc order
+
+Class Meta :
+   model = Post
+   feilds = ('title', 'text')
+define which fields should we show in our form.
+
+..........................................................................................................................................................................................
+
+Now create model to upload files in Blog/models.py.
+
+class Document(models.Model):
+    title = models.CharField(max_length=100)
+    document = models.FileField(upload_to='images/')
+    upload_at = models.DateTimeField(default=timezone.now)
+
+
+here we have new feild call models.FileField:
+which has a parameter call upload_to,
+here what value we pass in this upload_to='value', folder with that name is gonna be created inside media directory in our BASE_DIR automatically.
+and our files gets storesaved in this folder
+i.e 
+upload_to='images'
+MyBookBase\media\images
+
+upload_to='Blog\images'
+MyBookBase\media\Blog\images
+
+
+If we need to create a form then we need model for that form first.
+
+
+..........................................................................................................................................................................................
+
+Register Model to admin pannel (admin.py)
+
+..........................................................................................................................................................................................
+
+Now create model for form :
+
+class Document(models.Model):
+    title = models.CharField(max_length=100)
+    document = models.FileField(upload_to='images/')
+    uploaded_at = models.DateTimeField(default=timezone.now)
+
+..........................................................................................................................................................................................
+
+Now we have created class for form:
+
+class DocumentForm(forms.ModelForm):
+	class Meta:
+		model = Document
+		fields = ('title', 'document')
+
+
+..........................................................................................................................................................................................
+
+
+but how do we call model ?
+we call model from form.
+how do we call form
+we call form from view
+how do we call view
+we call view from url
+how dowe call url
+by giving url in url bar for from template button
+
+..........................................................................................................................................................................................
+
+DocumentForm ===> class for form
+Document     ===> module_class for form
+
+..........................................................................................................................................................................................
+
+
+doc_obj = DocumentForm() 
+print('Not filled form : ',doc_obj) 
+
+Output :
+Not filled form :  <tr>
+			<th><label for="id_title">Title:</label></th>
+			<td><input type="text" name="title" maxlength="100" required id="id_title"></td>
+		   </tr>
+		   <tr>
+			<th><label for="id_document">Document:</label></th>
+			<td><input type="file" name="document" required id="id_document"></td>
+		   </tr>
+
+Here, #doc_obj holds form.
+
+
+
+
+
+doc_obj = DocumentForm(request.POST, request.FILES)
+print('Filled form : ',doc_obj) 
+
+Output :
+Filled form :   <tr>
+		    <th><label for="id_title">Title:</label></th>
+		    <td><input type="text" name="title" value="Sunana" maxlength="100" required id="id_title"></td>
+	        </tr>
+		<tr>
+		    <th><label for="id_document">Document:</label></th>
+		    <td><input type="file" name="document" required id="id_document"></td>
+		</tr>
+
+
+Here,  
+#doc_obj holds form with data submitted from form
+
+
+..........................................................................................................................................................................................
+
+
+Now in view.py :
+
+from .forms import DocumentForm
+
+def upload(request):
+    if request.method == 'POST':  #if reqest method then gather all data and save them
+        doc_obj = DocumentForm(request.POST, request.FILES) # when ever we receive file_data from form we recevied file_data from request.FILES and text_data from request.POST. As we are uploading both tex and file data we need oth requeat.POST and request.FILES. We are  gonna entry/handle file_data too.
+        if doc_obj.is_valid():
+            print('valid')
+            form.save()
+            return redirect('post_list')
+    else:
+            # print('Not Valid !')
+            # return HttpResponse('Not Valid !')
+
+        doc_obj = DocumentForm() #if no any reqest method just show form template
+    return render(request, 'add_file.html', {'doc_obj':doc_obj})
+
+
+
+
+..........................................................................................................................................................................................
+
+Extra :
+
+def create_post(request):
+    if request.method=='POST':
+        form_value_obj = PostForm(request.POST, request.FILES) ****************1 PostForm_form_class
+        if form_value_obj .is_valid():
+            post = form_value_obj.save(commit=False) ********************2 Post_model_class
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('a_post', post_id=post.id)
+
+# 1 :
+form_value_obj = PostForm(request.POST, request.FILES)****************1
+# form_value_obj  is object_of_PostForm_class in forms.py module 
+# form_value_obj  holds a form filled with data.
+# form_value_obj  holds form with data submitted from form
+
+# 2 :
+post = form_value_obj.save(commit=False)  ********************2
+# when we save the filled form then it creates instance of Post_model_class  #object_of_Post_class in models.py module.
+# as form_value_obj is object of PostForm_class and PostForm_class holds the form of Post_model_class.
+#  Therefore post is instance/object of  Post_model_class.
+
+
+So,
+print(form_value_obj.title)
+gives output :
+AttributeError at /blog/add_file
+'DocumentForm' object has no attribute 'title'
+
+Where as,
+print(post.title)
+gives output :
+Sunana
+
+..........................................................................................................................................................................................
+
+def upload(request):
+    if request.method == 'POST':
+        doc_obj = DocumentForm(request.POST, request.FILES)
+        print(doc_obj) *******************1
+        print(doc_obj['title']) *******************2
+        print(doc_obj['title'].value()) *******************3
+        if doc_obj.is_valid():
+            hey = doc_obj.save()
+            print(doc_obj) *******************4
+            print(hey) *******************5
+
+
+print(doc_obj) *******************1
+<tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" value="olol" maxlength="100" required id="id_title"></td></tr>
+<tr><th><label for="id_document">Document:</label></th><td><input type="file" name="document" required id="id_document"></td></tr>
+
+
+print(doc_obj['title']) *******************2
+<input type="text" name="title" value="olol" maxlength="100" required id="id_title">
+
+
+print(doc_obj['title'].value()) *******************3
+olol
+
+hey = doc_obj.save()
+
+print(doc_obj) *******************4
+<tr><th><label for="id_title">Title:</label></th><td><input type="text" name="title" value="olol" maxlength="100" required id="id_title"></td></tr>
+<tr><th><label for="id_document">Document:</label></th><td><input type="file" name="document" required id="id_document"></td></tr>
+
+print(doc_obj) *******************5 (__str__)
+olol
+
+
+..........................................................................................................................................................................................
+
+
+
+
+
+create template.
+
+{% extends 'base.html' %}
+{% block title %} Upload Document {% endblock %}
+{% block body %}
+    <h1> Upload Document </h1>
+    <form method='post' action=" {% url 'add_file' %} " enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ doc_obj.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    <hr>
+    <br>
+    <a href="{% url 'post_list' %}" >Go To Blog Home</a>
+{% endblock %}
+
+
+note :  enctype="multipart/form-data"
+
+specifies and handle the file_data submited from form.
+
+..............................................................................................................................................................
+
+When you upload first file,
+media folder is automatically created in our base directory(MyBookBase)
+i.e :
+  MyBookBase
+    media
+    MyBook
+    Blog
+    manage.py
+    db.sqlite3
+
+..........................................................................................................................................................................................
+
+
+<form method='post' action=" {% url 'add_file' %} ">
+error :
+Title: Hero
+
+    *This field is required.
+
+Document: No file chosen
+
+Upload
+
+
+
+
+
+Solution:
+
+<form method='post' action=" {% url 'add_file' %} " enctype="multipart/form-data">
+
+
+..........................................................................................................................................................................................
+
+
+
+
+Final note while uploading files:
+
+#1
+request.FILES
+form_value_obj = PostForm(request.POST, request.FILES) 
+
+#2
+enctype="multipart/form-data"
+<form method='post' action=" {% url 'add_file' %} " enctype="multipart/form-data">

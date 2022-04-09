@@ -1,0 +1,32 @@
+urls.py:
+path('', register_user_1_1_crispy, name="register_user_1_1_crispy"),
+
+
+views.py:
+from .forms import UserCreationCrispyForm
+def register_user_1_1_crispy(request):
+    if request.method == "POST":
+        new_rgister = UserCreationCrispyForm(request.POST)
+        if new_rgister.is_valid():
+            new_rgister.save()
+            return HttpResponse('New User Registered !')
+    signup_form = UserCreationCrispyForm()
+    return render(request, 'register_user_1_1_crispy.html', {'signup_form':signup_form})
+
+
+
+forms.py:
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+class UserCreationCrispyForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ["username"]
+
+
+template:
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ signup_form|crispy }}
+        <button type="submit">Register</button>
+    </form>

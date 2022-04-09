@@ -1,0 +1,158 @@
+install python
+python --version
+
+intall pip
+python -m pip version
+Extra : Upgrade pip
+cmd ==> python -m pip install --upgrade pip
+
+django :
+python -m django --version
+django-admin --version
+
+Yo can install dajango in two ways :
+1. Separate Virtual Environment : Install and create seperate Virtual environment. And install Django inside created Virtual environment.
+2. Globally on your system.
+
+
+# 1. 
+Separate Virtual Environment :
+
+1. Install Virtual Environment Wrapper.
+cmd ==> pip install virtualenv  or pip install virtualenvwrapper-win
+Only install this Virtual Environment Wrapper once in your system.
+Extra : Upgrade virtualenv
+cmd ==> pip install --upgrade virtualenv
+
+#2
+Create Virtual Enviroment :
+cmd ==> C:\Users\SimbA> virtualenv Virtual_Environment_1 or mkvirtualenv Virtual_Environment_1 (py -m pip install --user virtualenv)
+This created Virtual Enviroment will get automatically activated at a time when we create it.
+
+#3
+But once we close this Virtual Enviroment we again need to activate it.
+cmd ==> Virtual_Environment_1\Scripts\activate or Virtual_Environment_1\Scripts\activate.bat or workon Virtual_Environment_1(pip install workon)
+Deactivate the virtual environment:
+cmd ==> deactivate
+
+#4
+Now installed Django in Virtual Enviroment that we craeted :
+cmd ==> pip install django or pip install django==2.0(for sepecific version)
+Note : First activate the created Virtual Enviroment and then only run command to install django.
+Note : Here, django gets installed inside you virtual environment forlder. : Lib/site-packages 
+Check django version :
+python -m django --version
+django-admin --version
+
+If you check django version in your system outside your Virtual Enviroment. Then Django doesnt get recoznized as we have just installed it for our Virtual Enviroment that we created.
+So activate Virtual Enviroment and check django version inside it.
+
+
+
+Now Finally django is set :
+Create a project now: {Django Project == Multiple_Apps + other_files}
+A project contain many application.
+Application can be called as individual module or packages(__init__.py)
+Application is not project instead group of application is called a project.
+
+e.g :
+School_Project
+   Registration App
+   Fees App
+   Exam App
+   Attendance App
+   Result App
+
+
+# 5
+Now lets strap project :
+Activate the virtual environment and create project:
+
+cmd : django-admin startproject project_name or python manage.py startproject project_name 
+cmd : django-admin stratproject School_Project
+
+Folder structure pf project created :
+School_Project
+    School_Project
+	__init__.py
+	asgi.py
+	setting.py
+	urls.py
+	wsgi.py
+    manage.py
+
+
+You can even rename your Project_Root_Directory/Upper_Project_Folder_Name :
+School_Project_Root
+    School_Project
+	__init__.py
+	asgi.py
+	setting.py
+	urls.py
+	wsgi.py
+    manage.py
+
+
+Here:
+School_Project_Root ==> Project_Root_Directory/Outer Project Folder/ which consist of manage.py
+School_Project ==> Inner Project Folder/ Default apllication created by django.
+
+
+
+
+# 6
+Now runserver for your project :
+Base_DIR/School_Project > cmd : python manage.py runserver
+
+As soon as you run server. 
+new file named as db.sqlite3 is created.
+new folder __pycache__ is created inside Inner_Project_Folder.
+
+
+School_Project
+    School_Project_Root
+	__pycache__
+	     __init__.cpython-38.pyc
+	     asgi.cpython-38.pyc
+	     setting.cpython-38.pyc
+	     urls.cpython-38.pyc
+	     wsgi.cpython-38.pyc
+	__init__.py
+	asgi.py
+	setting.py
+	urls.py
+	wsgi.py
+    manage.py
+    db.sqlite3
+
+
+
+
+
+
+
+
+
+
+
+When we create virtual environment is it good practice to keep, our virtual environment folder and our project folder inside same root folder?
+If i am not wrong then every project have its own viretual environment so how can we remmember which project use which virtual environment if we have created too many virtual environment for many projects?
+
+
+
+uninstall django : pip uninstall django
+remove virtual environment : rmvirtualenv env_name
+uninstall virtual environment wrapper : pip uninstall virtualenvwrapper-win
+
+
+.......................................................................................................................
+
+Therefore Finally :
+Install Virtual Environment Wrapper : pip install virtualenv
+create virtual environment : virtualenv Virtual_Environment_name
+activate it : Virtual_Environment_name\Scripts\activate
+indtall django : pip install django
+start project work:
+create project work : django-admin startproject project_name
+run server : python manage.py runserver
+

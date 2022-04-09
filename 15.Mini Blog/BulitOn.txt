@@ -1,0 +1,21 @@
+Managing Project Structure:
+
+create vir_env
+create project
+create app and install it in setting.py
+create static and template folder inside app
+create css and js folder inside static folder and download and place css,js,jquery,popper inside respective static_folder.
+create base.html and other html_tempates_files
+	create block, extend base_html_file, include other sub html_template_files inside template folder ,load static files in html_tempates_files.
+Create view method in view.py
+	render html_template_file
+Define url path in urls.py
+	main url include app url
+
+
+Thats it for front_end/ template....................................
+
+
+
+Create model class and migrate it.
+

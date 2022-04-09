@@ -1,0 +1,51 @@
+# 1 # save all as submmited
+if request.method=='POST':
+student_form = CustomUserStudentForm(request.POST)
+if student_form.is_valid():
+	student_form.save()
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+# 2 # add some other feature and then save()
+if request.method=='POST':
+	form_value_obj = PostForm(request.POST, request.FILES)
+	if form_value_obj .is_valid():
+		post = form_value_obj.save(commit=False)
+		post.author = request.user #current_login_user
+		post.published_date = timezone.now()
+		post.save()
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+# 3 # take each particular clean submitted data and save()
+
+import model_class ==> from .models import CustomUser
+
+get and clean each particular data submitted by form  ==>  
+	name1 = student_form.cleaned_data['name']
+        email1 = student_form.cleaned_data['email']
+        password1 = student_form.cleaned_data['password']
+
+create object of model_class  ==>  register = CustomUser(name=name1, email=email1, password=password1)
+
+Now save using model class object ==>  register.save()
+
+
+
+# 3 # take each particular clean submitted data and save()
+
+if request.method =='POST':
+        student_form = CustomUserStudentForm(request.POST)
+        if student_form.is_valid():
+            name1 = student_form.cleaned_data['name']
+            email1 = student_form.cleaned_data['email']
+            password1 = student_form.cleaned_data['password']
+            register = CustomUser(name=name1, email=email1, password=password1)
+            register.save()
+    student_form = CustomUserStudentForm()
+
+
+----------------------------------------------------------------------------------------------------------------------------------------

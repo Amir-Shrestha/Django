@@ -1,0 +1,43 @@
+{% extends 'custome_blog_app/base.html' %}
+{% load static %}
+
+{% block title %} SignUp {% endblock title %}
+
+{% block content %}
+
+    <div class="col-sm-10">
+
+        <h3 class="text-white my-5"> Become an Author </h3>
+
+        {% comment %} success_message {% endcomment %}
+        {% if messages %}
+            {% for message in messages %}
+                <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %} > {{message}} </p>
+                {% comment %} <p class="alert alert-{{message.tags}} mb-5"> {{message}} </p> {% endcomment %}
+                {% comment %} <p {{message}} </p>
+                <p {{message.tag}} </p> {% endcomment %}
+            {% endfor %}
+        {% endif %}
+
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+
+            {% comment %} Form_fields {% endcomment %}
+            {% for form_field in signup_form %}
+                <div class="form-group">
+                    {{form_field.label_tag}} {{form_field}}  <small class="text-warning"> {{form_field.errors|striptags}} </small>
+                </div>
+            {% endfor %}
+            <input type="submit" value="Submit" class="btn btn-primary">
+
+            {% comment %} non_fields_error {% endcomment %}
+            {% if login_form.non_field_error %}
+                {% for error in login_form.non_field_errors %}
+                    <p class="alert alert-danger my-3"> {{error}} </p>
+                {% endfor %}
+            {% endif %}
+        </form>
+
+    </div>
+
+{% endblock content %}

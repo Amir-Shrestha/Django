@@ -1,0 +1,198 @@
+# 1
+Resume_Project :
+	education_app
+	servic_app
+	core_app
+	prject_app
+
+
+# 2
+Resume_Project :
+	education_app
+	servic_app
+	core_app
+	     static
+	     templates/core
+	prject_app
+
+
+# 3
+Resume_Project :
+	education_app
+	servic_app
+	core_app
+	     static
+		 css
+		 js
+		 images
+	     templates
+		 core
+		     home.html
+	prject_app
+
+
+For templates we need bootstrap, googlefont, fontawesome
+
+# 4.1
+bootstrap css and javascript
+
+Download Bootstrap 4.4.1
+urls : https://getbootstrap.com/docs/4.4/getting-started/download/
+here we get:
+Compiled and minified CSS bundles (see CSS files comparison)
+Compiled and minified JavaScript plugins
+But
+This doesn’t include documentation, source files, or any optional JavaScript dependencies (jQuery and Popper.js
+So we need to download it seperately.
+
+So first download Bootstrap, here zip file gets download and extract it using WinRAR.
+
+Now when you extract it : 
+bootstrap-4.4.1-dist
+	css
+	js
+
+In css : delecte all except ===> bootstrap.min (css file)
+In js  : delecte all except ===> bootstrap.min (js file)
+
+
+Now paste bootstrap.min.css into our project and rename it (remove .min --> bootstrap):
+C:\Django\GrrekyShows\2.Resume_Project\core\static\core\css\bootstrap
+Now paste bootstrap.min.css into our project and rename it (remove .min --> bootstrap):
+C:\Django\GrrekyShows\2.Resume_Project\core\static\core\js\bootstrap
+
+Here we downloaded minified version of bootstrap css and js as it doesnt consist of sapce so takes less memory. (bootstrap.min)
+Here bootstrap( css and js ) is all set.
+
+also keep your one image in static/core/images
+
+
+
+Resume_Project :
+	education_app
+	servic_app
+	core_app
+	     static
+		 css
+		    bootstrap.css
+		 js
+		    bootstrap.js
+		 images
+		    Me.jpg
+	     templates
+		 core
+		     home.html
+	prject_app
+
+
+
+
+
+# 4.2
+now download bootstrap popper.js
+BootstrapCDN
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+Goto : https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js
+It provide all jquery code.
+Copy it and paste it in (create popper.js):
+C:\Django\GrrekyShows\2.Resume_Project\core\static\core\js\popper.js
+Here the pasted juery code can be preetified using Prettier Vscode Extension.
+
+
+# 4.3 Now Jquery :
+create new file called jquery.js in :
+C:\Django\GrrekyShows\2.Resume_Project\core\static\core\js\jquery.js
+
+Now download Jquery :
+Goto Jquery official website : https://jquery.com/download/
+
+See Download the compressed, production jQuery 3.4.1 and click it:
+https://code.jquery.com/jquery-3.4.1.min.js
+Jquery code appears copy it and paste it in C:\Django\GrrekyShows\2.Resume_Project\core\static\core\js\jquery.js
+anf formate the code using prettifier.
+
+Finally Bootstrap css, js, juery, proper.js all are set.
+
+
+ 
+# 5
+Now lets link bootstrap css in template.
+{% load static %}
+So in home.html,
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.css' %}" />
+
+Now lets link bootstrap js,jquery,popper in template.
+  <script src="{% static 'core/js/jquery.js' %}"></script>
+  <script src="{% static 'core/js/bootstrap.js' %}"></script>
+  <script src="{% static 'core/js/popper.js' %}"></script>
+
+
+
+
+
+# 6 Font awesome :
+
+urls for 6 Font_awesome css : https://www.cdnpkg.com/font-awesome/file/all.min.css/#
+urls for 6 Font_awesome js  : https://www.cdnpkg.com/font-awesome/file/all.min.js/#
+
+Download them 
+
+or
+
+Version : 5.2.0
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/js/all.min.js
+
+Rename, copy and paste font css anf js file in respective core app.
+
+C:\Django\GrrekyShows\2.Resume_Project\core\static\core\css\fontawesome.css
+C:\Django\GrrekyShows\2.Resume_Project\core\static\core\js\fontawesome.js
+
+
+And
+
+link them in template.
+
+Finally, In home.html :
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/css/fontawesome.css' %}" />
+  </head>
+  <body>
+
+
+
+  <script src="{% static 'core/js/jquery.js' %}"></script>
+  <script src="{% static 'core/js/bootstrap.js' %}"></script>
+  <script src="{% static 'core/js/popper.js' %}"></script>
+  <script src="{% static 'core/js/fontawesome.js' %}"></script>
+
+  </body>
+</html>
+
+
+
+
+
+# 
+Now define urls in project level.(Resume_Project)
+In C:\Django\GrrekyShows\2.Resume_Project\Resume_Project\urls.py :
+
+from django.urls import path,include
+from core import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+]
+
+
+
+

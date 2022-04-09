@@ -1,0 +1,49 @@
+What will be our layout, urls, endpoints, of our website
+
+
+1. #Add paths in urlpatterns at shop/urls.py
+urlpatterns = [
+    path('', views.index, name='shopindex'),
+    path('about', views.about_us, name='about_us'),
+    path('contact', views.contact_us, name='contact_us'),
+    path('tracker', views.tracker_status, name='tracker_status'),
+    path('product', views.product_view, name='product_view'),
+    path('checkout', views.check_out, name='check_out'),
+    path('search', views.search, name='search')
+]
+
+
+
+2. #Add view_method in shop/views.py
+
+def index(request):
+    return render(request, 'shop/index.html')
+
+def about_us(request):
+    return HttpResponse('We are at about_us !')
+
+def contact_us(request):
+    return HttpResponse('We are at contact_us !')
+
+def tracker_status(request):
+    return HttpResponse('We are at tracker_status !')
+
+def product_view(request):
+    return HttpResponse('We are at product_view !')
+
+def check_out(request):
+    return HttpResponse('We are at check_out !')
+
+def search(request):
+    return HttpResponse('We are at search !')
+
+
+Therefore, till here we have created a pipeline for our shop app
+
+3. #Now we will create templates for all renders in views_method
+
+like :
+def index(request):
+    return render(request, 'shop/index.html')
+    return render(request, 'shop/template')
+

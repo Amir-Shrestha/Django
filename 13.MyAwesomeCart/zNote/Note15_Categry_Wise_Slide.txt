@@ -1,0 +1,492 @@
+# First :
+product_category = Product.objects.values('category', 'id')
+return HttpResponse(product_category)
+
+Output :
+{'category': 'Grill Karkhana', 'id': 9}{'category': 'Grill Karkhana', 'id': 10}{'category': 'Grill Karkhana', 'id': 11}{'category': 'Grill Karkhana', 'id': 12}{'category': 'Grill Karkhana', 'id': 13}{'category': 'Grill Karkhana', 'id': 14}{'category': 'Clothing', 'id': 15}{'category': 'Clothing', 'id': 16}
+
+#here product_category is QuerySet ===> total objects
+
+
+
+
+
+
+# Second :
+
+    List_Category = []
+    product_category_id_QuerySet = Product.objects.values('category', 'id')
+    for item in product_category_id_QuerySet: #here item mean a single objects
+        List_Category.append(item['category'])
+    return HttpResponse(List_Category)
+
+Output :
+Grill KarkhanaGrill KarkhanaGrill KarkhanaGrill KarkhanaGrill KarkhanaGrill KarkhanaClothingClothing
+
+
+
+
+  
+
+
+#Third :
+    product_category_id_QuerySet = Product.objects.values('category', 'id')
+    cats = {item['category'] for item in product_category_id_QuerySet} #set comprehensive as set cannot have duplicate value it ignores already exist value 
+    return HttpResponse(cats)
+
+Output :
+ClothingGrill Karkhana
+
+#Extra if List Comprehensive instead of Set Comprehensive  Then 
+
+    product_category_id_QuerySet = Product.objects.values('category', 'id')
+    cats = [item['category'] for item in product_category_id_QuerySet]  #list comprehensive
+    return HttpResponse(cats)
+
+Output : 
+Grill KarkhanaGrill KarkhanaGrill KarkhanaGrill KarkhanaGrill KarkhanaGrill KarkhanaClothingClothing
+
+
+
+
+#Fourth :
+
+    for category in distinct_categories:
+        distinct_product_category  = Product.objects.flter(category=category) #Retrieving specific objects with filters/category
+        n=len(distinct_product_category)
+        Slides_No = n // 4 + ceil(n / 4 - n // 4)
+        Category_Slides_List.append([distinct_product_category, range(1,Slides_No), Slides_No])
+
+    params = { 'D_ListOfAllProduct' : Category_Slides_List }
+    return render(request, 'shop/index.html',params)
+
+
+
+
+
+
+Finally:
+
+
+def index(request):
+    all_products = Product.objects.all()
+    print(all_products)
+    n = len(all_products)
+    print(n)
+    No_of_Slides = n // 4 + ceil(n / 4 - n // 4)
+    ListOfListOfAllProduct = [
+                                [all_products, range( 1,No_of_Slides), No_of_Slides],
+                                [all_products, range( 1,No_of_Slides), No_of_Slides]
+                                ]
+    params = { 'D_ListOfAllProduct' : ListOfListOfAllProduct }
+    return render(request, 'shop/index.html',params)
+
+
+To :
+
+
+
+def index(request):
+
+    D_List_Of_Category_Slides = []
+    product_duplicate_categories_id_QuerySet = Product.objects.values('category', 'id')
+    distinct_categories = {item['category'] for item in product_duplicate_categories_id_QuerySet}
+    for category in distinct_categories:
+        distinct_category_products = Product.objects.filter(category=category) #Retrieving specific objects with filters/category
+        Total_no_of_products_of_distinct_category=len(distinct_product_category)
+        No_of_Slides = Total_no_of_product_of_distinct_category // 4 + ceil(Total_no_of_product_of_distinct_category / 4 - Total_no_of_product_of_distinct_category // 4)
+        D_List_Of_Category_Slides.append([distinct_product_category, range(1,No_of_Slides), No_of_Slides])
+        
+    params = { 'D_ListOfAllProduct' : D_List_Of_Category_Slides }
+    return render(request, 'shop/index.html',params)
+
+OR :
+
+
+
+def index(request):
+
+    Category_Slides_List = []
+    product_duplicate_categories_id_QuerySet = Product.objects.values('category', 'id')
+    distinct_categories = {item['category'] for item in product_duplicate_categories_id_QuerySet}
+    for category in distinct_categories:
+        distinct_category_products = Product.objects.flter(category=category) #Retrieving specific objects with filters/category
+        n=len(distinct_product_category)
+        Slides_No = n // 4 + ceil(n / 4 - n // 4)
+	distinct_category_detials_list = [distinct_product_category, range(1,Slides_No), Slides_No]
+        Category_Slides_List.append(distinct_category_detials_list)
+
+    params = { 'D_ListOfAllProduct' : Category_Slides_List } #sends the list_of_slide_list_according_category
+    return render(request, 'shop/index.html',params)
+
+
+
+
+Therefore You can see the catousel slides according to its category.
+
+
+
+
+
+
+
+
+product_duplicate_categories_id_QuerySet  ==>  category of all product
+distinct_categories  ==>  total category available
+distinct_category_products  ==>  all products of distinct category
+n  ==>  numbers of products hold by a distinct category
+Slides_No  ==>  Total slides for one distinct category
+distinct_category_detials_list  ==>  list that contains all the detials of a category, like total products, numbers of slide a crousel cotains, range
+Category_Slides_List   ==>  list of all distinct_category_detials_list ---------------- (list of lists) -------------------
+
+# Therefore, 
+Category_Slides_List[ distinct_category_detials_list [ distinct_product_category, range(1,Slides_No), Slides_No ] ]
+List[ list [ QuerySet, range, int] ]
+
+
+
+
+
+
+
+
+
+#here :
+for category in Category_Slides_List:
+   print(category)
+
+Output :
+[09/May/2021 12:57:41] "GET /shop/ HTTP/1.1" 200 1
+[<QuerySet [<Product: Shirt>, <Product: Pant>]>, range(1, 1), 1]
+[<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>, range(1, 2), 2]
+[<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>]>, range(1, 2), 2]
+
+Here len(Category_Slides_List) = 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+for category in Category_Slides_List:
+    for product in category:
+       print(product)
+
+
+Output :
+<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>]>
+range(1, 2)
+2
+<QuerySet [<Product: Shirt>, <Product: Pant>]>
+range(1, 1)
+1
+<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>
+range(1, 2)
+2
+
+
+
+
+
+
+
+    for category in Category_Slides_List:
+        for product in category:
+            print(type(product))
+
+
+
+Output :
+<class 'django.db.models.query.QuerySet'>
+<class 'range'>
+<class 'int'>
+<class 'django.db.models.query.QuerySet'>
+<class 'range'>
+<class 'int'>
+<class 'django.db.models.query.QuerySet'>
+<class 'range'>
+<class 'int'>
+
+
+
+QuerySet consist of row/objects
+
+
+
+
+
+
+
+    for category in Category_Slides_List:
+        print(category)
+        for product in category:
+            print(product)
+            print(type(product))
+    return HttpResponse(len(Category_Slides_List))
+
+
+Output :
+[<QuerySet [<Product: Shirt>, <Product: Pant>]>, range(1, 1), 1]
+<QuerySet [<Product: Shirt>, <Product: Pant>]>
+<class 'django.db.models.query.QuerySet'>
+range(1, 1)
+<class 'range'>
+1
+<class 'int'>
+[<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>]>, range(1, 2), 2]
+<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>]>
+<class 'django.db.models.query.QuerySet'>
+range(1, 2)
+<class 'range'>
+2
+<class 'int'>
+[<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>, range(1, 2), 2]
+<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>
+<class 'django.db.models.query.QuerySet'>
+range(1, 2)
+<class 'range'>
+2
+<class 'int'>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    print(Category_Slides_List)
+    i=1
+    for category in Category_Slides_List:
+        print('List with Query_Set_of_Category_object, Range, Slides_No_of_current_category : ',category)
+        for products in category:
+            print('Query_Set_of_Category_object : ',products)
+            if i == 1:
+                for product in products:
+                    print('Query_Set_of_Category_object Items :')
+                    print(product)
+            i += 1
+
+
+output :
+[[<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>, range(1, 2), 2], [<QuerySet [<Product: Shirt>, <Product: Pant>]>, range
+(1, 1), 1], [<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>]>, range(1, 2), 2]]
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Coo
+ker>]>, range(1, 2), 2]
+
+
+
+
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: S
+wing>, <Product: Tanki Stand>]>, range(1, 2), 2]
+Query_Set_of_Category_object :  <QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>]>
+Query_Set_of_Category_object Items :
+Gate
+Query_Set_of_Category_object Items :
+Gamala Stand
+Query_Set_of_Category_object Items :
+Ladder
+Query_Set_of_Category_object Items :
+कुकुर Khor
+Query_Set_of_Category_object Items :
+Swing
+Query_Set_of_Category_object Items :
+Tanki Stand
+Query_Set_of_Category_object :  range(1, 2)
+Query_Set_of_Category_object :  2
+
+
+
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Coo
+ker>]>, range(1, 2), 2]
+Query_Set_of_Category_object :  <QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>
+Query_Set_of_Category_object :  range(1, 2)
+Query_Set_of_Category_object :  2
+
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Shirt>, <Product: Pant>]>, range(1, 1), 1]
+Query_Set_of_Category_object :  <QuerySet [<Product: Shirt>, <Product: Pant>]>
+Query_Set_of_Category_object :  range(1, 1)
+Query_Set_of_Category_object :  1
+[09/May/2021 13:29:25] "GET /shop/ HTTP/1.1" 200 1
+
+
+
+
+
+
+
+
+
+
+CODE :
+    print(Category_Slides_List)
+    i=1
+    for category in Category_Slides_List:
+        print('List with Query_Set_of_Category_object, Range, Slides_No_of_current_category : ',category)
+        for products in category:
+            print('Query_Set_of_Category_object : ',products)
+            if i == 1:
+                for product in products:
+                    print('Query_Set_of_Category_object Items :')
+                    print(product.product_name)
+                    print(product.price)
+            i += 1
+
+
+
+
+OUTPUT :
+[[<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>, range(1, 2), 2], [<QuerySet [<Product: Gate>, <Product: Gamala Stand>,
+<Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>]>, range(1, 2), 2], [<QuerySet [<Product: Shirt>, <Product: Pant>]>, range(1, 1), 1]]
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Coo
+ker>]>, range(1, 2), 2]
+Query_Set_of_Category_object :  <QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Cooker>]>
+Query_Set_of_Category_object Items :
+Pan
+642
+Query_Set_of_Category_object Items :
+Masala
+970
+Query_Set_of_Category_object Items :
+Rice Cooker
+483
+Query_Set_of_Category_object Items :
+Spoon
+914
+Query_Set_of_Category_object Items :
+Rice Cooker
+757
+Query_Set_of_Category_object :  range(1, 2)
+Query_Set_of_Category_object :  2
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: S
+wing>, <Product: Tanki Stand>]>, range(1, 2), 2]
+Query_Set_of_Category_object :  <QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: Swing>, <Product: Tanki Stand>]>
+Query_Set_of_Category_object :  range(1, 2)
+Query_Set_of_Category_object :  2
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Shirt>, <Product: Pant>]>, range(1, 1), 1]
+Query_Set_of_Category_object :  <QuerySet [<Product: Shirt>, <Product: Pant>]>
+Query_Set_of_Category_object :  range(1, 1)
+Query_Set_of_Category_object :  1
+[09/May/2021 13:33:50] "GET /shop/ HTTP/1.1" 200 1
+
+
+Aslo : product.0.price 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CODE :
+    for category in Category_Slides_List:
+        print('List with Query_Set_of_Category_object, Range, Slides_No_of_current_category : ',category)
+        for products in category[0]:
+            print(products.product_name,' : ',products.price)
+
+
+Here : 
+        for products in category[0]:
+            print(products.product_name,' : ',products.price)
+
+Equals to :
+	category[0].0.product_name
+	category[0].1.product_name
+	category[0].2.product_name
+
+
+
+OUTPUT :
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Gate>, <Product: Gamala Stand>, <Product: Ladder>, <Product: कुकुर Khor>, <Product: S
+wing>, <Product: Tanki Stand>]>, range(1, 2), 2]
+Gate  :  89000
+Gamala Stand  :  3000
+Ladder  :  3000
+कुकुर Khor  :  12000
+Swing  :  25000
+Tanki Stand  :  17000
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Pan>, <Product: Masala>, <Product: Rice Cooker>, <Product: Spoon>, <Product: Rice Coo
+ker>]>, range(1, 2), 2]
+Pan  :  642
+Masala  :  970
+Rice Cooker  :  483
+Spoon  :  914
+Rice Cooker  :  757
+List with Query_Set_of_Category_object, Range, Slides_No_of_current_category :  [<QuerySet [<Product: Shirt>, <Product: Pant>]>, range(1, 1), 1]
+Shirt  :  1500
+Pant  :  3000
+[09/May/2021 13:41:21] "GET /shop/ HTTP/1.1" 200 1
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+a = [1,2,3]
+b = [4,5,6]
+c = [7,8,9]
+
+Listoflist = [ [a,b,c]]
+
+for a,b,c in Listoflist:
+    print(a)
+    print(b)
+    print(c)
+
+
+
+Output :
+[1, 2, 3]
+[4, 5, 6]
+[7, 8, 9]
+
+
+
+In view.py ==> print(distinct_category_products[0].category)
+In templates.py ==> {{ category_products.0.category }}
+
+

@@ -1,0 +1,21 @@
+body{
+    background-color: rgb(75, 74, 74);
+    color: antiquewhite;
+}
+
+.jumbotron-color{
+    background-color: rgb(231, 235, 13);
+}
+
+form{
+    color: rgb(17, 168, 1);
+}
+
+.form-control{
+    background-color: rgb(187, 179, 221);
+}
+
+.form-control:focus{
+    background-color: rgb(202, 163, 163);
+}
+

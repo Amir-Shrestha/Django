@@ -1,0 +1,22 @@
+Models and their relationship:
+
+
+class Cart(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
+
+class CartProduct(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE) # object of cart class, 1-M . Its mainly relationship of this CartProduct class with Cart class # Foreign key/ Primany key of another class
+    product = models.ForeignKey(Product, on_delete=models.CASCADE) # object of product class, 1-M. Its mainly relationship of this CartProduct class with Product class # Foreign key/ Primany key of another class
+
+class Order(models.Model):
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
+
+
+
+Views:
+order_obj = Order.objects.get(id=ord_id)
+order_obj.cart ---> Forward Relationship
+
+cart.cartproduct_set.all ---> Reverse Relationship
+
+

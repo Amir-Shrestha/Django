@@ -1,0 +1,72 @@
+# 1
+
+In views.py :
+from django.contrib import messages
+messages.success(request, 'susccess msg')
+
+In html_template_file :
+{% for message in messages %}
+      <p> {{message}} </p>
+{% endfor %}
+
+
+..........................................................................................................................   
+
+
+OR
+
+{% if messages %}
+     {% for message in messages %}
+           <p class="alert alert-{{message.tags}} mb-5" > {{message}} </p>
+      {% endfor %}
+{% endif %}
+
+OR
+
+{% if messages %}
+     {% for message in messages %}
+           <p {% if message.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %} > {{message}} </p>
+      {% endfor %}
+{% endif %}
+
+
+.......................................................................................................................... 
+
+
+messages.info(request, 'info msg 1')
+messages.warning(request, 'warning msg 1')
+messages.error(request, 'error msg 1')
+
+here ,
+
+messages     ==> all of the abouve messages
+message      ==> warning msg 1 or info msg 1 or error msg 1
+message.tags ==> info or warning or error
+
+
+.......................................................................................................................... 
+
+
+
+messages.info(request, 'info msg')
+print(messages.get_level(request))
+messages.success(request, success_msg)
+print(messages.get_level(request))
+messages.add_message(request, messages.SUCCESS, success_msg) ==> messages.add_message(request, messages.tag, message)
+
+
+.......................................................................................................................... 
+
+
+Override message.tags
+
+In setting.py:
+
+MESSSAGE_TAGS = {
+		messages.ERROR: 'danger
+		}
+
+
+.......................................................................................................................... 
+
+

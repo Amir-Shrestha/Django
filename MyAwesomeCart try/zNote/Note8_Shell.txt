@@ -1,0 +1,108 @@
+So do we always insert product using admin pannel only?
+No we do have django python manage.py shell to perform various texting(inserttion,selection etc) using terminal.
+
+
+
+Here now inroduce yourself with 
+cmd : python manage.py shell
+
+
+Extra about power shell
+{
+mouse right click point to the start menu and click to Window Powershell(admin)
+
+1. powershell : cd ~ ==> take you to home_directory/base_directory ==> (cd till)
+PS C:\Windows\system32> cd ~
+
+2. powershell : cd py press tab ==> gives ==> cd .\PycharmProjects\
+PS C:\Users\SimbA> cd .\PycharmProjects\
+PS C:\Users\SimbA\PycharmProjects>
+
+You can even do this in your pycharm terminal !
+
+
+
+Here,  Now you are in :
+PS C:\Users\SimbA\PycharmProjects>
+}
+
+Simply in state terminal at you Project_Folder_Dir where there is manage.py
+i.e :
+C:\Users\SimbA\PycharmProjects\MyAwesomeCart\Mac>
+
+Then,
+cmd : python manage.py shell
+
+Now see that your shell is opened now :
+C:\Users\SimbA\PycharmProjects\MyAwesomeCart\Mac>python manage.py shell
+Python 3.9.4 (tags/v3.9.4:1f2e308, Apr  6 2021, 13:40:21) [MSC v.1928 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.23.0 -- An enhanced Interactive Python. Type '?' for help.
+
+
+So why are we doing this all? Why shell ?
+Because we use it for testing model etc on the fly in shell.
+i.e we can run django code in terminal for testing pur[ose.
+
+Now once shell is opened
+write django code in it :
+
+1. from shop.models import Product
+
+2. Product.objects.all()
+Out[2]: <QuerySet [<Product: Kulekhani>, <Product: Doko>, <Product: Kucho>]>
+You can see sets of all object(record) in your product table
+
+3.product3 = Product(product_name="mouse", category="computer", sub_category="device", price=250, desciption="Dell is234", publish_date=timezone.now()))
+here we are making new object/record as product3 for Product table by this above django statement as product_name, category, sub_category, price, desciption, publish_date are 
+the feild/column/attributes of table/Product_model an we are passing values to all attributes.
+here we are not passing product_id as it is auto_increament and leveing image attribute as default value.
+When you write above_django_statement you will get error as NameError: name 'timezone' is not defined.
+Because we dont have any function call timezome so we have to import this timezone function from django.utils module.
+
+4. from django.utils import timezone
+
+Again code above_django_statement:
+5. Product(product_name="mouse", category="computer", sub_category="device", price=250, desciption="Dell is234", publish_date=timezone.now()))
+Now you have create new object product3 but not saved in database see in Products table in admin pannel there is no any product called as Mouse.
+
+So save it.
+6.product3.save()
+And agian see in Products table in admin pannel there product called as Mouse.
+
+
+Now try to domain/values of object/record you just created :
+
+8.  product3.product_id
+Out[10]: django.db.models.fields.AutoField
+
+9.  product3.product_name
+Out[11]: 'Mouse'
+
+
+Finally new product(Mouse) has been added into our database:
+See it by :
+10. Product.objects.all()
+Out[12]: <QuerySet [<Product: Kulekhani>, <Product: Doko>, <Product: Kucho>, <Product: Mouse>]>
+
+
+In this way we can do object insertion in our database regardless of admin pannel.
+
+Select specific object from table :
+
+11. Product.objects.get(product_name="Mouse")
+Out[14]: <Product: Mouse>
+
+
+12. a=Product.objects.get(product_name="Mouse")
+13. a.category
+Out[16]: 'computer'
+
+
+
+In this way we can do query to our database using shell from terminal regardless of admin pannel.
+We can do our test of python code over terminal using shell.
+
+
+
+Documentaion : django python manage.py shell

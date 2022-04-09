@@ -1,0 +1,148 @@
+#1 Login using html_form :
+
+views:
+def user_login(request):
+    if request.method=="POST":
+        username1 = request.POST["uname"]
+        password1 = request.POST["upass"]
+        user = authenticate(username=username1, password=password1) #return Object of default User Class Model if exist else return None
+        if user is not None:
+            login(request, user)
+            return HttpResponse("Logged In Successfully as " + str(user))
+        else:
+            return HttpResponse("No user with provided credentials ! !")
+    return render(request, 'login.html')
+
+template:
+    <form action="" method="POST">
+        {% csrf_token %}
+        Username : <input type="text"name="uname" required><br>
+        Password : <input type="password" name="upass" required><br>
+        <button type="submit">Submit</button>
+    </form>
+
+
+
+******************************************************************************************************************************************************************
+
+
+
+#2 Login using AuthenticationForm :
+
+views:
+def user_login(request):
+    if request.method=="POST":
+        login_form = AuthenticationForm(request=request, data=request.POST)
+        if login_form.is_valid():
+            username1 = request.POST["username"]
+            password1 = request.POST["password"]
+            user = authenticate(username=username1, password=password1)
+            if user is not None:
+                login(request, user)
+                return HttpResponse("Logged In Successfully !")
+            else:
+                return HttpResponse("No user with provided credentials ! !")
+    login_form = AuthenticationForm(request)
+    return render(request, 'login.html', {'login_form':login_form})
+
+
+or
+
+
+def user_login(request):
+    if request.method=="POST":
+        login_form = AuthenticationForm(request=request, data=request.POST)
+        if login_form.is_valid():
+            user = login_form.get_user()
+            if user is not None:
+                login(request, user)
+                return HttpResponse("Logged In Successfully !")
+            else:
+                return HttpResponse("No user with provided credentials ! !")
+    login_form = AuthenticationForm()
+    return render(request, 'login.html', {'login_form':login_form})
+
+
+templates:
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{login_form.as_p}}
+        <button type="submit">Submit</button>
+    </form>
+
+
+
+******************************************************************************************************************************************************************
+
+
+#3 Login using customized AuthenticationForm
+
+
+AuthenticationForm with Bootstrap
+
+In views.py:
+
+def user_login(request):
+    if request.method=="POST":
+        login_form = Custome_User_AuthenticationForm(request=request, data=request.POST)
+        if login_form.is_valid():
+            user = login_form.get_user()
+            if user is not None:
+                login(request, user)
+                return HttpResponse("Logged In Successfully !")
+            else:
+                return HttpResponse("No user with provided credentials ! !")
+    login_form = Custome_User_AuthenticationForm(request)
+    return render(request, 'login.html', {'login_form':login_form})
+
+
+
+
+
+
+
+In forms.py :
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
+
+class Custome_User_AuthenticationForm(AuthenticationForm):
+    username = UsernameField(widget=forms.TextInput(attrs={'autofocus':True, 'class':'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'autocomplete':'current-password', 'class':'form-control'}))
+
+
+
+
+
+
+******************************************************************************************************************************************************************
+
+
+#4 Login using django.contrib.auth.urls:
+
+app urls.py:
+path('', include('django.contrib.auth.urls')),
+
+in base template dir:
+create new registration folder and inside it create login.
+
+login.html
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+    <h1>LogIn Form !</h1>
+    <form  method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <button type="submit"> LogIn </button>
+    </form>
+</body>
+</html>
+
+******************************************************************************************************************************************************************
+
+
+

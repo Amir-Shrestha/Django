@@ -1,0 +1,17 @@
+Got o fb like plugin : https://developers.facebook.com/docs/plugins/like-button/
+Enter : Apps url and select large.
+Now you dont have to cope JavaScript Plugins again as we have already mentioned while using comment plugin.
+So just copy another code and paste where you want.
+code : <div class="fb-like" data-href="http://127.0.0.1:8000/blog/blogPost/1" data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+
+       <div class="fb-like" data-href="http://127.0.0.1:8000/blog/blogPost/{{ post.post_id }}" data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
+
+
+you can also check show friends photo
+
+
+Finally :
+   <div class="fb-like" data-href="http://127.0.0.1:8000/blog/blogPost/{{ post.post_id }}" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="false"></div>
+   <div class="fb-share-button" data-href="http://127.0.0.1:8000/blog/blogPost/{{ post.post_id }}" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Fblog%2FblogPost%2F1&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+   <div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogPost/{{ post.post_id }}" data-width="" data-numposts="5"></div>            </div><!-- /.blog-post -->
+        

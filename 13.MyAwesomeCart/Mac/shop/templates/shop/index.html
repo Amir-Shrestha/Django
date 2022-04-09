@@ -1,0 +1,238 @@
+{% extends 'shop/basic.html' %}
+
+<!--title block-->
+{% block title %} Home {% endblock %}
+
+
+<!--body bloack-->
+{% block body %}
+{% load static %}
+
+<div class="container">
+<br>
+<br>
+
+    {% for category_products, range, No_of_Slides in Category_Slides_List %}
+    <h3 class="my-4"> {{ category_products.0.category }} </h3>
+    <!-- Carsousel_Start -->
+    <div class="row">
+        <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
+
+            <!-- carsousel slide indicator -->
+            <ul class="carousel-indicators">
+                <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
+                {% for i in range %}
+                <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to={{i}}></li>
+                {% endfor %}
+            </ul>
+
+            <!-- posts Slideshow starts here -->
+            <div class="container carousel-inner no-padding">
+
+                <div class="carousel-item active" >
+                    {% for product in category_products %}
+                    <div class="col-xs-3 col-sm-3 col-md-3"> <!-- afterward post -->
+                        <div class="card" style="width: 18rem; align-items:center; text-align:center;" >
+                            <div class="zoom">
+                                <img src='/media/{{ product.image }}' class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title" id="namepr_id{{product.id}}"> {{ product.product_name|slice:"0:16" }} ... </h5>
+                                <h5 class="card-title" id="namexxx_pr_id{{product.id}}" hidden> {{ product.product_name }}</h5>
+                                <p class="card-text" style="color: rgb(255,69,0)"><b><span style="color: rgb(250,0,0)">Price:</span></b> Rs. <span id="pricepr_id{{product.id}}">{{ product.price }}</span> </p>
+                                <p class="card-text"> {{ product.desciption|slice:"0:25" }} ... </p>
+                                <span id="span_pr_idpr_id{{product.id}}" class="span_pr_idpr_id">
+                                    <button id="pr_id{{product.id}}" class="btn btn-primary addcart">Add To Cart</button>
+                                </span>
+                                <a href="product/{{product.id}}"><button class="btn btn-info addcart" id="qv{{product.id}}" > Quick View </button></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                </div>
+                <div class="carousel-item" >
+                    {% endif %}
+
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- carousel control -->
+        <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+<!--javascript block-->
+{% block js %}
+<script>
+
+
+    {% if msg|length != 0 %}
+    alert('{{msg}}');
+    window.location.href = "/"
+    {% endif %}
+
+
+    //JavaScript if not cart_object(cart_items) exist create one else prase the present object
+    if(localStorage.getItem('cartstorage')==null){
+        var cartobj = {};
+        //console.log(cartobj, '***********************************')
+    }
+    else{
+        cartobj = JSON.parse(localStorage.getItem('cartstorage'));
+        //console.log(cartobj,'------------------------------------')
+        updateCart(cartobj);
+    }
+
+
+
+    //ADD_To_Cart
+    //jQuery when button with class addcart is clicked add/remove items
+    // $('.addcart').click(function(){
+    $('.span_pr_idpr_id').on('click', 'button.addcart', function(){
+        //var idstr = this.id.toString();
+        var idstr = this.id;
+        //console.log(idstr)
+        //console.log(cartobj)
+        //console.log(cartobj[idstr])
+        if(cartobj[idstr] != undefined){
+            console.log('hi')
+            console.log(cartobj)
+            cartobj[idstr][0] = cartobj[idstr][0] + 1;
+        }
+        else{
+            console.log('bye')
+        qty = 1;
+        name = document.getElementById('namexxx_'+idstr).innerHTML;
+        console.log(name)
+        price = document.getElementById('price'+idstr).innerHTML;
+        //console.log(price)
+        //console.log(typeof price)
+        //console.log(typeof parseInt(price))
+        //console.log(cartobj, '111')
+        cartobj[idstr] = [qty, name, parseInt(price)];
+        //cart_object holding a just added products detal has been created and add this car_product_object into cart
+        //console.log(cartobj, '222')
+        }
+        updateCart(cartobj);
+    });
+
+
+
+
+
+
+
+    // JavaScript fucntion for +/- button when clicked AddToCart button
+    function updateCart(cartobj){
+        total_product = 0;
+            //console.log(cartobj)
+        for( var item in cartobj){
+            //console.log(item)
+            //console.log(item)
+            //console.log(cartobj[item])
+            //console.log(cartobj[item][0])
+            total_product += cartobj[item][0];
+            console.log(cartobj[item][0])
+            if(cartobj[item][0]!=0){
+                document.getElementById('span_pr_id'+item).innerHTML = "<button id='minus" + item + "' class='btn btn-warning minus'>-</button> <span id='val" + item + "''>" + cartobj[item][0] + "</span> <button id='plus" + item + "' class='btn btn-success plus'> + </button>";
+            }
+        }
+        localStorage.setItem('cartstorage', JSON.stringify(cartobj)); // Add_Itmes_to_Cart_and_save_in_localStorage
+        document.getElementById('mycart').innerHTML = total_product; //print numbers of items inside cart in navbar
+        updatePopover(cartobj);
+    }
+
+
+
+
+
+    //JavaScript fucntion to clear Cart
+    function clearCart() {
+        cartobj = JSON.parse(localStorage.getItem('cartstorage'));
+        for (var item in cartobj) {
+            //console.log(item)
+            document.getElementById('span_pr_id' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary addcart">Add To Cart</button>';
+        }
+        localStorage.clear();
+        cartobj = {};
+        updateCart(cartobj);
+    }
+
+
+
+    //JavaScript fucntion to update Cart_Popover
+    function updatePopover(cartobj){
+        var popStr = "";
+        popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+        var i = 1;
+        for (var item in cartobj){
+            if(cartobj[item][0]!=0){
+                popStr = popStr + "<b>" + i + "</b>. ";
+                popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cartobj[item][0] + '<br>';
+                i = i+1;
+            }
+        }
+        popStr = popStr + "</div> <a href='/checkout'><button class='btn btn-info' id ='checkout'>Checkout</button></a> <button class='btn btn-warning' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
+        document.getElementById('cart_popover').setAttribute('data-content', popStr);
+        $('#cart_popover').popover('show');
+    }
+
+
+
+
+
+
+
+
+
+    // jQuery if +/- button is clicked, change cart as well as display value
+    $('.span_pr_idpr_id').on("click", "button.minus", function() {
+        //console.log(this.id)
+        product_id = this.id.slice(10, );
+        //console.log(a)
+        cartobj['pr_id' + product_id][0] = cartobj['pr_id' + product_id][0] - 1;
+        cartobj['pr_id' + product_id][0] = Math.max(0, cartobj['pr_id' + product_id][0]);
+        console.log(cartobj['pr_id' + product_id][0])
+        if (cartobj['pr_id' + product_id][0]==0) {
+            document.getElementById('span_pr_idpr_id'+product_id).innerHTML = "<button id='pr_id" + product_id + "' class='btn btn-primary addcart'>Add To Cart</button>";
+        }
+        //console.log(cartobj['pr_id' + product_id][0])
+        else{
+            document.getElementById('valpr_id' + product_id).innerHTML = cartobj['pr_id' + product_id][0];
+        }
+        updateCart(cartobj);
+    });
+
+    $('.span_pr_idpr_id').on("click", "button.plus", function() {
+        product_id = this.id.slice(9, );
+        cartobj['pr_id' + product_id][0] = cartobj['pr_id' + product_id][0] + 1;
+        document.getElementById('valpr_id' + product_id).innerHTML = cartobj['pr_id' + product_id][0];
+        updateCart(cartobj);
+    });
+
+
+
+
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,153 @@
+Till now :
+
+<!--javascript block-->
+{% block js %}
+
+<script>
+
+<!--find out the cart items from the localStorage-->
+
+    console.log('Working !')
+    if(localStorage.getItem('cart') == null)     <!-- if cart is empty dont load cart -->
+    {
+        var cart = {};
+    }
+    else
+    {
+        cart = JSON.parse(localStorage.getItem('cart'));    <!-- if cart exist or has item load it  -->
+        document.getElementById('mycart').innerHTML = Object.keys(cart).length;
+    }
+
+<!-- JQuery -->
+<!-- If click add to cart button then increament the item -->
+
+    $('.cart').click    <!-- select_cart_class ==> $('.cart') and when click_in_that_class run function -->
+    (
+        function()
+            {
+                console.log('Clicked to Add item to cart');
+                var id1 = this.id.toString();
+                console.log(id1);
+
+                if(cart[id1]!= undefined)
+                {
+                    cart[id1] = cart[id1]+1;
+                }
+                else
+                {
+                    cart[id1] = 1;
+                }
+                console.log(cart);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                document.getElementById('mycart').innerHTML = Object.keys(cart).length;
+            }
+    );
+
+<!-- add popover to cart -->
+    $('#popcard1').popover()
+    document.getElementById("popcard1").setAttribute('data-content', '<h5>Cart for your items in my shopping cart</h5>');
+
+</script>
+
+{% endblock %}
+
+Till here cart is object that contain project items along with their quanties. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To :
+Code with Harry : 45
+
+Now:
+If item is already in cart then There will be two button from increament or decrement of item in cart instead of add to cart.
+So after <!-- add popover to cart --> : Add increament or decrement button.
+To do that :
+First lets identify the div of add_cart button and keep it inside span tag so that we can modify the span/button inside span.
+
+i.e :
+<button class="btn btn-primary cart" id="pr{{i.id}}" > Add Cart </button>
+                            
+TO:
+
+<span>
+	<button class="btn btn-primary cart" id="pr{{i.id}}" > Add Cart </button>
+</span>
+
+
+To:
+
+To identify the span tag we need id so lets also give id to span tag .
+<span id="divpr{i.id}">
+	<button class="btn btn-primary cart" id="pr{{i.id}}" > Add Cart </button>
+</span>
+
+Here  id for span tag will be unique for each product. i.e : id="divpr{i.id}" ==> divpr1, divpr5, divpr3 etc
+
+
+
+AND 
+
+
+#Funnction to update button
+function updateCart(cart) {
+    for (var item in cart) {
+        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    console.log(cart);
+}
+
+Here, we have id as pr1, pr5, pr3 etc so, 'div'+item. Here item = pr2, pr5, pr3 etc.
+
+
+AND
+
+# call updateCart function as soon as Add_Cart is clicked !
+updateCart(cart);
+
+So add updateCart(cart); in
+
+    $('.cart').click(function()
+            {
+                console.log('Clicked to Add item to cart');
+                var id1 = this.id.toString();
+                console.log(id1);
+
+                if(cart[id1]!= undefined)
+                {
+                    cart[id1] = cart[id1]+1;
+                }
+                else
+                {
+                    cart[id1] = 1;
+                }
+		updateCart(cart); # ................................here.
+                console.log(cart);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                document.getElementById('mycart').innerHTML = Object.keys(cart).length;
+            }
+    );
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+/* Service icon color */
+.i-color{
+    color:chartreuse;
+}
+
+/* skill text color */
+.skill-text{
+    color:whitesmoke;
+}
+
+
+
+    <i class="fas fa-code fa-2x mb-3 i-color"></i>
+    <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+
+
+
+Finally,
+
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="mt-5 container">
+        <h1 class="text-warning mb-5 border-bottom">Services</h1>
+        <div class="div row text-white text-center mb-5"> 
+            <div class="div col-sm-4">
+                <i class="fas fa-search fa-2x mb-3 i-color"></i>
+                <h1>SEO</h1>
+                <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+            </div>
+            <div class="div col-sm-4">
+                <i class="fas fa-palette fa-2x mb-3 i-color"></i>
+                <h1>Wed Design</h1>
+                <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+            </div>
+            <div class="div col-sm-4">
+                <i class="fas fa-code fa-2x mb-3 i-color"></i>
+                <h1>Web Develpoment</h1>
+                <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+            </div>
+        </div>
+        <div class="div row text-white text-center mb-5"> 
+            <div class="div col-sm-4">
+                <i class="fab fa-android fa-2x mb-3 i-color"></i>
+                <h1>Android</h1>
+                <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+            </div>
+            <div class="div col-sm-4">
+                <i class="fab fa-apple fa-2x mb-3 i-color"></i>
+                <h1>Apple</h1>
+                <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+            </div>
+            <div class="div col-sm-4">
+                <i class="fab fa-adversal fa-2x mb-3 i-color"></i>
+                <h1>Advertising</h1>
+                <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+            </div>
+        </div>
+        <div class="div row text-white text-center mb-5"> 
+            <div class="div col-sm-4">
+                <i class="fas fa-pencil-alt fa-2x mb-3 i-color"></i>
+                <h1>Logo Design</h1>
+                <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+            </div>
+            <div class="div col-sm-4">
+                <i class="fas fa-database fa-2x mb-3 i-color"></i>
+                <h1>Hosting</h1>
+                <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+            </div>
+            <div class="div col-sm-4">
+                <i class="fas fa-headset fa-2x mb-3 i-color"></i>
+                <h1>Support</h1>
+                <p class="skill-text">Lorem ipsum dolor sit, amet consectetur dolores cumque recusandae,ipsa ut omnis!</p>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}

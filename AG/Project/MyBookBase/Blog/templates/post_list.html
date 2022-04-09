@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block body %}
+
+    {% if user.is_authenticated %}
+        <a href=" {% url 'create_post' %} " >Add Post</a>
+        <br>
+        <a href=" {% url 'add_file' %} " >Add Document</a>
+        <br>
+        <a href=" {% url 'email_subscribe' %} " >Subscribe</a>
+        <br>
+        <a href="{% url 'logout' %}">LogOut</a>
+    {% else %}
+        <a href="{% url 'login' %}"> Already have one? LogIn </a><br><br>
+        <a href="register/"> Dont have an account? Create one </a>
+    {% endif %}
+
+
+    {% for post in page_posts %}
+        <article>
+            <h1>Authur :{{ post.author }}</h1>
+            <h1>Id :{{ post.id }}</h1>
+            <h1>Title :{{ post.title }}</h1>
+            <h4>{{ post.author }}</h4>
+            <p>{{ post.text }}</p>
+            <p>Publish at :{{ post.published_date }}</p>
+            <a href="a_post/{{post.id}}"> View Post </a>
+            <br>
+            {% comment %} <a href="{% url 'apost' post_id=post.id %}"> View Post </a> {% endcomment %}
+            <br>
+            <hr>
+        </article>
+    {% endfor %}
+
+    <!-- Add pagination -->
+    {% if page_posts.has_other_pages %}
+        <ul>
+            {% if page_posts.has_previous %}
+                <button><a href="?page={{ page_posts.previous_page_number }}">&laquo; PREV</a></button>
+            {% endif %}
+            {{page_posts.number}}
+            {% if page_posts.has_next %}
+            <button><a href="?page={{ page_posts.next_page_number }}">NEXT &raquo;</a></button>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+{% endblock %}
+

@@ -1,0 +1,62 @@
+
+
+Login Decorator :
+@login_required(login_url='login_user')
+
+
+
+
+
+User Authenticated decorator :
+
+In views.py :
+
+def register_user(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    if request.method == "POST":
+        user_register_form = RegisterUser(request.POST)
+        if user_register_form.is_valid():
+            user_register_form.save()
+            user = user_register_form.cleaned_data.get('username')
+            messages.success(request, 'Account was successfully created for ' + user)
+            return redirect('login_user')
+    user_register_form = RegisterUser()
+    params = {'user_register_form':user_register_form}
+    return render(request, 'accounts/register_user.html', params)
+
+
+
+TO
+
+
+In decorator.py :
+def unauthenticated_user(view_func):
+#1
+    def wrapper_func(request, *args, **kwargs):
+#2
+        if request.user.is_authenticated:
+            return redirect('dashboard')
+        else:
+            return view_func(request, *args, **kwargs)
+    return wrapper_func
+
+
+In views.py :
+
+@unauthenticated_user
+def register_user(request):
+#3
+    if request.method == "POST":
+        user_register_form = RegisterUser(request.POST)
+        if user_register_form.is_valid():
+            user_register_form.save()
+            user = user_register_form.cleaned_data.get('username')
+            messages.success(request, 'Account was successfully created for ' + user)
+            return redirect('login_user')
+    user_register_form = RegisterUser()
+    params = {'user_register_form':user_register_form}
+    return render(request, 'accounts/register_user.html', params)
+
+
+
